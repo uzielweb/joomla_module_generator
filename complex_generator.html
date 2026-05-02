@@ -187,12 +187,9 @@
             width: 100%;
             margin-top: 1rem;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: 0.3s;
+            align-items: center; justify-content: center;
+            gap: 10px; transition: 0.3s;
         }
-        .btn-zip:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         /* Code Previews */
         .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.8rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 8px; }
@@ -307,9 +304,9 @@
         const presets = {
             carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }] }] },
             hero: { name: 'My Hero Section', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }] },
-            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }] }] },
+            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }, { id: 13, type: 'textarea', name: 'features', label: 'Features' }, { id: 14, type: 'url', name: 'btn_url', label: 'Btn URL' }] }] },
             faq: { name: 'My FAQ Accordion', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
-            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }] }] },
+            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }, { id: 13, type: 'textarea', name: 'quote', label: 'Quote' }] }] },
             features: { name: 'My Features Grid', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }]}] },
             map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }] },
             video: { name: 'My Video Hero', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }] },
@@ -368,6 +365,17 @@
         }
         function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
+        function generatePHPTemplate(slug) {
+            let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-${slug}">\n`;
+            if (currentPresetKey === 'carousel') p += `  <div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel">\n    <div class="carousel-inner">\n      <?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n        <div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n        </div>\n      <?php endforeach; ?>\n    </div>\n  </div>\n`;
+            else if (currentPresetKey === 'hero') p += `  <div class="hero-section p-5 text-center" style="background: url('<?php echo $params->get('bg_image'); ?>') center/cover;">\n    <h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n    <div class="text-white lead"><?php echo $params->get('content'); ?></div>\n  </div>\n`;
+            else if (currentPresetKey === 'pricing') p += `  <div class="pricing-grid row">\n    <?php foreach ($params->get('plans', []) as $plan) : ?>\n      <div class="col-md-4"><div class="card text-center"><h3><?php echo $plan->name; ?></h3><div class="h2"><?php echo $plan->price; ?></div><p><?php echo nl2br($plan->features); ?></p><a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary">Choose Plan</a></div></div>\n    <?php endforeach; ?>\n  </div>\n`;
+            else if (currentPresetKey === 'faq') p += `  <div class="accordion" id="faq-<?php echo $module->id; ?>">\n    <?php foreach ($params->get('items', []) as $i => $item) : ?>\n      <div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ans-<?php echo $i; ?>"><?php echo $item->question; ?></button></h2><div id="ans-<?php echo $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>"><div class="accordion-body"><?php echo $item->answer; ?></div></div></div>\n    <?php endforeach; ?>\n  </div>\n`;
+            else if (currentPresetKey === 'testimonials') p += `  <div class="testimonials-grid row">\n    <?php foreach ($params->get('reviews', []) as $rev) : ?>\n      <div class="col-md-4"><div class="card p-3"><img src="<?php echo $rev->avatar; ?>" class="rounded-circle mb-3" width="60"><h5><?php echo $rev->author; ?></h5><blockquote class="blockquote"><?php echo $rev->quote; ?></blockquote></div></div>\n    <?php endforeach; ?>\n  </div>\n`;
+            else p += `  <h1><?php echo $params->get('title', 'Welcome'); ?></h1>\n  <p>Customize this template as you wish.</p>\n`;
+            p += `</div>`; return p;
+        }
+
         function updatePreview() {
             const modName = document.getElementById('moduleName').value || 'custom';
             const slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -389,12 +397,9 @@
 
             // PHP
             if (!phpTouched) {
-                let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-${slug}">\n`;
-                if (currentPresetKey === 'carousel') p += `  <div class="carousel slide" data-bs-ride="carousel">\n    <div class="carousel-inner">\n      <?php foreach ($params->get('slides', []) as $slide) : ?>\n        <div class="carousel-item">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100">\n        </div>\n      <?php endforeach; ?>\n    </div>\n  </div>\n`;
-                else p += `  <h1><?php echo $params->get('title', 'Hello'); ?></h1>\n`;
-                p += `</div>`;
-                customPHP = p;
-                document.getElementById('phpEditor').value = p;
+                const g = generatePHPTemplate(slug);
+                customPHP = g;
+                document.getElementById('phpEditor').value = g;
             }
             if (window.Prism) { Prism.highlightAll(); }
         }
