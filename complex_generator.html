@@ -149,11 +149,14 @@
         function update() {
             const n = document.getElementById('modName').value || 'custom';
             const s = n.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            const nsVal = n.replace(/[^a-zA-Z0-9]/g, '');
             const nsInput = document.getElementById('ns');
-            if (document.activeElement.id === 'modName') nsInput.value = nsVal;
-            
-            let xml = '\x3Cconfig\x3E\n  \x3Cfields name="params"\x3E\n    \x3Cfieldset name="basic"\x3E\n';
+            if (document.activeElement.id === 'modName') nsInput.value = n.replace(/[^a-zA-Z0-9]/g, '');
+            const nsVal = nsInput.value;
+
+            let xml = '\x3C?xml version="1.0" encoding="utf-8"?\x3E\n\x3Cextension type="module" client="' + document.getElementById('client').value + '" method="upgrade"\x3E\n';
+            xml += '  \x3Cname\x3E' + 'mod_' + s + '\x3C/name\x3E\n  \x3Cnamespace\x3EJoomla\\Module\\' + nsVal + '\x3C/namespace\x3E\n';
+            xml += '  \x3Cfiles\x3E\n    \x3Cfolder module="mod_' + s + '"\x3Etmpl\x3C/folder\x3E\n    \x3Cfolder\x3Esrc\x3C/folder\x3E\n    \x3Cfolder\x3Eservices\x3C/folder\x3E\n  \x3C/files\x3E\n';
+            xml += '  \x3Cconfig\x3E\n    \x3Cfields name="params"\x3E\n      \x3Cfieldset name="basic"\x3E\n';
             function b(l, i) {
                 let r = ''; l.forEach(x => {
                     const req = x.r ? ' required="true"' : '';
@@ -161,7 +164,7 @@
                     else r += i + '\x3Cfield name="' + x.n + '" type="' + x.t + '" label="' + x.l + '"' + req + ' /\x3E\n';
                 }); return r;
             }
-            xml += b(list, '      ') + '    \x3C/fieldset\x3E\n  \x3C/fields\x3E\n\x3C/config\x3E';
+            xml += b(list, '        ') + '      \x3C/fieldset\x3E\n    \x3C/fields\x3E\n  \x3C/config\x3E\n\x3C/extension\x3E';
             document.getElementById('xml').textContent = xml;
             document.getElementById('struct').textContent = 'mod_' + s + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n├── language/en-GB/mod_' + s + '.ini\n└── mod_' + s + '.xml';
             customPHP = genPHP(list, s); document.getElementById('php').value = customPHP;
@@ -170,7 +173,7 @@
         async function zip() {
             const z = new JSZip(), n = document.getElementById('modName').value, s = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), p = 'mod_' + s;
             const r = z.folder(p);
-            r.file(p + '.xml', '\x3C?xml version="1.0" encoding="utf-8"?\x3E\x3Cextension type="module" client="' + document.getElementById('client').value + '"\x3E\x3Cname\x3E' + p + '\x3C/name\x3E\x3Cfiles\x3E\x3Cfolder module="' + p + '"\x3Eservices\x3C/folder\x3E\x3Cfolder\x3Esrc\x3C/folder\x3E\x3Cfolder\x3Etmpl\x3C/folder\x3E\x3Cfolder\x3Elanguage\x3C/folder\x3E\x3C/files\x3E' + document.getElementById('xml').textContent + '\x3C/extension\x3E');
+            r.file(p + '.xml', document.getElementById('xml').textContent);
             r.folder('tmpl').file('default.php', customPHP);
             const bl = await z.generateAsync({type:"blob"});
             const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = p + '.zip'; a.click();
