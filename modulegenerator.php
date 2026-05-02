@@ -4,13 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Module generator</title>
+    <title>Joomla Module Generator</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@latest/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h1 class="text-center h3">Module generator</h1>
-        <h2 class="text-center h4">This will use mod_hello, replicating and changing contents to create a new customized module</h2>
+        <h1 class="text-center h3">Joomla Module Generator</h1>
+        <h2 class="text-center h4 text-muted">Compatible with Joomla 4, 5 & 6</h2>
+        <p class="text-center small">This tool uses a standard boilerplate to replicate and customize contents, creating a ready-to-install Joomla module.</p>
         <form method="POST" class="mt-4">
             <div class="mb-3">
                 <label for="moduleName" class="form-label">Module Name:</label>
@@ -285,22 +286,8 @@
             echo '<span class="text-success">Documentation (Markdown) added to the module. </span>';
         }
         
-        // Copia o arquivo de documentação HTML para o novo módulo
-        if (file_exists('module_documentation.html')) {
-            // Lê o conteúdo do arquivo de documentação HTML
-            $docHtmlContent = file_get_contents('module_documentation.html');
-            
-            // Substitui placeholders na documentação HTML
-            $docHtmlContent = str_replace(
-                ['mod_yourmodule', 'YourmoduleHelper', 'mod_seumodulo', 'SeumoduloHelper'],
-                ['mod_' . $newWord, ucfirst($newWord) . 'Helper', 'mod_' . $newWord, ucfirst($newWord) . 'Helper'],
-                $docHtmlContent
-            );
-            
-            // Salva a documentação HTML personalizada no novo módulo
-            file_put_contents($newDir . '/documentation.html', $docHtmlContent);
-            echo '<span class="text-success">Documentation (HTML) added to the module. </span>';
-        }
+        // The HTML documentation is now merged into the main index.html landing page.
+        // The generated module will still include a personalized README.md.
         
         addLanguage($newDir, $newLang);
         replaceContentInFiles($newDir, $newWord, $moduleName, $author, $authorEmail, $authorUrl, $creationDate, $newLang, $clientType);

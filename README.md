@@ -1,14 +1,22 @@
 
-# Joomla 5 Hello Module
-Hello is a scaffolding Joomla 5 Module
+# Joomla Module Generator
+**The Ultimate Scaffolding Tool for Joomla 4, Joomla 5, and Joomla 6 Extensions**
 
-## NOW YOU CAN CREATE YOUR OWN MODULE IN A EASY WAY USING THE modulegenerator.php FILE INSIDE THIS PROJECT
-- put in any folder project for your better management . Eg: D:\Laragon\www\mygenerators\modulegenerator\
+Joomla Module Generator is a powerful, lightweight scaffolding tool designed to accelerate your development workflow. Create modern, PSR-compliant Joomla modules in seconds with full support for the latest Joomla versions.
 
-### How to use it.
-Access via yout project url (Eg.: mygengerators.local/modulegenerator/modulegenerator.php and fill the form, click in "execute" button, so you can download it.
+## 🚀 Key Features
+- **Multi-Version Support**: Fully compatible with **Joomla 4, Joomla 5, and Joomla 6**.
+- **Easy Scaffolding**: Use the `modulegenerator.php` script to generate a complete module structure instantly.
+- **Modern Standards**: Generates code using Namespaces, Service Providers, and Dispatchers.
+- **SEO Optimized**: Built with performance and best practices in mind.
 
-![image](https://github.com/user-attachments/assets/edfa387b-df9d-4e36-99dd-734656c8c5f4)
+### 🛠️ How to Use
+1. Clone this repository or download the `modulegenerator.php` file.
+2. Access the generator via your local server (e.g., `localhost/joomla_module_generator/modulegenerator.php`).
+3. Fill out the form with your module details (Name, Author, etc.).
+4. Click **Execute** and download your ready-to-install `.zip` package.
+
+![Joomla Module Generator Interface](https://github.com/user-attachments/assets/edfa387b-df9d-4e36-99dd-734656c8c5f4)
 
 ![image](https://github.com/user-attachments/assets/5e7d755a-21d1-4f96-8adc-9892765e9450)
 

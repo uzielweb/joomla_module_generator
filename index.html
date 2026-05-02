@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joomla Module Generator - Scaffolding for J4, J5 & J6</title>
+    <!-- Google Fonts: Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Prism.js for Code Highlighting -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --brazil-green: #009c3b;
+            --brazil-yellow: #ffdf00;
+            --brazil-blue: #002776;
+            --brazil-white: #ffffff;
+            --dark-bg: #0a0f1a;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-muted: #a0a0a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--brazil-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        /* Animated Background */
+        .bg-blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: -1;
+            opacity: 0.2;
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-1 { background: var(--brazil-green); top: -100px; left: -100px; }
+        .blob-2 { background: var(--brazil-blue); bottom: -100px; right: -100px; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 100px) scale(1.2); }
+        }
+
+        /* Navbar */
+        nav {
+            padding: 1.5rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(15px);
+            background: rgba(10, 15, 26, 0.8);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--brazil-yellow);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i { color: var(--brazil-green); }
+
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            color: var(--brazil-white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+        .nav-links a:hover { color: var(--brazil-yellow); }
+
+        /* Hero Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 10% 60px;
+        }
+
+        .hero-badge {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--brazil-yellow);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #fff, var(--brazil-yellow), var(--brazil-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.1;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        .cta-group { display: flex; gap: 1.5rem; }
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .btn-primary {
+            background: var(--brazil-green);
+            color: white;
+            box-shadow: 0 10px 30px rgba(0, 156, 59, 0.4);
+        }
+        .btn-primary:hover { transform: translateY(-5px); background: #008130; }
+        .btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+        }
+        .btn-secondary:hover { background: var(--glass-border); transform: translateY(-3px); }
+
+        /* Documentation Section */
+        .docs-container {
+            padding: 5rem 10%;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .docs-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .docs-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--brazil-yellow);
+        }
+
+        .lang-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .tab-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: var(--brazil-blue);
+            border-color: var(--brazil-yellow);
+            color: var(--brazil-yellow);
+        }
+
+        .docs-content {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .docs-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .docs-content h3 {
+            margin: 2.5rem 0 1.5rem;
+            color: var(--brazil-green);
+            border-left: 4px solid var(--brazil-yellow);
+            padding-left: 1rem;
+        }
+
+        .docs-content p {
+            margin-bottom: 1.5rem;
+            color: #ccc;
+        }
+
+        .docs-content ul, .docs-content ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+            color: #ccc;
+        }
+
+        .docs-content li { margin-bottom: 0.5rem; }
+
+        pre[class*="language-"] {
+            border-radius: 12px !important;
+            margin: 1.5rem 0 !important;
+            background: #011627 !important;
+            border: 1px solid var(--glass-border) !important;
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 10%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: #555;
+        }
+        footer strong { color: var(--brazil-green); }
+
+        @media (max-width: 768px) {
+            .docs-content { padding: 1.5rem; }
+            .cta-group { flex-direction: column; width: 100%; }
+            .btn { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-blob blob-1"></div>
+    <div class="bg-blob blob-2"></div>
+
+    <nav>
+        <a href="#" class="logo">
+            <i class="fa-solid fa-cube"></i> Joomla Generator
+        </a>
+        <div class="nav-links">
+            <a href="#features">Recursos</a>
+            <a href="#docs">Documentação</a>
+            <a href="https://github.com/uzielweb/joomla_module_generator">GitHub</a>
+        </div>
+    </nav>
+
+    <header>
+        <div class="hero-badge">Gerador de Módulos para Joomla</div>
+        <h1>Crie Extensões Modernas <br> para Joomla 4, 5 & 6</h1>
+        <p>Acelere seu desenvolvimento com a ferramenta de scaffolding definitiva. Gere código limpo, padronizado e pronto para produção em segundos.</p>
+        
+        <div class="cta-group">
+            <a href="modulegenerator.php" class="btn btn-primary">
+                <i class="fa-solid fa-bolt"></i> Abrir Gerador
+            </a>
+            <a href="#docs" class="btn btn-secondary">
+                <i class="fa-solid fa-book"></i> Ver Documentação
+            </a>
+        </div>
+    </header>
+
+    <section id="docs" class="docs-container">
+        <div class="docs-header">
+            <h2>Guia do Desenvolvedor</h2>
+            <p>Tudo o que você precisa para personalizar seus módulos gerados.</p>
+        </div>
+
+        <div class="lang-tabs">
+            <button class="tab-btn active" onclick="showTab('pt')">Português</button>
+            <button class="tab-btn" onclick="showTab('en')">English</button>
+        </div>
+
+        <!-- Portuguese Docs -->
+        <div id="docs-pt" class="docs-content active">
+            <h3>Instalação</h3>
+            <ol>
+                <li>Faça login no painel de administração do Joomla</li>
+                <li>Vá para Sistema > Instalar > Extensões</li>
+                <li>Faça upload do arquivo ZIP do módulo</li>
+                <li>Vá para Sistema > Gerenciar > Extensões > Módulos</li>
+                <li>Configure o módulo recém-instalado.</li>
+            </ol>
+
+            <h3>Personalizando o Template (default.php)</h3>
+            <p>O arquivo de template está localizado em <code>mod_seumodulo/tmpl/default.php</code>.</p>
+            <pre><code class="language-php">&lt;?php
+defined('_JEXEC') or die;
+$greeting = $params->get('greeting', 'Olá, Mundo!');
+if (!$list) return;
+?&gt;
+&lt;div class="modulo-personalizado"&gt;
+    &lt;h3&gt;&lt;?php echo $greeting; ?&gt;&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Modificando o Helper</h3>
+            <p>Localizado em <code>mod_seumodulo/src/Helper/SeumoduloHelper.php</code>.</p>
+            <pre><code class="language-php">public function getItems(Registry $params, SiteApplication $app) {
+    $db = $this->getDatabase();
+    $query = $db->getQuery(true)
+        ->select('a.id, a.title')
+        ->from('#__content AS a')
+        ->where('a.state = 1')
+        ->setLimit($params->get('count', 5));
+    $db->setQuery($query);
+    return $db->loadObjectList();
+}</code></pre>
+
+            <h3>Subforms Inline</h3>
+            <p>Permitem criar campos repetíveis no XML do módulo.</p>
+            <pre><code class="language-xml">&lt;field name="items" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-table"&gt;
+    &lt;form&gt;
+        &lt;field name="title" type="text" label="Título" /&gt;
+        &lt;field name="link" type="url" label="Link" /&gt;
+    &lt;/form&gt;
+&lt;/field&gt;</code></pre>
+
+            <h3>Recursos Oficiais</h3>
+            <ul>
+                <li><a href="https://manual.joomla.org/" target="_blank">Manual Oficial do Joomla</a></li>
+                <li><a href="https://api.joomla.org/" target="_blank">Referência da API</a></li>
+            </ul>
+        </div>
+
+        <!-- English Docs -->
+        <div id="docs-en" class="docs-content">
+            <h3>Installation</h3>
+            <ol>
+                <li>Log in to your Joomla administrator panel</li>
+                <li>Go to System > Install > Extensions</li>
+                <li>Upload the module ZIP file</li>
+                <li>Go to System > Manage > Extensions > Modules</li>
+                <li>Configure your module.</li>
+            </ol>
+
+            <h3>Customizing the Template (default.php)</h3>
+            <p>Template located at <code>mod_yourmodule/tmpl/default.php</code>.</p>
+            <pre><code class="language-php">&lt;?php
+defined('_JEXEC') or die;
+$greeting = $params->get('greeting', 'Hello, World!');
+if (!$list) return;
+?&gt;
+&lt;div class="custom-module"&gt;
+    &lt;h3&gt;&lt;?php echo $greeting; ?&gt;&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+
+            <h3>Modifying the Helper</h3>
+            <p>Located at <code>mod_yourmodule/src/Helper/YourmoduleHelper.php</code>.</p>
+            <pre><code class="language-php">public function getItems(Registry $params, SiteApplication $app) {
+    $db = $this->getDatabase();
+    $query = $db->getQuery(true)
+        ->select('a.id, a.title')
+        ->from('#__content AS a')
+        ->where('a.state = 1')
+        ->setLimit($params->get('count', 5));
+    $db->setQuery($query);
+    return $db->loadObjectList();
+}</code></pre>
+
+            <h3>Official Resources</h3>
+            <ul>
+                <li><a href="https://manual.joomla.org/" target="_blank">Joomla Developer Documentation</a></li>
+                <li><a href="https://api.joomla.org/" target="_blank">Joomla API Reference</a></li>
+            </ul>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Joomla Module Generator. Made in <strong>Brasil</strong> 🇧🇷</p>
+    </footer>
+
+    <!-- Prism.js Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup-xml.min.js"></script>
+    
+    <script>
+        function showTab(lang) {
+            document.querySelectorAll('.docs-content').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById('docs-' + lang).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>
