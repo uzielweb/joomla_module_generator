@@ -34,17 +34,18 @@
         .main-content { padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
         .preview-pane { background: #000; border-left: 1px solid var(--border-white); padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
 
-        .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+        .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-bottom: 0.5rem; }
         .logo span { color: var(--br-yellow); }
         .logo i { color: var(--br-green); }
 
         .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.8rem; }
-        .input-group label { font-size: 0.65rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-group label { font-size: 0.65rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
         .input-group input, .input-group select, .input-group textarea { background: rgba(255,255,255,0.05); border: 1px solid var(--border-white); padding: 0.7rem 0.9rem; border-radius: 10px; color: #fff; font-size: 0.85rem; }
 
         .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .preset-btn { background: rgba(255,255,255,0.02); border: 1px solid var(--border-white); color: #fff; padding: 10px 8px; border-radius: 12px; cursor: pointer; font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-        .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); }
+        .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); transform: translateY(-2px); }
+        .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
 
         .field-card { background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; }
         .field-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-white); padding-bottom: 0.8rem; margin-bottom: 1rem; }
@@ -63,158 +64,128 @@
 
     <aside class="sidebar">
         <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
-        
         <div class="settings">
             <h3 style="font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-bottom: 0.8rem;">META DATA</h3>
-            <div class="input-group"><label>Module Name</label><input type="text" id="moduleName" value="My Features" oninput="updatePreview()"></div>
-            <div class="input-group"><label>Namespace</label><input type="text" id="namespace" value="MyFeatures" oninput="updatePreview()"></div>
+            <div class="input-group"><label>Module Name</label><input type="text" id="modName" value="My Features" oninput="update()"></div>
+            <div class="input-group"><label>Namespace</label><input type="text" id="ns" value="MyFeatures"></div>
             <div class="input-group"><label>Author</label><input type="text" id="author" value="John Doe"></div>
             <div class="input-group"><label>Author URL</label><input type="text" id="authorUrl" value="https://example.com"></div>
-            <div class="input-group">
-                <label>Client</label>
-                <select id="clientType" onchange="updatePreview()">
-                    <option value="site">Site</option>
-                    <option value="administrator">Admin</option>
-                </select>
-            </div>
-            
+            <div class="input-group"><label>Client</label><select id="client"><option value="site">Site</option><option value="administrator">Admin</option></select></div>
             <h3 style="font-size: 0.6rem; color: rgba(255,255,255,0.4); margin: 1rem 0 0.6rem 0;">PRESETS</h3>
             <div class="presets-grid">
-                <button class="preset-btn" onclick="loadPreset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
-                <button class="preset-btn" onclick="loadPreset('hero')"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
-                <button class="preset-btn" onclick="loadPreset('pricing')"><i class="fa-solid fa-tags"></i><span>Pricing</span></button>
-                <button class="preset-btn" onclick="loadPreset('faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
-                <button class="preset-btn" onclick="loadPreset('features')"><i class="fa-solid fa-list-check"></i><span>Features</span></button>
-                <button class="preset-btn" onclick="loadPreset('contact')"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
-                <button class="preset-btn" onclick="loadPreset('social')"><i class="fa-solid fa-share-nodes"></i><span>Social</span></button>
-                <button class="preset-btn" onclick="loadPreset('map')"><i class="fa-solid fa-location-dot"></i><span>Map</span></button>
-                <button class="preset-btn" onclick="loadPreset('video')"><i class="fa-solid fa-video"></i><span>Video</span></button>
-                <button class="preset-btn" onclick="loadPreset('testimonials')"><i class="fa-solid fa-comment-dots"></i><span>Reviews</span></button>
+                <button class="preset-btn" onclick="preset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
+                <button class="preset-btn" onclick="preset('hero')"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
+                <button class="preset-btn" onclick="preset('pricing')"><i class="fa-solid fa-tags"></i><span>Pricing</span></button>
+                <button class="preset-btn" onclick="preset('faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
+                <button class="preset-btn" onclick="preset('features')"><i class="fa-solid fa-list-check"></i><span>Features</span></button>
+                <button class="preset-btn" onclick="preset('social')"><i class="fa-solid fa-share-nodes"></i><span>Social</span></button>
+                <button class="preset-btn" onclick="preset('map')"><i class="fa-solid fa-location-dot"></i><span>Map</span></button>
+                <button class="preset-btn" onclick="preset('video')"><i class="fa-solid fa-video"></i><span>Video</span></button>
+                <button class="preset-btn" onclick="preset('contact')"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
             </div>
         </div>
-        <button class="btn-zip" onclick="generatePackage()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
+        <button class="btn-zip" onclick="zip()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
     </aside>
 
     <main class="main-content">
         <header style="display:flex; justify-content:space-between; align-items:center;">
-            <div>
-                <h1>Fields Architect</h1>
-                <p style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">Configure parameters</p>
-            </div>
-            <button class="btn-add" onclick="addField()"><i class="fa-solid fa-plus"></i> ADD FIELD</button>
+            <h1>Fields Architect</h1>
+            <button class="btn-add" onclick="add()"><i class="fa-solid fa-plus"></i> ADD FIELD</button>
         </header>
-        <div id="fieldList"></div>
+        <div id="fields"></div>
     </main>
 
     <aside class="preview-pane">
         <h2 class="preview-title">Manifest XML</h2>
-        <div class="preview-box"><pre class="language-markup"><code id="xmlPreview"></code></pre></div>
-        <h2 class="preview-title">default.php (Editor)</h2>
-        <textarea id="phpEditor" class="php-editor-area" spellcheck="false" oninput="customPHP = this.value"></textarea>
-        <h2 class="preview-title">File Structure</h2>
-        <div class="preview-box"><pre class="language-bash"><code id="folderStructure"></code></pre></div>
+        <div class="preview-box"><pre class="language-markup"><code id="xml"></code></pre></div>
+        <h2 class="preview-title">default.php</h2>
+        <textarea id="php" class="php-editor-area" oninput="customPHP=this.value"></textarea>
+        <h2 class="preview-title">Structure</h2>
+        <div class="preview-box"><pre class="language-bash"><code id="struct"></code></pre></div>
     </aside>
 
     <script>
         const presets = {
-            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }] }] },
-            hero: { name: 'My Hero', fields: [{ id: 1, type: 'media', name: 'bg', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title' }] },
-            pricing: { name: 'My Pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }] }] },
-            faq: { name: 'My FAQ', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ Items', fields: [{ id: 11, type: 'text', name: 'q', label: 'Question' }, { id: 12, type: 'textarea', name: 'a', label: 'Answer' }] }] },
-            features: { name: 'My Features', fields: [{ id: 1, type: 'subform', name: 'feats', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }] }] },
-            social: { name: 'My Social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] },
-            map: { name: 'My Map', fields: [{ id: 1, type: 'text', name: 'key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }] },
-            video: { name: 'My Video', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }] },
-            contact: { name: 'My Contact', fields: [{ id: 1, type: 'email', name: 'to', label: 'Recipient' }] },
-            testimonials: { name: 'My Reviews', fields: [{ id: 1, type: 'subform', name: 'revs', label: 'Reviews', fields: [{ id: 11, type: 'text', name: 'user', label: 'User' }] }] }
+            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', f: [{ id: 11, t: 'media', n: 'img', l: 'Image' }, { id: 12, t: 'text', n: 'txt', l: 'Title' }] }] },
+            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'bg', l: 'Background' }, { id: 2, t: 'text', n: 'h1', l: 'Title' }] },
+            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', f: [{ id: 11, t: 'text', n: 'p', l: 'Price' }] }] },
+            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'FAQ', f: [{ id: 11, t: 'text', n: 'q', l: 'Q' }, { id: 12, t: 'textarea', n: 'a', l: 'A' }] }] },
+            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'feats', l: 'Features', f: [{ id: 11, t: 'text', n: 'i', l: 'Icon' }, { id: 12, t: 'text', n: 't', l: 'Title' }] }] },
+            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', f: [{ id: 11, t: 'text', n: 'i', l: 'Icon' }, { id: 12, t: 'url', n: 'u', l: 'URL' }] }] },
+            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'k', l: 'API Key' }, { id: 2, t: 'text', n: 'lt', l: 'Lat' }] },
+            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'u', l: 'URL' }, { id: 2, t: 'media', n: 'p', l: 'Poster' }] },
+            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to', l: 'To' }] }
         };
 
-        let fields = [], customPHP = '', phpTouched = false, currentKey = 'features';
+        let list = [], customPHP = '', cur = 'features';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
 
-        function loadPreset(key) {
-            currentKey = key; phpTouched = false;
-            const p = presets[key]; document.getElementById('moduleName').value = p.name;
-            const slug = p.name.replace(/[^A-Za-z0-9]/g, '');
-            document.getElementById('namespace').value = slug.charAt(0).toUpperCase() + slug.slice(1);
-            fields = JSON.parse(JSON.stringify(p.fields));
-            render();
+        function preset(k) {
+            cur = k; const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n;
+            document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render();
         }
 
-        function addField(parent = fields) { parent.push({ id: Date.now(), type: 'text', name: 'field_' + Date.now().toString().slice(-4), label: 'New Field', fields: [] }); render(); }
-        function removeField(id, parent = fields) {
-            const idx = parent.findIndex(f => f.id === id);
-            if (idx > -1) parent.splice(idx, 1);
-            else parent.forEach(f => { if (f.fields) removeField(id, f.fields); });
-            render();
-        }
-        function updateField(id, k, v, parent = fields) {
-            const f = find(id, parent); if (f) { f[k] = v; if (k === 'label') f.name = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); }
-        }
-        function find(id, list) { for (let f of list) { if (f.id === id) return f; if (f.fields) { let r = find(id, f.fields); if (r) return r; } } return null; }
+        function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'f_' + Date.now().toString().slice(-3), l: 'New Field', f: [] }); render(); }
+        function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
+        function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
+        function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
 
         function render() {
-            const l = document.getElementById('fieldList'); l.innerHTML = '';
-            fields.forEach(f => { l.appendChild(createCard(f)); });
-            updatePreview();
+            const container = document.getElementById('fields'); container.innerHTML = '';
+            list.forEach(x => container.appendChild(card(x))); update();
         }
 
-        function createCard(f) {
-            const div = document.createElement('div'); div.className = 'field-card';
-            div.innerHTML = `<div class="field-card-header"><strong>${f.label}</strong> <small>(${f.type})</small><button style="background:var(--danger); color:#fff; border:none; padding:4px 8px; border-radius:4px; cursor:pointer;" onclick="removeField(${f.id})">X</button></div>
+        function card(x) {
+            const d = document.createElement('div'); d.className = 'field-card';
+            d.innerHTML = `<div class="field-card-header"><strong>${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
             <div class="field-card-body">
-                <div class="input-group"><label>Type</label><select onchange="updateField(${f.id},'type',this.value)">${types.map(t=>`<option value="${t}" ${f.type===t?'selected':''}>${t}</option>`).join('')}</select></div>
-                <div class="input-group"><label>Label</label><input type="text" value="${f.label}" oninput="updateField(${f.id},'label',this.value)"></div>
-                <div class="input-group"><label>Name</label><input type="text" value="${f.name}" oninput="updateField(${f.id},'name',this.value)"></div>
-                ${f.type==='subform'?`<div class="subform-container"><div id="s-${f.id}"></div><button class="btn-add" style="padding:5px 10px; font-size:0.7rem;" onclick="addIn(${f.id})">+ Sub</button></div>`:''}
+                <div class="input-group"><label>Type</label><select onchange="upd(${x.id},'t',this.value)">${types.map(t=>`<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
+                <div class="input-group"><label>Label</label><input type="text" value="${x.l}" oninput="upd(${x.id},'l',this.value)"></div>
+                ${x.t==='subform'?`<div class="subform-container"><div id="s-${x.id}"></div><button class="btn-add" style="font-size:0.7rem;padding:4px;" onclick="addIn(${x.id})">+ Sub</button></div>`:''}
             </div>`;
-            if (f.type==='subform') { const s = div.querySelector(`#s-${f.id}`); (f.fields||[]).forEach(sf=>s.appendChild(createCard(sf))); }
-            return div;
+            if (x.t==='subform') { const s = d.querySelector(`#s-${x.id}`); (x.f||[]).forEach(sf=>s.appendChild(card(sf))); }
+            return d;
         }
-        function addIn(pid) { const p = find(pid, fields); if (p) { if (!p.fields) p.fields = []; addField(p.fields); } }
+        function addIn(pid) { const p = find(pid, list); if (p) { if (!p.f) p.f = []; add(p.f); } }
 
-        function generatePHP(slug) {
-            let p = '<?php\ndefined(\'_JEXEC\') or die;\n?>\n<div class="mod-' + slug + '">\n';
-            if (currentKey === 'features') p += '  <div class="row">\n    <?php foreach ($params->get(\'feats\', []) as $f) : ?>\n      <div class="col-md-4 text-center mb-4">\n        <i class="<?php echo $f->icon; ?> fa-3x"></i>\n        <h3><?php echo $f->title; ?></h3>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            else if (currentKey === 'faq') p += '  <div class="accordion" id="faq-<?php echo $module->id; ?>">\n    <?php foreach ($params->get(\'items\', []) as $i => $item) : ?>\n      <div class="accordion-item">\n        <h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#a-<?php echo $i; ?>"><?php echo $item->q; ?></button></h2>\n        <div id="a-<?php echo $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>"><div class="accordion-body"><?php echo $item->a; ?></div></div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            else if (currentKey === 'social') p += '  <div class="d-flex gap-3">\n    <?php foreach ($params->get(\'links\', []) as $l) : ?>\n      <a href="<?php echo $l->url; ?>"><i class="<?php echo $l->icon; ?> fa-2x"></i></a>\n    <?php endforeach; ?>\n  </div>\n';
-            else if (currentKey === 'map') p += '  <div id="map-<?php echo $module->id; ?>" style="height:400px;"></div>\n  <script async src="https://maps.googleapis.com/maps/api/js?key=<?php echo $params->get(\'key\'); ?>&callback=initMap"></script>\n';
-            else if (currentKey === 'contact') p += '  <form method="post" class="card p-4">\n    <div class="mb-3"><label>Name</label><input type="text" class="form-control" required></div>\n    <button type="submit" class="btn btn-primary">Send to <?php echo $params->get(\'to\'); ?></button>\n  </form>\n';
-            else if (currentKey === 'video') p += '  <div class="ratio ratio-16x9"><video controls poster="<?php echo $params->get(\'poster\'); ?>"><source src="<?php echo $params->get(\'url\'); ?>" type="video/mp4"></video></div>\n';
-            else p += '  <h1><?php echo $params->get(\'title\', \'Welcome\'); ?></h1>\n';
-            return p + '</div>';
+        function genPHP(s) {
+            let p = '\x3C?php\ndefined(\'_JEXEC\') or die;\n?\x3E\n\x3Cdiv class="mod-' + s + '"\x3E\n';
+            if (cur === 'features') p += '  \x3Cdiv class="row"\x3E\n    \x3C?php foreach ($params-\x3Eget(\'feats\', []) as $f) : ?\x3E\n      \x3Cdiv class="col-md-4"\x3E\x3Ci class="\x3C?php echo $f-\x3Ei; ?\x3E"\x3E\x3C/i\x3E\x3Ch3\x3E\x3C?php echo $f-\x3Et; ?\x3E\x3C/h3\x3E\x3C/div\x3E\n    \x3C?php endforeach; ?\x3E\n  \x3C/div\x3E\n';
+            else if (cur === 'faq') p += '  \x3Cdiv class="accordion"\x3E\n    \x3C?php foreach ($params-\x3Eget(\'items\', []) as $i =\x3E $x) : ?\x3E\n      \x3Cbutton data-bs-target="#a-\x3C?php echo $i; ?\x3E"\x3E\x3C?php echo $x-\x3Eq; ?\x3E\x3C/button\x3E\n      \x3Cdiv id="a-\x3C?php echo $i; ?\x3E"\x3E\x3C?php echo $x-\x3Ea; ?\x3E\x3C/div\x3E\n    \x3C?php endforeach; ?\x3E\n  \x3C/div\x3E\n';
+            else if (cur === 'contact') p += '  \x3Cform method="post"\x3E\x3Cbutton type="submit"\x3ESend to \x3C?php echo $params-\x3Eget(\'to\'); ?\x3E\x3C/button\x3E\x3C/form\x3E\n';
+            else if (cur === 'video') p += '  \x3Cvideo controls poster="\x3C?php echo $params-\x3Eget(\'p\'); ?\x3E"\x3E\x3Csource src="\x3C?php echo $params-\x3Eget(\'u\'); ?\x3E" type="video/mp4"\x3E\x3C/video\x3E\n';
+            else p += '  \x3Ch1\x3E\x3C?php echo $params-\x3Eget(\'h1\', \'Hello\'); ?\x3E\x3C/h1\x3E\n';
+            return p + '\x3C/div\x3E';
         }
 
-        function updatePreview() {
-            try {
-                const n = document.getElementById('moduleName').value || 'custom';
-                const slug = n.toLowerCase().replace(/[^a-z0-9]/g, '_');
-                let xml = '<config>\n  <fields name="params">\n    <fieldset name="basic">\n';
-                function build(list, ind) {
-                    let s = ''; list.forEach(f => {
-                        if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + build(f.fields || [], ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
-                        else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="' + f.label + '" />\n';
-                    }); return s;
-                }
-                xml += build(fields, '      ') + '    </fieldset>\n  </fields>\n</config>';
-                document.getElementById('xmlPreview').textContent = xml;
-                document.getElementById('folderStructure').textContent = 'mod_' + slug + '/\n├── services/provider.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
-                if (!phpTouched) { customPHP = generatePHP(slug); document.getElementById('phpEditor').value = customPHP; }
-                if (window.Prism) Prism.highlightAll();
-            } catch(e) {}
+        function update() {
+            const n = document.getElementById('modName').value || 'custom';
+            const s = n.toLowerCase().replace(/[^a-z0-9]/g, '_');
+            let xml = '\x3Cconfig\x3E\n  \x3Cfields name="params"\x3E\n    \x3Cfieldset name="basic"\x3E\n';
+            function b(l, i) {
+                let r = ''; l.forEach(x => {
+                    if (x.t === 'subform') r += i + '\x3Cfield name="' + x.n + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid"\x3E\n' + i + '  \x3Cform\x3E\n' + b(x.f || [], i + '    ') + i + '  \x3C/form\x3E\n' + i + '\x3C/field\x3E\n';
+                    else r += i + '\x3Cfield name="' + x.n + '" type="' + x.t + '" label="' + x.l + '" /\x3E\n';
+                }); return r;
+            }
+            xml += b(list, '      ') + '    \x3C/fieldset\x3E\n  \x3C/fields\x3E\n\x3C/config\x3E';
+            document.getElementById('xml').textContent = xml;
+            document.getElementById('struct').textContent = 'mod_' + s + '/\n├── tmpl/default.php\n└── mod_' + s + '.xml';
+            customPHP = genPHP(s); document.getElementById('php').value = customPHP;
+            if (window.Prism) Prism.highlightAll();
         }
 
-        async function generatePackage() {
-            const zip = new JSZip(), n = document.getElementById('moduleName').value, slug = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), pref = 'mod_' + slug;
-            const r = zip.folder(pref);
-            r.file(pref + '.xml', '<?xml version="1.0" encoding="utf-8"?><extension type="module" client="' + document.getElementById('clientType').value + '"><name>' + pref + '</name><files><folder module="' + pref + '">services</folder><folder>tmpl</folder></files>' + document.getElementById('xmlPreview').textContent + '</extension>');
+        async function zip() {
+            const z = new JSZip(), n = document.getElementById('modName').value, s = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), p = 'mod_' + s;
+            const r = z.folder(p);
+            r.file(p + '.xml', '\x3C?xml version="1.0" encoding="utf-8"?\x3E\x3Cextension type="module" client="' + document.getElementById('client').value + '"\x3E\x3Cname\x3E' + p + '\x3C/name\x3E\x3Cfiles\x3E\x3Cfolder module="' + p + '"\x3Etmpl\x3C/folder\x3E\x3C/files\x3E' + document.getElementById('xml').textContent + '\x3C/extension\x3E');
             r.folder('tmpl').file('default.php', customPHP);
-            const b = await zip.generateAsync({type:"blob"});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = pref + '.zip'; a.click();
+            const bl = await z.generateAsync({type:"blob"});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = p + '.zip'; a.click();
             confetti({ particleCount: 200 });
         }
 
-        window.onload = () => loadPreset('features');
+        window.onload = () => preset('features');
     </script>
 </body>
 </html>
