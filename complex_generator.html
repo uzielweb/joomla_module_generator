@@ -109,22 +109,14 @@
         function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
         function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
         function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
-        
         function render() {
             const activeId = document.activeElement ? document.activeElement.id : null;
             const start = document.activeElement ? document.activeElement.selectionStart : 0;
             const end = document.activeElement ? document.activeElement.selectionEnd : 0;
-
             const container = document.getElementById('fields'); container.innerHTML = '';
-            list.forEach(x => container.appendChild(card(x))); 
-            update();
-
-            if (activeId) {
-                const el = document.getElementById(activeId);
-                if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(start, end); }
-            }
+            list.forEach(x => container.appendChild(card(x))); update();
+            if (activeId) { const el = document.getElementById(activeId); if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(start, end); } }
         }
-
         function card(x) {
             const d = document.createElement('div'); d.className = 'field-card';
             d.innerHTML = `<div class="field-card-header"><strong>${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
@@ -151,17 +143,12 @@
                         core += ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n';
                         core += ind + '    \x3C?php endforeach; ?\x3E\n';
                         core += ind + '  \x3C/div\x3E\n';
-                    } else if (x.t === 'media') {
-                        core = ind + '  \x3Cimg src="\x3C?php echo ' + getStr + '; ?\x3E" alt="' + x.l + '" /\x3E\n';
-                    } else {
-                        core = ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo ' + getStr + '; ?\x3E\x3C/p\x3E\n';
-                    }
-                    if (x.r) s += core;
-                    else s += ind + '\x3C?php if (' + getStr + ') : ?\x3E\n' + core + ind + '\x3C?php endif; ?\x3E\n';
+                    } else if (x.t === 'media') { core = ind + '  \x3Cimg src="\x3C?php echo ' + getStr + '; ?\x3E" alt="' + x.l + '" /\x3E\n'; }
+                    else { core = ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo ' + getStr + '; ?\x3E\x3C/p\x3E\n'; }
+                    if (x.r) s += core; else s += ind + '\x3C?php if (' + getStr + ') : ?\x3E\n' + core + ind + '\x3C?php endif; ?\x3E\n';
                 }); return s;
             }
-            res += build(fields, '  ');
-            return res + '\x3C/div\x3E';
+            res += build(fields, '  '); return res + '\x3C/div\x3E';
         }
         function update() {
             const n = document.getElementById('modName').value || 'custom';
@@ -176,14 +163,14 @@
             }
             xml += b(list, '      ') + '    \x3C/fieldset\x3E\n  \x3C/fields\x3E\n\x3C/config\x3E';
             document.getElementById('xml').textContent = xml;
-            document.getElementById('struct').textContent = 'mod_' + s + '/\n├── tmpl/default.php\n└── mod_' + s + '.xml';
+            document.getElementById('struct').textContent = 'mod_' + s + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n├── language/en-GB/mod_' + s + '.ini\n└── mod_' + s + '.xml';
             customPHP = genPHP(list, s); document.getElementById('php').value = customPHP;
             if (window.Prism) Prism.highlightAll();
         }
         async function zip() {
             const z = new JSZip(), n = document.getElementById('modName').value, s = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), p = 'mod_' + s;
             const r = z.folder(p);
-            r.file(p + '.xml', '\x3C?xml version="1.0" encoding="utf-8"?\x3E\x3Cextension type="module" client="' + document.getElementById('client').value + '"\x3E\x3Cname\x3E' + p + '\x3C/name\x3E\x3Cfiles\x3E\x3Cfolder module="' + p + '"\x3Etmpl\x3C/folder\x3E\x3C/files\x3E' + document.getElementById('xml').textContent + '\x3C/extension\x3E');
+            r.file(p + '.xml', '\x3C?xml version="1.0" encoding="utf-8"?\x3E\x3Cextension type="module" client="' + document.getElementById('client').value + '"\x3E\x3Cname\x3E' + p + '\x3C/name\x3E\x3Cfiles\x3E\x3Cfolder module="' + p + '"\x3Eservices\x3C/folder\x3E\x3Cfolder\x3Esrc\x3C/folder\x3E\x3Cfolder\x3Etmpl\x3C/folder\x3E\x3Cfolder\x3Elanguage\x3C/folder\x3E\x3C/files\x3E' + document.getElementById('xml').textContent + '\x3C/extension\x3E');
             r.folder('tmpl').file('default.php', customPHP);
             const bl = await z.generateAsync({type:"blob"});
             const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = p + '.zip'; a.click();
