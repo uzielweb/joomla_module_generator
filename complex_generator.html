@@ -100,6 +100,26 @@
         }
         .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); border-color: var(--br-yellow); }
 
+        /* Presets */
+        .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+        .preset-btn {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-white);
+            color: #fff;
+            padding: 12px 10px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.65rem;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+        .preset-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--br-green); transform: translateY(-2px); }
+        .preset-btn i { font-size: 1.2rem; color: var(--br-yellow); }
+
         /* Form Elements */
         .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
         .input-group label { font-size: 0.75rem; font-weight: 700; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 1px; }
@@ -237,21 +257,31 @@
             </div>
 
             <div class="input-group">
-                <label data-i18n="lbl-email">Author Email</label>
-                <input type="email" id="authorEmail" value="contact@example.com">
-            </div>
-
-            <div class="input-group">
-                <label data-i18n="lbl-website">Author Website</label>
-                <input type="url" id="authorUrl" value="https://example.com">
-            </div>
-
-            <div class="input-group">
                 <label data-i18n="lbl-client">Client</label>
                 <select id="clientType">
                     <option value="site" data-i18n="opt-site">Site (Frontend)</option>
                     <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
                 </select>
+            </div>
+
+            <h3 style="font-size: 0.9rem; color: rgba(255,255,255,0.4); margin: 1.5rem 0 1rem 0;" data-i18n="sidebar-presets">PRESETS</h3>
+            <div class="presets-grid">
+                <button class="preset-btn" onclick="loadPreset('carousel')">
+                    <i class="fa-solid fa-images"></i>
+                    <span>Carousel</span>
+                </button>
+                <button class="preset-btn" onclick="loadPreset('hero')">
+                    <i class="fa-solid fa-rectangle-ad"></i>
+                    <span>Hero Section</span>
+                </button>
+                <button class="preset-btn" onclick="loadPreset('contact')">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Contact Form</span>
+                </button>
+                <button class="preset-btn" onclick="loadPreset('social')">
+                    <i class="fa-solid fa-share-nodes"></i>
+                    <span>Social Links</span>
+                </button>
             </div>
         </div>
 
@@ -288,11 +318,10 @@
         const i18n = {
             en: {
                 "sidebar-meta": "META DATA",
+                "sidebar-presets": "PRESETS",
                 "lbl-mod-name": "Module Name",
                 "lbl-namespace": "Namespace",
                 "lbl-author": "Author",
-                "lbl-email": "Author Email",
-                "lbl-website": "Author Website",
                 "lbl-client": "Client",
                 "opt-site": "Site (Frontend)",
                 "opt-admin": "Admin (Backend)",
@@ -320,15 +349,15 @@
                 "btn-add-subfield": "Add Field Inside Subform",
                 "opt-layout-default": "Default",
                 "opt-layout-custom": "Custom...",
-                "placeholder-custom-layout": "Enter custom layout"
+                "placeholder-custom-layout": "Enter custom layout",
+                "confirm-preset": "Loading a preset will replace all current fields. Continue?"
             },
             pt: {
                 "sidebar-meta": "META DADOS",
+                "sidebar-presets": "MODELOS PRONTOS",
                 "lbl-mod-name": "Nome do Módulo",
                 "lbl-namespace": "Namespace",
                 "lbl-author": "Autor",
-                "lbl-email": "Email do Autor",
-                "lbl-website": "Website do Autor",
                 "lbl-client": "Cliente",
                 "opt-site": "Site (Frontend)",
                 "opt-admin": "Admin (Backend)",
@@ -356,7 +385,72 @@
                 "btn-add-subfield": "Adicionar Campo no Subform",
                 "opt-layout-default": "Padrão",
                 "opt-layout-custom": "Customizado...",
-                "placeholder-custom-layout": "Digite o layout customizado"
+                "placeholder-custom-layout": "Digite o layout customizado",
+                "confirm-preset": "Carregar um modelo irá substituir todos os campos atuais. Continuar?"
+            }
+        };
+
+        const presets = {
+            carousel: {
+                name: 'mod_carousel',
+                fields: [
+                    { id: 1, type: 'subform', name: 'slides', label: 'Slides', description: 'Carousel Slides', layout: 'joomla.form.field.subform.repeatable-grid', collapsed: false, fields: [
+                        { id: 11, type: 'media', name: 'image', label: 'Slide Image', description: 'Select an image' },
+                        { id: 12, type: 'text', name: 'title', label: 'Slide Title', description: 'Title overlay' },
+                        { id: 13, type: 'textarea', name: 'caption', label: 'Caption', description: 'Description text' },
+                        { id: 14, type: 'url', name: 'link', label: 'Button Link', description: 'URL to follow' }
+                    ]},
+                    { id: 2, type: 'list', name: 'interval', label: 'Interval (ms)', description: 'Slide transition speed', default: '5000', options: [
+                        { label: '3 Seconds', value: '3000' },
+                        { label: '5 Seconds', value: '5000' },
+                        { label: 'Manual Only', value: '0' }
+                    ]},
+                    { id: 3, type: 'radio', name: 'indicators', label: 'Show Indicators', description: 'The dots at bottom', default: '1', options: [
+                        { label: 'Yes', value: '1' },
+                        { label: 'No', value: '0' }
+                    ]}
+                ]
+            },
+            hero: {
+                name: 'mod_hero_section',
+                fields: [
+                    { id: 1, type: 'media', name: 'bg_image', label: 'Background Image', description: 'Main hero background' },
+                    { id: 2, type: 'text', name: 'main_title', label: 'Hero Title', description: 'H1 Title', default: 'Welcome to our site' },
+                    { id: 3, type: 'editor', name: 'hero_content', label: 'Intro Text', description: 'Main description' },
+                    { id: 4, type: 'text', name: 'btn_text', label: 'Button Label', description: 'Call to action text', default: 'Learn More' },
+                    { id: 5, type: 'url', name: 'btn_link', label: 'Button Link', description: 'CTA Target' },
+                    { id: 6, type: 'color', name: 'overlay_color', label: 'Overlay Color', description: 'Darken background', default: '#000000' }
+                ]
+            },
+            contact: {
+                name: 'mod_contact_form',
+                fields: [
+                    { id: 1, type: 'email', name: 'recipient', label: 'Recipient Email', description: 'Where to send leads', default: 'contact@example.com' },
+                    { id: 2, type: 'text', name: 'subject_prefix', label: 'Subject Prefix', description: 'Prefix for emails', default: '[Lead From Website]' },
+                    { id: 3, type: 'textarea', name: 'success_msg', label: 'Success Message', description: 'Shown after submit', default: 'Thank you! We will get back to you soon.' },
+                    { id: 4, type: 'checkbox', name: 'show_phone', label: 'Show Phone Field', description: 'Enable phone input', default: '1' },
+                    { id: 5, type: 'calendar', name: 'event_date', label: 'Preferred Date', description: 'Allow date picking' }
+                ]
+            },
+            social: {
+                name: 'mod_social_links',
+                fields: [
+                    { id: 1, type: 'subform', name: 'links', label: 'Social Networks', description: 'Your profiles', layout: 'joomla.form.field.subform.repeatable-grid', collapsed: false, fields: [
+                        { id: 11, type: 'list', name: 'network', label: 'Network', options: [
+                            { label: 'Instagram', value: 'instagram' },
+                            { label: 'Facebook', value: 'facebook' },
+                            { label: 'WhatsApp', value: 'whatsapp' },
+                            { label: 'LinkedIn', value: 'linkedin' }
+                        ]},
+                        { id: 12, type: 'url', name: 'profile_url', label: 'Profile URL' },
+                        { id: 13, type: 'text', name: 'custom_class', label: 'CSS Class' }
+                    ]},
+                    { id: 2, type: 'radio', name: 'icon_size', label: 'Icon Size', default: 'medium', options: [
+                        { label: 'Small', value: 'small' },
+                        { label: 'Medium', value: 'medium' },
+                        { label: 'Large', value: 'large' }
+                    ]}
+                ]
             }
         };
 
@@ -379,12 +473,29 @@
         }
 
         let fields = [
-            { id: Date.now(), type: 'text', name: 'title', label: t('field-title-label'), description: t('field-desc-label') + ' Title', default: 'Hello World', hint: t('field-hint-label') + ' Title', collapsed: false }
+            { id: Date.now(), type: 'text', name: 'title', label: 'Title', description: 'The module title', default: 'Hello World', hint: 'Enter title here', collapsed: false }
         ];
 
         const fieldTypes = [
             'text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'
         ];
+
+        function loadPreset(key) {
+            if (fields.length > 0 && !confirm(t('confirm-preset'))) return;
+            const preset = presets[key];
+            document.getElementById('moduleName').value = preset.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            // Deep copy fields to avoid reference issues
+            fields = JSON.parse(JSON.stringify(preset.fields));
+            
+            // Auto update namespace
+            const val = document.getElementById('moduleName').value;
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            document.getElementById('namespace').value = cap;
+            
+            render();
+            confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
+        }
 
         function addField(parentFields = fields) {
             const newField = {
@@ -613,19 +724,21 @@
             const xml = generateXMLSnippet();
             document.getElementById('xmlPreview').innerText = xml;
             const modName = document.getElementById('moduleName').value || 'mod_custom';
-            const slug = modName.toLowerCase().replace(/ /g, '_');
+            const slug = slugify(modName);
             document.getElementById('folderStructure').innerText = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`;
         }
 
         function generateXMLSnippet() {
             let xml = `<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
             function buildFields(fieldList, indent = '      ') {
-                const modPrefix = (document.getElementById('moduleName').value || 'custom').toLowerCase().replace(/ /g, '_').toUpperCase();
+                const modPrefix = slugify(document.getElementById('moduleName').value || 'custom').toUpperCase();
                 let s = '';
                 fieldList.forEach(f => {
                     const keyBase = `MOD_${modPrefix}_${f.name.toUpperCase()}`;
                     if (f.type === 'subform') {
-                        s += `${indent}<field name="${f.name}" type="subform" label="${keyBase}_LABEL" description="${keyBase}_DESC" multiple="true" min="1" max="10">\n`;
+                        s += `${indent}<field name="${f.name}" type="subform" label="${keyBase}_LABEL" description="${keyBase}_DESC" multiple="true" min="1" max="10"`;
+                        if (f.layout) s += ` layout="${f.layout}"`;
+                        s += `>\n`;
                         s += `${indent}  <form>\n`;
                         s += buildFields(f.fields, indent + '    ');
                         s += `${indent}  </form>\n`;
@@ -651,9 +764,7 @@
 
         async function generatePackage() {
             const modName = document.getElementById('moduleName').value || 'My Module';
-            const clean = modName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
-            const slug = clean.toLowerCase();
-            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            const slug = slugify(modName);
             const ns = document.getElementById('namespace').value || 'MyNamespace';
             const author = document.getElementById('author').value || 'John Doe';
             const authorEmail = document.getElementById('authorEmail').value || '';
