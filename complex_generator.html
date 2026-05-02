@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joomla Advanced Generator | Pro Scaffolding</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Libs -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --br-green: #009c3b;
+            --br-yellow: #ffdf00;
+            --br-blue: #002776;
+            --br-white: #ffffff;
+            --dark-bg: #05070a;
+            --sidebar-bg: #0a0c10;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-white: rgba(255, 255, 255, 0.08);
+            --accent: #00e676;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-title: 'Outfit', sans-serif;
+            --danger: #ff5252;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark-bg);
+            color: var(--br-white);
+            overflow-x: hidden;
+            display: flex;
+            min-height: 100vh;
+            color-scheme: dark;
+        }
+
+        /* Layout */
+        .sidebar {
+            width: 320px;
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-white);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-content {
+            margin-left: 320px;
+            flex: 1;
+            padding: 2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .preview-pane {
+            width: 350px;
+            background: rgba(0,0,0,0.3);
+            border-left: 1px solid var(--border-white);
+            padding: 2rem;
+            position: fixed;
+            right: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .main-with-preview { margin-right: 350px; }
+
+        /* Typography */
+        h1, h2, h3 { font-family: var(--font-title); }
+        .logo { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+        .logo span { color: var(--br-yellow); }
+        .logo i { color: var(--br-green); }
+
+        /* Lang Switcher */
+        .lang-switcher { display: flex; gap: 10px; margin-bottom: 0.5rem; }
+        .lang-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-white);
+            color: #fff;
+            padding: 5px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); border-color: var(--br-yellow); }
+
+        /* Form Elements */
+        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
+        .input-group label { font-size: 0.75rem; font-weight: 700; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 1px; }
+        .input-group input, .input-group select, .input-group textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-white);
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            color: #fff;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.08); }
+        .input-group select option { background: var(--sidebar-bg); color: #fff; }
+
+        /* Field Builder */
+        .builder-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .field-list { display: flex; flex-direction: column; gap: 1rem; }
+        .field-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-white);
+            border-radius: 20px;
+            padding: 1.5rem;
+            position: relative;
+            transition: 0.3s;
+        }
+        .field-card:hover { border-color: rgba(255,255,255,0.2); }
+        .field-card.collapsed { padding: 1rem 1.5rem; }
+        .field-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; cursor: pointer; }
+        .field-card.collapsed .field-card-header { margin-bottom: 0; }
+        .field-card-body { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .field-actions { display: flex; gap: 10px; }
+        
+        .btn-icon { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        .btn-icon:hover { color: var(--danger); }
+        .btn-icon.drag { cursor: grab; }
+
+        .btn-add {
+            background: linear-gradient(135deg, var(--br-green), #00c853);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: fit-content;
+            transition: 0.3s;
+        }
+        .btn-add:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 156, 59, 0.3); }
+
+        .btn-zip {
+            background: linear-gradient(135deg, var(--br-blue), #0039cb);
+            color: var(--br-yellow);
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-zip:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 39, 118, 0.3); }
+
+        /* Subform Specific */
+        .subform-container {
+            grid-column: span 2;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 14px;
+            border: 1px dashed var(--border-white);
+            margin-top: 10px;
+        }
+        .subform-fields { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+        
+        /* Preview */
+        .preview-title { font-size: 0.9rem; color: var(--br-yellow); margin-bottom: 1rem; text-transform: uppercase; }
+        .xml-preview {
+            background: #000;
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.75rem;
+            color: #88ff88;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        /* Options for List */
+        .options-builder { grid-column: span 2; display: flex; flex-direction: column; gap: 8px; }
+        .option-row { display: flex; gap: 10px; align-items: center; }
+        .option-row input { flex: 1; }
+
+        @media (max-width: 1200px) {
+            .preview-pane { display: none; }
+            .main-with-preview { margin-right: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar">
+        <div class="lang-switcher">
+            <button class="lang-btn active" onclick="setLang('en')">EN</button>
+            <button class="lang-btn" onclick="setLang('pt')">PT</button>
+        </div>
+        
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-cube"></i> Joomla<span>Gen</span>
+        </a>
+
+        <div class="settings-group">
+            <h3 style="font-size: 0.9rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;" data-i18n="sidebar-meta">META DATA</h3>
+            
+            <div class="input-group">
+                <label data-i18n="lbl-mod-name">Module Name</label>
+                <input type="text" id="moduleName" value="My Custom Module" placeholder="e.g. Home Slider">
+            </div>
+
+            <div class="input-group">
+                <label data-i18n="lbl-namespace">Namespace</label>
+                <input type="text" id="namespace" value="MyCustomModule" placeholder="e.g. Acme">
+            </div>
+
+            <div class="input-group">
+                <label data-i18n="lbl-author">Author</label>
+                <input type="text" id="author" value="John Doe">
+            </div>
+
+            <div class="input-group">
+                <label data-i18n="lbl-email">Author Email</label>
+                <input type="email" id="authorEmail" value="contact@example.com">
+            </div>
+
+            <div class="input-group">
+                <label data-i18n="lbl-website">Author Website</label>
+                <input type="url" id="authorUrl" value="https://example.com">
+            </div>
+
+            <div class="input-group">
+                <label data-i18n="lbl-client">Client</label>
+                <select id="clientType">
+                    <option value="site" data-i18n="opt-site">Site (Frontend)</option>
+                    <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
+                </select>
+            </div>
+        </div>
+
+        <button class="btn-zip" onclick="generatePackage()">
+            <i class="fa-solid fa-file-zipper"></i> <span data-i18n="btn-zip">DOWNLOAD ZIP</span>
+        </button>
+    </aside>
+
+    <main class="main-content main-with-preview">
+        <header class="builder-header">
+            <div>
+                <h1 data-i18n="builder-title">Fields Architect</h1>
+                <p style="color: rgba(255,255,255,0.4)" data-i18n="builder-subtitle">Configure your module parameters</p>
+            </div>
+            <button class="btn-add" onclick="addField()">
+                <i class="fa-solid fa-plus"></i> <span data-i18n="btn-add">ADD FIELD</span>
+            </button>
+        </header>
+
+        <div id="fieldList" class="field-list">
+            <!-- Fields will be injected here -->
+        </div>
+    </main>
+
+    <aside class="preview-pane">
+        <h2 class="preview-title" data-i18n="preview-xml">Manifest XML Preview</h2>
+        <pre id="xmlPreview" class="xml-preview"></pre>
+        
+        <h2 class="preview-title" style="margin-top: 2rem;" data-i18n="preview-struct">Structure</h2>
+        <div id="folderStructure" class="xml-preview" style="color: var(--accent)"></div>
+    </aside>
+
+    <script>
+        const i18n = {
+            en: {
+                "sidebar-meta": "META DATA",
+                "lbl-mod-name": "Module Name",
+                "lbl-namespace": "Namespace",
+                "lbl-author": "Author",
+                "lbl-email": "Author Email",
+                "lbl-website": "Author Website",
+                "lbl-client": "Client",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "btn-zip": "DOWNLOAD ZIP",
+                "builder-title": "Fields Architect",
+                "builder-subtitle": "Configure your module parameters",
+                "btn-add": "ADD FIELD",
+                "preview-xml": "Manifest XML Preview",
+                "preview-struct": "Structure",
+                "field-default-label": "New Field",
+                "field-title-label": "Title",
+                "field-desc-label": "Description for",
+                "field-hint-label": "Enter",
+                "lbl-type": "Type",
+                "lbl-label": "Label",
+                "lbl-description": "Description",
+                "lbl-name": "Name (Slug)",
+                "lbl-default": "Default",
+                "lbl-hint": "Hint",
+                "lbl-layout": "Layout",
+                "lbl-class": "Class (CSS)",
+                "lbl-options": "OPTIONS",
+                "lbl-subform-fields": "SUBFORM FIELDS",
+                "btn-add-option": "New Option",
+                "btn-add-subfield": "Add Field Inside Subform",
+                "opt-layout-default": "Default",
+                "opt-layout-custom": "Custom...",
+                "placeholder-custom-layout": "Enter custom layout"
+            },
+            pt: {
+                "sidebar-meta": "META DADOS",
+                "lbl-mod-name": "Nome do Módulo",
+                "lbl-namespace": "Namespace",
+                "lbl-author": "Autor",
+                "lbl-email": "Email do Autor",
+                "lbl-website": "Website do Autor",
+                "lbl-client": "Cliente",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "btn-zip": "BAIXAR ZIP",
+                "builder-title": "Arquiteto de Campos",
+                "builder-subtitle": "Configure os parâmetros do seu módulo",
+                "btn-add": "ADICIONAR CAMPO",
+                "preview-xml": "Preview Manifest XML",
+                "preview-struct": "Estrutura",
+                "field-default-label": "Novo Campo",
+                "field-title-label": "Título",
+                "field-desc-label": "Descrição para",
+                "field-hint-label": "Digite",
+                "lbl-type": "Tipo",
+                "lbl-label": "Label",
+                "lbl-description": "Descrição",
+                "lbl-name": "Name (Slug)",
+                "lbl-default": "Padrão",
+                "lbl-hint": "Hint (Dica)",
+                "lbl-layout": "Layout",
+                "lbl-class": "Classe (CSS)",
+                "lbl-options": "OPÇÕES",
+                "lbl-subform-fields": "CAMPOS DO SUBFORM",
+                "btn-add-option": "Nova Opção",
+                "btn-add-subfield": "Adicionar Campo no Subform",
+                "opt-layout-default": "Padrão",
+                "opt-layout-custom": "Customizado...",
+                "placeholder-custom-layout": "Digite o layout customizado"
+            }
+        };
+
+        let currentLang = 'en';
+
+        function t(key) {
+            return i18n[currentLang][key] || key;
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = t(key);
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
+            document.documentElement.lang = lang;
+            render();
+        }
+
+        let fields = [
+            { id: Date.now(), type: 'text', name: 'title', label: t('field-title-label'), description: t('field-desc-label') + ' Title', default: 'Hello World', hint: t('field-hint-label') + ' Title', collapsed: false }
+        ];
+
+        const fieldTypes = [
+            'text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'
+        ];
+
+        function addField(parentFields = fields) {
+            const newField = {
+                id: Date.now(),
+                type: 'text',
+                name: 'new_field_' + Date.now().toString().slice(-4),
+                label: t('field-default-label'),
+                description: '',
+                default: '',
+                hint: '',
+                collapsed: false,
+                options: [],
+                fields: []
+            };
+            parentFields.push(newField);
+            render();
+        }
+
+        function removeField(id, parentFields = fields) {
+            const index = parentFields.findIndex(f => f.id === id);
+            if (index > -1) {
+                parentFields.splice(index, 1);
+            } else {
+                parentFields.forEach(f => {
+                    if (f.type === 'subform' && f.fields) {
+                        removeField(id, f.fields);
+                    }
+                });
+            }
+            render();
+        }
+
+        function updateField(id, key, value, parentFields = fields) {
+            const field = findFieldById(id, parentFields);
+            if (field) {
+                const oldValue = field[key];
+                if (key === 'name') value = slugify(value);
+                field[key] = value;
+
+                if (key === 'label') {
+                    const slugified = slugify(value);
+                    if (!field.nameTouched || field.name === '' || field.name === slugify(oldValue)) {
+                        field.name = slugified;
+                    }
+                    if (!field.descriptionTouched || field.description === '') {
+                        field.description = `${t('field-desc-label')} ${value}`;
+                    }
+                    if (!field.hintTouched || field.hint === '') {
+                        field.hint = `${t('field-hint-label')} ${value}`;
+                    }
+                }
+
+                if (key === 'name') field.nameTouched = true;
+                if (key === 'description') field.descriptionTouched = true;
+                if (key === 'hint') field.hintTouched = true;
+                if (key === 'label') field.labelTouched = true;
+
+                if (key === 'layout' && value === 'custom') field[key] = 'joomla.form.field.';
+                
+                if (key === 'type' && value === 'list' && (!field.options || field.options.length === 0)) {
+                    field.options = [{ label: t('btn-add-option') + ' 1', value: '1' }];
+                }
+                if (key === 'type' && value === 'subform' && !field.fields) {
+                    field.fields = [];
+                }
+                render();
+            }
+        }
+
+        function slugify(str) {
+            if (!str) return '';
+            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+                      .toLowerCase()
+                      .replace(/[^a-z0-9]/g, '_')
+                      .replace(/__+/g, '_');
+        }
+
+        function findFieldById(id, searchFields) {
+            for (let f of searchFields) {
+                if (f.id === id) return f;
+                if (f.type === 'subform' && f.fields) {
+                    let found = findFieldById(id, f.fields);
+                    if (found) return found;
+                }
+            }
+            return null;
+        }
+
+        function toggleCollapse(id) {
+            const field = findFieldById(id, fields);
+            if (field) { field.collapsed = !field.collapsed; render(); }
+        }
+
+        function addOption(fieldId) {
+            const field = findFieldById(fieldId, fields);
+            if (field) { field.options.push({ label: t('btn-add-option'), value: '' }); render(); }
+        }
+
+        function updateOption(fieldId, index, key, value) {
+            const field = findFieldById(fieldId, fields);
+            if (field) { field.options[index][key] = value; render(); }
+        }
+
+        function removeOption(fieldId, index) {
+            const field = findFieldById(fieldId, fields);
+            if (field) { field.options.splice(index, 1); render(); }
+        }
+
+        function render() {
+            const fieldList = document.getElementById('fieldList');
+            const activeId = document.activeElement ? document.activeElement.id : null;
+            const selectionStart = document.activeElement ? document.activeElement.selectionStart : null;
+            const selectionEnd = document.activeElement ? document.activeElement.selectionEnd : null;
+
+            fieldList.innerHTML = '';
+            fields.forEach(f => { fieldList.appendChild(createFieldCard(f)); });
+            updatePreview();
+
+            if (activeId) {
+                const el = document.getElementById(activeId);
+                if (el) {
+                    el.focus();
+                    if (selectionStart !== null && el.setSelectionRange) el.setSelectionRange(selectionStart, selectionEnd);
+                }
+            }
+        }
+
+        function createFieldCard(f, isSub = false) {
+            const card = document.createElement('div');
+            card.className = `field-card ${isSub ? 'sub-card' : ''} ${f.collapsed ? 'collapsed' : ''}`;
+            
+            card.innerHTML = `
+                <div class="field-card-header" onclick="toggleCollapse(${f.id})">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i>
+                        <i class="fa-solid fa-grip-vertical btn-icon drag"></i>
+                        <strong>${f.label || t('field-default-label')}</strong>
+                        <span style="font-size:0.7rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span>
+                    </div>
+                    <div class="field-actions">
+                        <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+                <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
+                    <div class="input-group">
+                        <label>${t('lbl-type')}</label>
+                        <select id="type-${f.id}" onchange="updateField(${f.id}, 'type', this.value)">
+                            ${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-label')}</label>
+                        <input type="text" id="label-${f.id}" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)">
+                    </div>
+                    <div class="input-group full-col" style="grid-column: span 2;">
+                        <label>${t('lbl-description')}</label>
+                        <input type="text" id="desc-${f.id}" value="${f.description || ''}" oninput="updateField(${f.id}, 'description', this.value)">
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-name')}</label>
+                        <input type="text" id="name-${f.id}" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)">
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-default')}</label>
+                        <input type="text" id="default-${f.id}" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)">
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-hint')}</label>
+                        <input type="text" id="hint-${f.id}" value="${f.hint || ''}" oninput="updateField(${f.id}, 'hint', this.value)">
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-layout')}</label>
+                        <select id="layout-sel-${f.id}" onchange="updateField(${f.id}, 'layout', this.value)">
+                            <option value="" ${!f.layout ? 'selected' : ''}>${t('opt-layout-default')}</option>
+                            <option value="joomla.form.field.subform.repeatable-grid" ${f.layout === 'joomla.form.field.subform.repeatable-grid' ? 'selected' : ''}>Subform: Repeatable Grid</option>
+                            <option value="joomla.form.field.subform.repeatable-table" ${f.layout === 'joomla.form.field.subform.repeatable-table' ? 'selected' : ''}>Subform: Repeatable Table</option>
+                            <option value="joomla.form.field.media" ${f.layout === 'joomla.form.field.media' ? 'selected' : ''}>Media Layout</option>
+                            <option value="joomla.form.field.list" ${f.layout === 'joomla.form.field.list' ? 'selected' : ''}>List Layout</option>
+                            <option value="custom" ${f.layout && !['joomla.form.field.subform.repeatable-grid', 'joomla.form.field.subform.repeatable-table', 'joomla.form.field.media', 'joomla.form.field.list'].includes(f.layout) ? 'selected' : ''}>${t('opt-layout-custom')}</option>
+                        </select>
+                        ${f.layout && !['joomla.form.field.subform.repeatable-grid', 'joomla.form.field.subform.repeatable-table', 'joomla.form.field.media', 'joomla.form.field.list', ''].includes(f.layout) ? `
+                            <input type="text" id="layout-${f.id}" value="${f.layout}" oninput="updateField(${f.id}, 'layout', this.value)" placeholder="${t('placeholder-custom-layout')}" style="margin-top: 5px;">
+                        ` : ''}
+                    </div>
+                    <div class="input-group">
+                        <label>${t('lbl-class')}</label>
+                        <input type="text" id="class-${f.id}" value="${f.class || ''}" oninput="updateField(${f.id}, 'class', this.value)">
+                    </div>
+                    
+                    ${f.type === 'list' || f.type === 'radio' || f.type === 'checkbox' ? `
+                        <div class="options-builder">
+                            <label style="font-size: 0.7rem; color: var(--br-yellow)">${t('lbl-options')}</label>
+                            ${f.options.map((opt, i) => `
+                                <div class="option-row">
+                                    <input type="text" id="opt-lbl-${f.id}-${i}" value="${opt.label}" placeholder="Label" oninput="updateOption(${f.id}, ${i}, 'label', this.value)">
+                                    <input type="text" id="opt-val-${f.id}-${i}" value="${opt.value}" placeholder="Value" oninput="updateOption(${f.id}, ${i}, 'value', this.value)">
+                                    <button class="btn-icon" onclick="removeOption(${f.id}, ${i})"><i class="fa-solid fa-xmark"></i></button>
+                                </div>
+                            `).join('')}
+                            <button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem;" onclick="addOption(${f.id})">${t('btn-add-option')}</button>
+                        </div>
+                    ` : ''}
+
+                    ${f.type === 'subform' ? `
+                        <div class="subform-container">
+                            <label style="font-size: 0.7rem; color: var(--br-yellow)">${t('lbl-subform-fields')}</label>
+                            <div class="subform-fields" id="sub-${f.id}"></div>
+                            <button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem; margin-top:10px;" onclick="addFieldInside(${f.id})">${t('btn-add-subfield')}</button>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+            if (f.type === 'subform' && f.fields) {
+                const subContainer = card.querySelector(`#sub-${f.id}`);
+                f.fields.forEach(subF => { subContainer.appendChild(createFieldCard(subF, true)); });
+            }
+            return card;
+        }
+
+        function addFieldInside(parentID) {
+            const parent = findFieldById(parentID, fields);
+            if (parent && parent.type === 'subform') addField(parent.fields);
+        }
+
+        function updatePreview() {
+            const xml = generateXMLSnippet();
+            document.getElementById('xmlPreview').innerText = xml;
+            const modName = document.getElementById('moduleName').value || 'mod_custom';
+            const slug = modName.toLowerCase().replace(/ /g, '_');
+            document.getElementById('folderStructure').innerText = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`;
+        }
+
+        function generateXMLSnippet() {
+            let xml = `<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
+            function buildFields(fieldList, indent = '      ') {
+                const modPrefix = (document.getElementById('moduleName').value || 'custom').toLowerCase().replace(/ /g, '_').toUpperCase();
+                let s = '';
+                fieldList.forEach(f => {
+                    const keyBase = `MOD_${modPrefix}_${f.name.toUpperCase()}`;
+                    if (f.type === 'subform') {
+                        s += `${indent}<field name="${f.name}" type="subform" label="${keyBase}_LABEL" description="${keyBase}_DESC" multiple="true" min="1" max="10">\n`;
+                        s += `${indent}  <form>\n`;
+                        s += buildFields(f.fields, indent + '    ');
+                        s += `${indent}  </form>\n`;
+                        s += `${indent}</field>\n`;
+                    } else {
+                        s += `${indent}<field name="${f.name}" type="${f.type}" label="${keyBase}_LABEL" description="${keyBase}_DESC" default="${f.default}"`;
+                        if (f.hint) s += ` hint="${keyBase}_HINT"`;
+                        if (f.layout) s += ` layout="${f.layout}"`;
+                        if (f.class) s += ` class="${f.class}"`;
+                        if (f.options && f.options.length > 0) {
+                            s += `>\n`;
+                            f.options.forEach(opt => { s += `${indent}  <option value="${opt.value}">${opt.label}</option>\n`; });
+                            s += `${indent}</field>\n`;
+                        } else { s += ` />\n`; }
+                    }
+                });
+                return s;
+            }
+            xml += buildFields(fields);
+            xml += `    </fieldset>\n  </fields>\n</config>`;
+            return xml;
+        }
+
+        async function generatePackage() {
+            const modName = document.getElementById('moduleName').value || 'My Module';
+            const clean = modName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const slug = clean.toLowerCase();
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            const ns = document.getElementById('namespace').value || 'MyNamespace';
+            const author = document.getElementById('author').value || 'John Doe';
+            const authorEmail = document.getElementById('authorEmail').value || '';
+            const authorUrl = document.getElementById('authorUrl').value || '';
+            const client = document.getElementById('clientType').value;
+            const modPrefix = `mod_${slug}`;
+
+            const zip = new JSZip();
+            const root = zip.folder(modPrefix);
+
+            const manifest = `<?xml version="1.0" encoding="UTF-8"?>
+<extension type="module" client="${client}" method="upgrade">
+    <name>${modPrefix}</name>
+    <author>${author}</author>
+    <authorEmail>${authorEmail}</authorEmail>
+    <authorUrl>${authorUrl}</authorUrl>
+    <creationDate>${new Date().toISOString().split('T')[0]}</creationDate>
+    <version>1.0.0</version>
+    <description>${modPrefix.toUpperCase()}_XML_DESCRIPTION</description>
+    <namespace path="src">Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}</namespace>
+    <files>
+        <folder module="${modPrefix}">services</folder>
+        <folder>src</folder>
+        <folder>tmpl</folder>
+    </files>
+    <languages>
+        <language tag="en-GB">language/en-GB/${modPrefix}.ini</language>
+        <language tag="en-GB">language/en-GB/${modPrefix}.sys.ini</language>
+        <language tag="pt-BR">language/pt-BR/${modPrefix}.ini</language>
+        <language tag="pt-BR">language/pt-BR/${modPrefix}.sys.ini</language>
+    </languages>
+    ${generateXMLSnippet()}
+</extension>`;
+            root.file(`${modPrefix}.xml`, manifest);
+
+            let iniContent = `${modPrefix.toUpperCase()}="${modName}"\n${modPrefix.toUpperCase()}_XML_DESCRIPTION="${modPrefix.toUpperCase()}_XML_DESCRIPTION"\n`;
+            let sysIniContent = `${modPrefix.toUpperCase()}="${modName}"\n${modPrefix.toUpperCase()}_XML_DESCRIPTION="${modPrefix.toUpperCase()}_XML_DESCRIPTION"\n`;
+            
+            function addTranslations(fieldList) {
+                fieldList.forEach(f => {
+                    const keyBase = `${modPrefix.toUpperCase()}_${f.name.toUpperCase()}`;
+                    iniContent += `${keyBase}_LABEL="${f.label}"\n`;
+                    iniContent += `${keyBase}_DESC="${f.description}"\n`;
+                    if (f.hint) iniContent += `${keyBase}_HINT="${f.hint}"\n`;
+                    if (f.type === 'subform' && f.fields) { addTranslations(f.fields); }
+                });
+            }
+            addTranslations(fields);
+
+            root.folder(`language/en-GB`).file(`${modPrefix}.ini`, iniContent);
+            root.folder(`language/en-GB`).file(`${modPrefix}.sys.ini`, sysIniContent);
+            root.folder(`language/pt-BR`).file(`${modPrefix}.ini`, iniContent);
+            root.folder(`language/pt-BR`).file(`${modPrefix}.sys.ini`, sysIniContent);
+
+            const provider = `<?php
+defined('_JEXEC') or die;
+use Joomla\\CMS\\Extension\\Service\\Provider\\Module;
+use Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;
+use Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;
+use Joomla\\DI\\Container;
+use Joomla\\DI\\ServiceProviderInterface;
+
+return new class () implements ServiceProviderInterface {
+    public function register(Container $container) {
+        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}'));
+        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}\\\\Helper'));
+        $container->registerServiceProvider(new Module());
+    }
+};`;
+            root.folder('services').file('provider.php', provider);
+
+            const dispatcher = `<?php
+namespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Dispatcher;
+defined('_JEXEC') or die;
+use Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;
+use Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;
+use Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;
+
+class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface {
+    use HelperFactoryAwareTrait;
+    protected function getLayoutData() {
+        return parent::getLayoutData();
+    }
+}`;
+            root.folder('src/Dispatcher').file('Dispatcher.php', dispatcher);
+
+            const helper = `<?php
+namespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Helper;
+defined('_JEXEC') or die;
+
+class ${ns}Helper {
+    public function getItems($params, $app) { return []; }
+}`;
+            root.folder('src/Helper').file(`${ns}Helper.php`, helper);
+
+            const template = `<?php
+defined('_JEXEC') or die;
+use Joomla\\CMS\\Language\\Text;
+?>
+<div class="${modPrefix}">
+    <?php if ($params->get('show_title')) : ?>
+        <h3><?php echo Text::_('${modPrefix.toUpperCase()}'); ?></h3>
+    <?php endif; ?>
+
+    <div class="${modPrefix}-content">
+        <?php foreach ($params->toArray() as $key => $value) : ?>
+            <?php if (!empty($value)) : ?>
+                <div class="field-item">
+                    <span class="field-label"><?php echo Text::_('${modPrefix.toUpperCase()}_' + $key.toUpperCase() + '_LABEL'); ?>:</span>
+                    <span class="field-value">
+                        <?php echo is_array($value) ? '<pre>' . json_encode($value, JSON_PRETTY_PRINT) . '</pre>' : $value; ?>
+                    </span>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+</div>`;
+            root.folder('tmpl').file('default.php', template);
+
+            const blob = await zip.generateAsync({type: "blob"});
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url; a.download = `${modPrefix}.zip`; a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('moduleName').addEventListener('input', (e) => {
+            const val = e.target.value || "My Module";
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            document.getElementById('namespace').value = cap;
+            updatePreview();
+        });
+        document.getElementById('namespace').addEventListener('input', updatePreview);
+        document.getElementById('clientType').addEventListener('change', updatePreview);
+
+        const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
+        setLang(userLang);
+    </script>
+</body>
+</html>
