@@ -15,6 +15,13 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <!-- Syntax Highlighting -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 
     <style>
         :root {
@@ -45,140 +52,137 @@
 
         /* Layout */
         .sidebar {
-            width: 320px;
+            width: 300px;
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-white);
-            padding: 2rem;
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
+            z-index: 100;
         }
 
         .main-content {
-            margin-left: 320px;
+            margin-left: 300px;
             flex: 1;
-            padding: 2rem 3rem;
+            padding: 2rem 2.5rem;
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            min-width: 0;
         }
 
         .preview-pane {
-            width: 350px;
-            background: rgba(0,0,0,0.3);
+            width: 450px;
+            background: #0a0c10;
             border-left: 1px solid var(--border-white);
-            padding: 2rem;
+            padding: 1.5rem;
             position: fixed;
             right: 0;
             height: 100vh;
             overflow-y: auto;
+            z-index: 50;
         }
 
-        .main-with-preview { margin-right: 350px; }
+        .main-with-preview { margin-right: 450px; }
 
         /* Typography */
         h1, h2, h3 { font-family: var(--font-title); }
-        .logo { font-size: 1.5rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; }
+        .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-bottom: 0.5rem; }
         .logo span { color: var(--br-yellow); }
         .logo i { color: var(--br-green); }
 
         /* Lang Switcher */
-        .lang-switcher { display: flex; gap: 10px; margin-bottom: 0.5rem; }
+        .lang-switcher { display: flex; gap: 8px; margin-bottom: 0.2rem; }
         .lang-btn {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-white);
             color: #fff;
-            padding: 5px 12px;
-            border-radius: 8px;
+            padding: 4px 10px;
+            border-radius: 6px;
             cursor: pointer;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             transition: 0.3s;
         }
         .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); border-color: var(--br-yellow); }
 
         /* Presets */
-        .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 1rem; }
+        .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 0.5rem; }
         .preset-btn {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-white);
             color: #fff;
-            padding: 12px 10px;
-            border-radius: 12px;
+            padding: 8px 6px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 4px;
             transition: 0.3s;
         }
-        .preset-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--br-green); transform: translateY(-2px); }
-        .preset-btn i { font-size: 1.2rem; color: var(--br-yellow); }
+        .preset-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--br-green); transform: translateY(-1px); }
+        .preset-btn i { font-size: 1rem; color: var(--br-yellow); }
 
         /* Form Elements */
-        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.5rem; }
-        .input-group label { font-size: 0.75rem; font-weight: 700; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 1px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.2rem; }
+        .input-group label { font-size: 0.7rem; font-weight: 700; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; }
         .input-group input, .input-group select, .input-group textarea {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-white);
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
+            padding: 0.7rem 0.9rem;
+            border-radius: 10px;
             color: #fff;
             font-family: inherit;
+            font-size: 0.85rem;
             transition: 0.3s;
         }
         .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.08); }
-        .input-group select option { background: var(--sidebar-bg); color: #fff; }
 
         /* Field Builder */
-        .builder-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+        .builder-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
         .field-list { display: flex; flex-direction: column; gap: 1rem; }
         .field-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 1.2rem;
             position: relative;
             transition: 0.3s;
         }
-        .field-card:hover { border-color: rgba(255,255,255,0.2); }
-        .field-card.collapsed { padding: 1rem 1.5rem; }
-        .field-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; cursor: pointer; }
-        .field-card.collapsed .field-card-header { margin-bottom: 0; }
-        .field-card-body { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
-        .field-actions { display: flex; gap: 10px; }
+        .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .field-card-body { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 1rem; }
         
-        .btn-icon { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        .btn-icon { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1rem; transition: 0.3s; }
         .btn-icon:hover { color: var(--danger); }
-        .btn-icon.drag { cursor: grab; }
 
         .btn-add {
             background: linear-gradient(135deg, var(--br-green), #00c853);
             color: #fff;
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 14px;
+            padding: 0.8rem 1.5rem;
+            border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 10px;
-            width: fit-content;
+            gap: 8px;
+            font-size: 0.9rem;
             transition: 0.3s;
         }
-        .btn-add:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 156, 59, 0.3); }
 
         .btn-zip {
             background: linear-gradient(135deg, var(--br-blue), #0039cb);
             color: var(--br-yellow);
             border: none;
-            padding: 1rem 2rem;
-            border-radius: 14px;
+            padding: 0.9rem;
+            border-radius: 12px;
             font-weight: 700;
             cursor: pointer;
             width: 100%;
@@ -186,41 +190,61 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            gap: 8px;
             transition: 0.3s;
         }
-        .btn-zip:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0, 39, 118, 0.3); }
+
+        /* Preview */
+        .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.6rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; }
+        
+        .code-container { position: relative; margin-bottom: 1.2rem; }
+        .xml-preview {
+            background: #000 !important;
+            padding: 0.8rem !important;
+            border-radius: 8px !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 0.65rem !important;
+            margin: 0 !important;
+            border: 1px solid var(--border-white) !important;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        
+        .editor-container { position: relative; height: 350px; background: #000; border-radius: 8px; border: 1px solid var(--border-white); overflow: hidden; }
+        .php-textarea {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: transparent;
+            color: transparent;
+            caret-color: #fff;
+            z-index: 2;
+            padding: 0.8rem;
+            border: none;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.7rem;
+            resize: none;
+            overflow: auto;
+            white-space: pre;
+            line-height: 1.4;
+        }
+        .php-highlight {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 1;
+            margin: 0 !important;
+            background: transparent !important;
+            padding: 0.8rem !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 0.7rem !important;
+            line-height: 1.4 !important;
+            overflow: hidden !important;
+        }
 
         /* Subform Specific */
-        .subform-container {
-            grid-column: span 2;
-            padding: 1rem;
-            background: rgba(0,0,0,0.2);
-            border-radius: 14px;
-            border: 1px dashed var(--border-white);
-            margin-top: 10px;
-        }
-        .subform-fields { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
-        
-        /* Preview */
-        .preview-title { font-size: 0.9rem; color: var(--br-yellow); margin-bottom: 1rem; text-transform: uppercase; }
-        .xml-preview {
-            background: #000;
-            padding: 1rem;
-            border-radius: 10px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.75rem;
-            color: #88ff88;
-            white-space: pre-wrap;
-            overflow-x: auto;
-        }
+        .subform-container { grid-column: span 2; padding: 1rem; background: rgba(0,0,0,0.2); border-radius: 12px; border: 1px dashed var(--border-white); }
+        .subform-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
 
-        /* Options for List */
-        .options-builder { grid-column: span 2; display: flex; flex-direction: column; gap: 8px; }
-        .option-row { display: flex; gap: 10px; align-items: center; }
-        .option-row input { flex: 1; }
-
-        @media (max-width: 1200px) {
+        @media (max-width: 1100px) {
             .preview-pane { display: none; }
             .main-with-preview { margin-right: 0; }
         }
@@ -233,718 +257,202 @@
             <button class="lang-btn active" onclick="setLang('en')">EN</button>
             <button class="lang-btn" onclick="setLang('pt')">PT</button>
         </div>
-        
-        <a href="index.html" class="logo">
-            <i class="fa-solid fa-cube"></i> Joomla<span>Gen</span>
-        </a>
-
+        <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
         <div class="settings-group">
-            <h3 style="font-size: 0.9rem; color: rgba(255,255,255,0.4); margin-bottom: 1.5rem;" data-i18n="sidebar-meta">META DATA</h3>
-            
-            <div class="input-group">
-                <label data-i18n="lbl-mod-name">Module Name</label>
-                <input type="text" id="moduleName" value="My Custom Module" placeholder="e.g. Home Slider">
-            </div>
-
-            <div class="input-group">
-                <label data-i18n="lbl-namespace">Namespace</label>
-                <input type="text" id="namespace" value="MyCustomModule" placeholder="e.g. Acme">
-            </div>
-
-            <div class="input-group">
-                <label data-i18n="lbl-author">Author</label>
-                <input type="text" id="author" value="John Doe">
-            </div>
-
-            <div class="input-group">
-                <label data-i18n="lbl-client">Client</label>
-                <select id="clientType">
-                    <option value="site" data-i18n="opt-site">Site (Frontend)</option>
-                    <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
-                </select>
-            </div>
-
-            <h3 style="font-size: 0.9rem; color: rgba(255,255,255,0.4); margin: 1.5rem 0 1rem 0;" data-i18n="sidebar-presets">PRESETS</h3>
+            <h3 style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; letter-spacing: 1px;" data-i18n="sidebar-meta">META DATA</h3>
+            <div class="input-group"><label data-i18n="lbl-mod-name">Module Name</label><input type="text" id="moduleName" value="My Custom Module"></div>
+            <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="namespace" value="MyCustomModule"></div>
+            <div class="input-group"><label data-i18n="lbl-author">Author</label><input type="text" id="author" value="John Doe"></div>
+            <div class="input-group"><label data-i18n="lbl-client">Client</label><select id="clientType"><option value="site" data-i18n="opt-site">Site (Frontend)</option><option value="administrator" data-i18n="opt-admin">Admin (Backend)</option></select></div>
+            <h3 style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin: 1.2rem 0 0.6rem 0; letter-spacing: 1px;" data-i18n="sidebar-presets">PRESETS</h3>
             <div class="presets-grid">
-                <button class="preset-btn" onclick="loadPreset('carousel')">
-                    <i class="fa-solid fa-images"></i>
-                    <span>Carousel</span>
-                </button>
-                <button class="preset-btn" onclick="loadPreset('hero')">
-                    <i class="fa-solid fa-rectangle-ad"></i>
-                    <span>Hero Section</span>
-                </button>
-                <button class="preset-btn" onclick="loadPreset('contact')">
-                    <i class="fa-solid fa-envelope"></i>
-                    <span>Contact Form</span>
-                </button>
-                <button class="preset-btn" onclick="loadPreset('social')">
-                    <i class="fa-solid fa-share-nodes"></i>
-                    <span>Social Links</span>
-                </button>
+                <button class="preset-btn" onclick="loadPreset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
+                <button class="preset-btn" onclick="loadPreset('hero')"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
+                <button class="preset-btn" onclick="loadPreset('pricing')"><i class="fa-solid fa-tags"></i><span>Pricing</span></button>
+                <button class="preset-btn" onclick="loadPreset('faq')"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
+                <button class="preset-btn" onclick="loadPreset('testimonials')"><i class="fa-solid fa-comment-dots"></i><span>Reviews</span></button>
+                <button class="preset-btn" onclick="loadPreset('features')"><i class="fa-solid fa-list-check"></i><span>Features</span></button>
+                <button class="preset-btn" onclick="loadPreset('contact')"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
+                <button class="preset-btn" onclick="loadPreset('social')"><i class="fa-solid fa-share-nodes"></i><span>Social</span></button>
+                <button class="preset-btn" onclick="loadPreset('map')"><i class="fa-solid fa-location-dot"></i><span>Map</span></button>
+                <button class="preset-btn" onclick="loadPreset('video')"><i class="fa-solid fa-video"></i><span>Video</span></button>
             </div>
         </div>
-
-        <button class="btn-zip" onclick="generatePackage()">
-            <i class="fa-solid fa-file-zipper"></i> <span data-i18n="btn-zip">DOWNLOAD ZIP</span>
-        </button>
+        <button class="btn-zip" onclick="generatePackage()"><i class="fa-solid fa-file-zipper"></i> <span data-i18n="btn-zip">DOWNLOAD ZIP</span></button>
     </aside>
 
     <main class="main-content main-with-preview">
         <header class="builder-header">
-            <div>
-                <h1 data-i18n="builder-title">Fields Architect</h1>
-                <p style="color: rgba(255,255,255,0.4)" data-i18n="builder-subtitle">Configure your module parameters</p>
-            </div>
-            <button class="btn-add" onclick="addField()">
-                <i class="fa-solid fa-plus"></i> <span data-i18n="btn-add">ADD FIELD</span>
-            </button>
+            <div><h1 data-i18n="builder-title">Fields Architect</h1><p style="color: rgba(255,255,255,0.4)" data-i18n="builder-subtitle">Configure your module parameters</p></div>
+            <button class="btn-add" onclick="addField()"><i class="fa-solid fa-plus"></i> <span data-i18n="btn-add">ADD FIELD</span></button>
         </header>
-
-        <div id="fieldList" class="field-list">
-            <!-- Fields will be injected here -->
-        </div>
+        <div id="fieldList" class="field-list"></div>
     </main>
 
     <aside class="preview-pane">
         <h2 class="preview-title" data-i18n="preview-xml">Manifest XML Preview</h2>
-        <pre id="xmlPreview" class="xml-preview"></pre>
-        
-        <h2 class="preview-title" style="margin-top: 2rem;" data-i18n="preview-struct">Structure</h2>
-        <div id="folderStructure" class="xml-preview" style="color: var(--accent)"></div>
+        <div class="code-container"><pre class="xml-preview language-markup"><code id="xmlPreview"></code></pre></div>
+        <h2 class="preview-title"><span>default.php Editor</span><i class="fa-solid fa-code" style="font-size: 0.7rem; opacity: 0.5;"></i></h2>
+        <div class="editor-container"><textarea id="phpEditor" class="php-textarea" oninput="syncPHP(this.value)" onscroll="syncScroll()" spellcheck="false"></textarea><pre class="php-highlight language-php" id="phpPre"><code id="phpHighlight"></code></pre></div>
+        <h2 class="preview-title" style="margin-top: 1.2rem;" data-i18n="preview-struct">Structure</h2>
+        <div class="code-container"><pre class="xml-preview language-bash"><code id="folderStructure"></code></pre></div>
     </aside>
 
     <script>
         const i18n = {
             en: {
-                "sidebar-meta": "META DATA",
-                "sidebar-presets": "PRESETS",
-                "lbl-mod-name": "Module Name",
-                "lbl-namespace": "Namespace",
-                "lbl-author": "Author",
-                "lbl-client": "Client",
-                "opt-site": "Site (Frontend)",
-                "opt-admin": "Admin (Backend)",
-                "btn-zip": "DOWNLOAD ZIP",
-                "builder-title": "Fields Architect",
-                "builder-subtitle": "Configure your module parameters",
-                "btn-add": "ADD FIELD",
-                "preview-xml": "Manifest XML Preview",
-                "preview-struct": "Structure",
-                "field-default-label": "New Field",
-                "field-title-label": "Title",
-                "field-desc-label": "Description for",
-                "field-hint-label": "Enter",
-                "lbl-type": "Type",
-                "lbl-label": "Label",
-                "lbl-description": "Description",
-                "lbl-name": "Name (Slug)",
-                "lbl-default": "Default",
-                "lbl-hint": "Hint",
-                "lbl-layout": "Layout",
-                "lbl-class": "Class (CSS)",
-                "lbl-options": "OPTIONS",
-                "lbl-subform-fields": "SUBFORM FIELDS",
-                "btn-add-option": "New Option",
-                "btn-add-subfield": "Add Field Inside Subform",
-                "opt-layout-default": "Default",
-                "opt-layout-custom": "Custom...",
-                "placeholder-custom-layout": "Enter custom layout",
-                "confirm-preset": "Loading a preset will replace all current fields. Continue?"
+                "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace",
+                "lbl-author": "Author", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)",
+                "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters",
+                "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure",
+                "field-default-label": "New Field", "field-title-label": "Title", "field-desc-label": "Description for", "field-hint-label": "Enter",
+                "lbl-type": "Type", "lbl-label": "Label", "lbl-description": "Description", "lbl-name": "Name", "lbl-default": "Default",
+                "lbl-hint": "Hint", "lbl-layout": "Layout", "lbl-class": "Class", "lbl-options": "OPTIONS", "lbl-subform-fields": "SUBFORM FIELDS",
+                "btn-add-option": "New Option", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?"
             },
             pt: {
-                "sidebar-meta": "META DADOS",
-                "sidebar-presets": "MODELOS PRONTOS",
-                "lbl-mod-name": "Nome do Módulo",
-                "lbl-namespace": "Namespace",
-                "lbl-author": "Autor",
-                "lbl-client": "Cliente",
-                "opt-site": "Site (Frontend)",
-                "opt-admin": "Admin (Backend)",
-                "btn-zip": "BAIXAR ZIP",
-                "builder-title": "Arquiteto de Campos",
-                "builder-subtitle": "Configure os parâmetros do seu módulo",
-                "btn-add": "ADICIONAR CAMPO",
-                "preview-xml": "Preview Manifest XML",
-                "preview-struct": "Estrutura",
-                "field-default-label": "Novo Campo",
-                "field-title-label": "Título",
-                "field-desc-label": "Descrição para",
-                "field-hint-label": "Digite",
-                "lbl-type": "Tipo",
-                "lbl-label": "Label",
-                "lbl-description": "Descrição",
-                "lbl-name": "Name (Slug)",
-                "lbl-default": "Padrão",
-                "lbl-hint": "Hint (Dica)",
-                "lbl-layout": "Layout",
-                "lbl-class": "Classe (CSS)",
-                "lbl-options": "OPÇÕES",
-                "lbl-subform-fields": "CAMPOS DO SUBFORM",
-                "btn-add-option": "Nova Opção",
-                "btn-add-subfield": "Adicionar Campo no Subform",
-                "opt-layout-default": "Padrão",
-                "opt-layout-custom": "Customizado...",
-                "placeholder-custom-layout": "Digite o layout customizado",
-                "confirm-preset": "Carregar um modelo irá substituir todos os campos atuais. Continuar?"
+                "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace",
+                "lbl-author": "Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)",
+                "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros",
+                "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura",
+                "field-default-label": "Novo Campo", "field-title-label": "Título", "field-desc-label": "Descrição para", "field-hint-label": "Digite",
+                "lbl-type": "Tipo", "lbl-label": "Label", "lbl-description": "Descrição", "lbl-name": "Nome", "lbl-default": "Padrão",
+                "lbl-hint": "Dica", "lbl-layout": "Layout", "lbl-class": "Classe", "lbl-options": "OPÇÕES", "lbl-subform-fields": "CAMPOS SUBFORM",
+                "btn-add-option": "Nova Opção", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?"
             }
         };
 
         const presets = {
-            carousel: {
-                name: 'mod_carousel',
-                fields: [
-                    { id: 1, type: 'subform', name: 'slides', label: 'Slides', description: 'Carousel Slides', layout: 'joomla.form.field.subform.repeatable-grid', collapsed: false, fields: [
-                        { id: 11, type: 'media', name: 'image', label: 'Slide Image', description: 'Select an image' },
-                        { id: 12, type: 'text', name: 'title', label: 'Slide Title', description: 'Title overlay' },
-                        { id: 13, type: 'textarea', name: 'caption', label: 'Caption', description: 'Description text' },
-                        { id: 14, type: 'url', name: 'link', label: 'Button Link', description: 'URL to follow' }
-                    ]},
-                    { id: 2, type: 'list', name: 'interval', label: 'Interval (ms)', description: 'Slide transition speed', default: '5000', options: [
-                        { label: '3 Seconds', value: '3000' },
-                        { label: '5 Seconds', value: '5000' },
-                        { label: 'Manual Only', value: '0' }
-                    ]},
-                    { id: 3, type: 'radio', name: 'indicators', label: 'Show Indicators', description: 'The dots at bottom', default: '1', options: [
-                        { label: 'Yes', value: '1' },
-                        { label: 'No', value: '0' }
-                    ]}
-                ]
-            },
-            hero: {
-                name: 'mod_hero_section',
-                fields: [
-                    { id: 1, type: 'media', name: 'bg_image', label: 'Background Image', description: 'Main hero background' },
-                    { id: 2, type: 'text', name: 'main_title', label: 'Hero Title', description: 'H1 Title', default: 'Welcome to our site' },
-                    { id: 3, type: 'editor', name: 'hero_content', label: 'Intro Text', description: 'Main description' },
-                    { id: 4, type: 'text', name: 'btn_text', label: 'Button Label', description: 'Call to action text', default: 'Learn More' },
-                    { id: 5, type: 'url', name: 'btn_link', label: 'Button Link', description: 'CTA Target' },
-                    { id: 6, type: 'color', name: 'overlay_color', label: 'Overlay Color', description: 'Darken background', default: '#000000' }
-                ]
-            },
-            contact: {
-                name: 'mod_contact_form',
-                fields: [
-                    { id: 1, type: 'email', name: 'recipient', label: 'Recipient Email', description: 'Where to send leads', default: 'contact@example.com' },
-                    { id: 2, type: 'text', name: 'subject_prefix', label: 'Subject Prefix', description: 'Prefix for emails', default: '[Lead From Website]' },
-                    { id: 3, type: 'textarea', name: 'success_msg', label: 'Success Message', description: 'Shown after submit', default: 'Thank you! We will get back to you soon.' },
-                    { id: 4, type: 'checkbox', name: 'show_phone', label: 'Show Phone Field', description: 'Enable phone input', default: '1' }
-                ]
-            },
-            social: {
-                name: 'mod_social_links',
-                fields: [
-                    { id: 1, type: 'subform', name: 'links', label: 'Social Networks', description: 'Your profiles', layout: 'joomla.form.field.subform.repeatable-grid', collapsed: false, fields: [
-                        { id: 11, type: 'list', name: 'network', label: 'Network', options: [
-                            { label: 'Instagram', value: 'instagram' },
-                            { label: 'Facebook', value: 'facebook' },
-                            { label: 'WhatsApp', value: 'whatsapp' },
-                            { label: 'LinkedIn', value: 'linkedin' }
-                        ]},
-                        { id: 12, type: 'url', name: 'profile_url', label: 'Profile URL' }
-                    ]},
-                    { id: 2, type: 'radio', name: 'icon_size', label: 'Icon Size', default: 'medium', options: [
-                        { label: 'Small', value: 'small' },
-                        { label: 'Medium', value: 'medium' },
-                        { label: 'Large', value: 'large' }
-                    ]}
-                ]
-            }
+            carousel: { name: 'mod_carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'caption', label: 'Caption' }] }, { id: 2, type: 'list', name: 'interval', label: 'Interval', default: '5000', options: [{ label: '3s', value: '3000' }, { label: '5s', value: '5000' }] }] },
+            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }, { id: 4, type: 'color', name: 'overlay', label: 'Overlay', default: '#000000' }] },
+            pricing: { name: 'mod_pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }, { id: 13, type: 'textarea', name: 'features', label: 'Features' }, { id: 14, type: 'text', name: 'btn_text', label: 'Btn' }, { id: 15, type: 'url', name: 'btn_url', label: 'URL' }] }] },
+            faq: { name: 'mod_faq', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
+            testimonials: { name: 'mod_testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }, { id: 13, type: 'textarea', name: 'quote', label: 'Quote' }] }] },
+            features: { name: 'mod_features', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'desc', label: 'Desc' }]}, { id: 2, type: 'integer', name: 'cols', label: 'Cols', default: '3' }] },
+            map: { name: 'mod_map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }] },
+            video: { name: 'mod_video', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }, { id: 3, type: 'text', name: 'hero_title', label: 'Title' }] },
+            contact: { name: 'mod_contact', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }, { id: 2, type: 'text', name: 'subject', label: 'Subject' }] },
+            social: { name: 'mod_social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
         };
 
-        let currentLang = 'en';
-        let currentPresetKey = null;
+        let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
+        let fields = [{ id: Date.now(), type: 'text', name: 'title', label: 'Title', description: 'Module title', default: 'Hello World', collapsed: false }];
+        const fieldTypes = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
 
-        function t(key) {
-            return i18n[currentLang][key] || key;
-        }
-
+        function t(key) { return i18n[currentLang][key] || key; }
         function setLang(lang) {
-            currentLang = lang;
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                el.innerHTML = t(key);
-            });
+            currentLang = lang; document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')); });
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
-            document.documentElement.lang = lang;
-            render();
+            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active'); render();
         }
 
-        let fields = [
-            { id: Date.now(), type: 'text', name: 'title', label: 'Title', description: 'The module title', default: 'Hello World', hint: 'Enter title here', collapsed: false }
-        ];
-
-        const fieldTypes = [
-            'text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'
-        ];
+        function syncPHP(val) {
+            customPHP = val; phpTouched = true; document.getElementById('phpHighlight').textContent = val; Prism.highlightElement(document.getElementById('phpHighlight'));
+        }
+        function syncScroll() {
+            const tx = document.getElementById('phpEditor'), pr = document.getElementById('phpPre');
+            pr.scrollTop = tx.scrollTop; pr.scrollLeft = tx.scrollLeft;
+        }
 
         function loadPreset(key) {
             if (fields.length > 0 && !confirm(t('confirm-preset'))) return;
-            currentPresetKey = key;
-            const preset = presets[key];
-            document.getElementById('moduleName').value = preset.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            fields = JSON.parse(JSON.stringify(preset.fields));
-            
+            currentPresetKey = key; phpTouched = false; const p = presets[key];
+            document.getElementById('moduleName').value = p.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            fields = JSON.parse(JSON.stringify(p.fields));
             const val = document.getElementById('moduleName').value;
-            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
-            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
-            document.getElementById('namespace').value = cap;
-            
-            render();
-            confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
+            document.getElementById('namespace').value = val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase() + val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').slice(1);
+            render(); confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
         }
 
-        function addField(parentFields = fields) {
-            currentPresetKey = null; // Break preset sync if user adds field
-            const newField = {
-                id: Date.now(),
-                type: 'text',
-                name: 'new_field_' + Date.now().toString().slice(-4),
-                label: t('field-default-label'),
-                description: '',
-                default: '',
-                hint: '',
-                collapsed: false,
-                options: [],
-                fields: []
-            };
-            parentFields.push(newField);
-            render();
-        }
-
-        function removeField(id, parentFields = fields) {
-            currentPresetKey = null;
-            const index = parentFields.findIndex(f => f.id === id);
-            if (index > -1) {
-                parentFields.splice(index, 1);
-            } else {
-                parentFields.forEach(f => {
-                    if (f.type === 'subform' && f.fields) {
-                        removeField(id, f.fields);
-                    }
-                });
-            }
-            render();
-        }
-
+        function addField(parentFields = fields) { parentFields.push({ id: Date.now(), type: 'text', name: 'new_field_' + Date.now().toString().slice(-4), label: t('field-default-label'), description: '', default: '', hint: '', collapsed: false, options: [], fields: [] }); render(); }
+        function removeField(id, parentFields = fields) { const index = parentFields.findIndex(f => f.id === id); if (index > -1) parentFields.splice(index, 1); else parentFields.forEach(f => { if (f.type === 'subform' && f.fields) removeField(id, f.fields); }); render(); }
         function updateField(id, key, value, parentFields = fields) {
-            const field = findFieldById(id, parentFields);
-            if (field) {
-                const oldValue = field[key];
-                if (key === 'name') value = slugify(value);
-                field[key] = value;
-
-                if (key === 'label') {
-                    const slugified = slugify(value);
-                    if (!field.nameTouched || field.name === '' || field.name === slugify(oldValue)) {
-                        field.name = slugified;
-                    }
-                    if (!field.descriptionTouched || field.description === '') {
-                        field.description = `${t('field-desc-label')} ${value}`;
-                    }
-                    if (!field.hintTouched || field.hint === '') {
-                        field.hint = `${t('field-hint-label')} ${value}`;
-                    }
-                }
-
-                if (key === 'name') field.nameTouched = true;
-                if (key === 'description') field.descriptionTouched = true;
-                if (key === 'hint') field.hintTouched = true;
-                if (key === 'label') field.labelTouched = true;
-
-                if (key === 'layout' && value === 'custom') field[key] = 'joomla.form.field.';
-                
-                if (key === 'type' && value === 'list' && (!field.options || field.options.length === 0)) {
-                    field.options = [{ label: t('btn-add-option') + ' 1', value: '1' }];
-                }
-                if (key === 'type' && value === 'subform' && !field.fields) {
-                    field.fields = [];
-                }
-                render();
-            }
+            const f = findFieldById(id, parentFields);
+            if (f) { if (key === 'name') value = slugify(value); f[key] = value; if (key === 'label') { if (!f.nameTouched) f.name = slugify(value); if (!f.descriptionTouched) f.description = `${t('field-desc-label')} ${value}`; } if (key === 'name') f.nameTouched = true; if (key === 'description') f.descriptionTouched = true; render(); }
         }
 
-        function slugify(str) {
-            if (!str) return '';
-            return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-                      .toLowerCase()
-                      .replace(/[^a-z0-9]/g, '_')
-                      .replace(/__+/g, '_');
-        }
-
-        function findFieldById(id, searchFields) {
-            for (let f of searchFields) {
-                if (f.id === id) return f;
-                if (f.type === 'subform' && f.fields) {
-                    let found = findFieldById(id, f.fields);
-                    if (found) return found;
-                }
-            }
-            return null;
-        }
-
-        function toggleCollapse(id) {
-            const field = findFieldById(id, fields);
-            if (field) { field.collapsed = !field.collapsed; render(); }
-        }
-
-        function addOption(fieldId) {
-            const field = findFieldById(fieldId, fields);
-            if (field) { field.options.push({ label: t('btn-add-option'), value: '' }); render(); }
-        }
-
-        function updateOption(fieldId, index, key, value) {
-            const field = findFieldById(fieldId, fields);
-            if (field) { field.options[index][key] = value; render(); }
-        }
-
-        function removeOption(fieldId, index) {
-            const field = findFieldById(fieldId, fields);
-            if (field) { field.options.splice(index, 1); render(); }
-        }
+        function slugify(s) { return s ? s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_') : ''; }
+        function findFieldById(id, list) { for (let f of list) { if (f.id === id) return f; if (f.type === 'subform' && f.fields) { let res = findFieldById(id, f.fields); if (res) return res; } } return null; }
+        function toggleCollapse(id) { const f = findFieldById(id, fields); if (f) { f.collapsed = !f.collapsed; render(); } }
+        function addOption(fid) { const f = findFieldById(fid, fields); if (f) { f.options.push({ label: t('btn-add-option'), value: '' }); render(); } }
+        function updateOption(fid, i, k, v) { const f = findFieldById(fid, fields); if (f) { f.options[i][k] = v; render(); } }
+        function removeOption(fid, i) { const f = findFieldById(fid, fields); if (f) { f.options.splice(i, 1); render(); } }
 
         function render() {
-            const fieldList = document.getElementById('fieldList');
-            const activeId = document.activeElement ? document.activeElement.id : null;
-            const selectionStart = document.activeElement ? document.activeElement.selectionStart : null;
-            const selectionEnd = document.activeElement ? document.activeElement.selectionEnd : null;
-
-            fieldList.innerHTML = '';
-            fields.forEach(f => { fieldList.appendChild(createFieldCard(f)); });
-            updatePreview();
-
-            if (activeId) {
-                const el = document.getElementById(activeId);
-                if (el) {
-                    el.focus();
-                    if (selectionStart !== null && el.setSelectionRange) el.setSelectionRange(selectionStart, selectionEnd);
-                }
-            }
+            const list = document.getElementById('fieldList'); const act = document.activeElement ? document.activeElement.id : null;
+            const start = document.activeElement ? document.activeElement.selectionStart : null, end = document.activeElement ? document.activeElement.selectionEnd : null;
+            list.innerHTML = ''; fields.forEach(f => { list.appendChild(createFieldCard(f)); }); updatePreview();
+            if (act) { const el = document.getElementById(act); if (el) { el.focus(); if (start !== null && el.setSelectionRange) el.setSelectionRange(start, end); } }
         }
 
         function createFieldCard(f, isSub = false) {
-            const card = document.createElement('div');
-            card.className = `field-card ${isSub ? 'sub-card' : ''} ${f.collapsed ? 'collapsed' : ''}`;
-            
+            const card = document.createElement('div'); card.className = `field-card ${isSub ? 'sub-card' : ''} ${f.collapsed ? 'collapsed' : ''}`;
             card.innerHTML = `
                 <div class="field-card-header" onclick="toggleCollapse(${f.id})">
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i>
-                        <i class="fa-solid fa-grip-vertical btn-icon drag"></i>
-                        <strong>${f.label || t('field-default-label')}</strong>
-                        <span style="font-size:0.7rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span>
-                    </div>
-                    <div class="field-actions">
-                        <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
-                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i><strong>${f.label || t('field-default-label')}</strong><span style="font-size:0.65rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span></div>
+                    <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
-                    <div class="input-group">
-                        <label>${t('lbl-type')}</label>
-                        <select id="type-${f.id}" onchange="updateField(${f.id}, 'type', this.value)">
-                            ${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-label')}</label>
-                        <input type="text" id="label-${f.id}" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)">
-                    </div>
-                    <div class="input-group full-col" style="grid-column: span 2;">
-                        <label>${t('lbl-description')}</label>
-                        <input type="text" id="desc-${f.id}" value="${f.description || ''}" oninput="updateField(${f.id}, 'description', this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-name')}</label>
-                        <input type="text" id="name-${f.id}" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-default')}</label>
-                        <input type="text" id="default-${f.id}" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-hint')}</label>
-                        <input type="text" id="hint-${f.id}" value="${f.hint || ''}" oninput="updateField(${f.id}, 'hint', this.value)">
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-layout')}</label>
-                        <select id="layout-sel-${f.id}" onchange="updateField(${f.id}, 'layout', this.value)">
-                            <option value="" ${!f.layout ? 'selected' : ''}>${t('opt-layout-default')}</option>
-                            <option value="joomla.form.field.subform.repeatable-grid" ${f.layout === 'joomla.form.field.subform.repeatable-grid' ? 'selected' : ''}>Subform: Repeatable Grid</option>
-                            <option value="joomla.form.field.subform.repeatable-table" ${f.layout === 'joomla.form.field.subform.repeatable-table' ? 'selected' : ''}>Subform: Repeatable Table</option>
-                            <option value="joomla.form.field.media" ${f.layout === 'joomla.form.field.media' ? 'selected' : ''}>Media Layout</option>
-                            <option value="joomla.form.field.list" ${f.layout === 'joomla.form.field.list' ? 'selected' : ''}>List Layout</option>
-                            <option value="custom" ${f.layout && !['joomla.form.field.subform.repeatable-grid', 'joomla.form.field.subform.repeatable-table', 'joomla.form.field.media', 'joomla.form.field.list'].includes(f.layout) ? 'selected' : ''}>${t('opt-layout-custom')}</option>
-                        </select>
-                        ${f.layout && !['joomla.form.field.subform.repeatable-grid', 'joomla.form.field.subform.repeatable-table', 'joomla.form.field.media', 'joomla.form.field.list', ''].includes(f.layout) ? `
-                            <input type="text" id="layout-${f.id}" value="${f.layout}" oninput="updateField(${f.id}, 'layout', this.value)" placeholder="${t('placeholder-custom-layout')}" style="margin-top: 5px;">
-                        ` : ''}
-                    </div>
-                    <div class="input-group">
-                        <label>${t('lbl-class')}</label>
-                        <input type="text" id="class-${f.id}" value="${f.class || ''}" oninput="updateField(${f.id}, 'class', this.value)">
-                    </div>
-                    
-                    ${f.type === 'list' || f.type === 'radio' || f.type === 'checkbox' ? `
-                        <div class="options-builder">
-                            <label style="font-size: 0.7rem; color: var(--br-yellow)">${t('lbl-options')}</label>
-                            ${f.options.map((opt, i) => `
-                                <div class="option-row">
-                                    <input type="text" id="opt-lbl-${f.id}-${i}" value="${opt.label}" placeholder="Label" oninput="updateOption(${f.id}, ${i}, 'label', this.value)">
-                                    <input type="text" id="opt-val-${f.id}-${i}" value="${opt.value}" placeholder="Value" oninput="updateOption(${f.id}, ${i}, 'value', this.value)">
-                                    <button class="btn-icon" onclick="removeOption(${f.id}, ${i})"><i class="fa-solid fa-xmark"></i></button>
-                                </div>
-                            `).join('')}
-                            <button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem;" onclick="addOption(${f.id})">${t('btn-add-option')}</button>
-                        </div>
-                    ` : ''}
-
-                    ${f.type === 'subform' ? `
-                        <div class="subform-container">
-                            <label style="font-size: 0.7rem; color: var(--br-yellow)">${t('lbl-subform-fields')}</label>
-                            <div class="subform-fields" id="sub-${f.id}"></div>
-                            <button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem; margin-top:10px;" onclick="addFieldInside(${f.id})">${t('btn-add-subfield')}</button>
-                        </div>
-                    ` : ''}
-                </div>
-            `;
-            if (f.type === 'subform' && f.fields) {
-                const subContainer = card.querySelector(`#sub-${f.id}`);
-                f.fields.forEach(subF => { subContainer.appendChild(createFieldCard(subF, true)); });
-            }
+                    <div class="input-group"><label>${t('lbl-type')}</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>${t('lbl-label')}</label><input type="text" id="label-${f.id}" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
+                    <div class="input-group" style="grid-column: span 2;"><label>${t('lbl-description')}</label><input type="text" value="${f.description || ''}" oninput="updateField(${f.id}, 'description', this.value)"></div>
+                    <div class="input-group"><label>${t('lbl-name')}</label><input type="text" id="name-${f.id}" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
+                    <div class="input-group"><label>${t('lbl-default')}</label><input type="text" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)"></div>
+                    ${f.type === 'subform' ? `<div class="subform-container"><div class="subform-fields" id="sub-${f.id}"></div><button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem; margin-top:10px;" onclick="addFieldInside(${f.id})">${t('btn-add-subfield')}</button></div>` : ''}
+                    ${f.type === 'list' || f.type === 'radio' ? `<div class="options-builder">${f.options.map((opt, i) => `<div class="option-row"><input type="text" value="${opt.label}" placeholder="L" oninput="updateOption(${f.id}, ${i}, 'label', this.value)"><input type="text" value="${opt.value}" placeholder="V" oninput="updateOption(${f.id}, ${i}, 'value', this.value)"><button class="btn-icon" onclick="removeOption(${f.id}, ${i})"><i class="fa-solid fa-xmark"></i></button></div>`).join('')}<button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem;" onclick="addOption(${f.id})">${t('btn-add-option')}</button></div>` : ''}
+                </div>`;
+            if (f.type === 'subform' && f.fields) { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createFieldCard(sf, true)); }); }
             return card;
         }
 
-        function addFieldInside(parentID) {
-            const parent = findFieldById(parentID, fields);
-            if (parent && parent.type === 'subform') addField(parent.fields);
-        }
+        function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function updatePreview() {
-            const xml = generateXMLSnippet();
-            document.getElementById('xmlPreview').innerText = xml;
-            const modName = document.getElementById('moduleName').value || 'mod_custom';
-            const slug = slugify(modName);
-            document.getElementById('folderStructure').innerText = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`;
+            const xml = generateXMLSnippet(); document.getElementById('xmlPreview').textContent = xml; Prism.highlightElement(document.getElementById('xmlPreview'));
+            const slug = slugify(document.getElementById('moduleName').value || 'custom');
+            document.getElementById('folderStructure').textContent = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`; Prism.highlightElement(document.getElementById('folderStructure'));
+            if (!phpTouched) { const g = generatePHPTemplate(slug); document.getElementById('phpEditor').value = g; document.getElementById('phpHighlight').textContent = g; customPHP = g; Prism.highlightElement(document.getElementById('phpHighlight')); }
+        }
+
+        function generatePHPTemplate(slug) {
+            let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n`;
+            if (currentPresetKey === 'carousel') p += `<div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel">\n\t<div class="carousel-inner">\n\t\t<?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n\t\t\t<div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n\t\t\t\t<img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n\t\t\t</div>\n\t\t<?php endforeach; ?>\n\t</div>\n</div>`;
+            else if (currentPresetKey === 'pricing') p += `<div class="row pricing">\n\t<?php foreach ($params->get('plans', []) as $plan) : ?>\n\t\t<div class="col-md-4"><div class="card text-center"><h3><?php echo $plan->name; ?></h3><div class="h2"><?php echo $plan->price; ?></div><p><?php echo nl2br($plan->features); ?></p><a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary"><?php echo $plan->btn_text; ?></a></div></div>\n\t<?php endforeach; ?>\n</div>`;
+            else if (currentPresetKey === 'hero') p += `<div class="hero p-5 text-center" style="background: <?php echo $params->get('overlay'); ?> url('<?php echo $params->get('bg_image'); ?>'); background-blend-mode: multiply;">\n\t<h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n\t<div class="text-white"><?php echo $params->get('content'); ?></div>\n</div>`;
+            else p += `<div class="mod-${slug}">\n\t<?php foreach ($params->toArray() as $k => $v) : ?>\n\t\t<p><strong><?php echo Text::_('${slug.toUpperCase()}_' . strtoupper($k)); ?>:</strong> <?php echo is_array($v) ? '...' : $v; ?></p>\n\t<?php endforeach; ?>\n</div>`;
+            return p;
         }
 
         function generateXMLSnippet() {
             let xml = `<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
-            function buildFields(fieldList, indent = '      ') {
-                const modPrefix = slugify(document.getElementById('moduleName').value || 'custom').toUpperCase();
-                let s = '';
-                fieldList.forEach(f => {
-                    const keyBase = `MOD_${modPrefix}_${f.name.toUpperCase()}`;
-                    if (f.type === 'subform') {
-                        s += `${indent}<field name="${f.name}" type="subform" label="${keyBase}_LABEL" description="${keyBase}_DESC" multiple="true" min="1" max="10"`;
-                        if (f.layout) s += ` layout="${f.layout}"`;
-                        s += `>\n`;
-                        s += `${indent}  <form>\n`;
-                        s += buildFields(f.fields, indent + '    ');
-                        s += `${indent}  </form>\n`;
-                        s += `${indent}</field>\n`;
-                    } else {
-                        s += `${indent}<field name="${f.name}" type="${f.type}" label="${keyBase}_LABEL" description="${keyBase}_DESC" default="${f.default}"`;
-                        if (f.hint) s += ` hint="${keyBase}_HINT"`;
-                        if (f.layout) s += ` layout="${f.layout}"`;
-                        if (f.class) s += ` class="${f.class}"`;
-                        if (f.options && f.options.length > 0) {
-                            s += `>\n`;
-                            f.options.forEach(opt => { s += `${indent}  <option value="${opt.value}">${opt.label}</option>\n`; });
-                            s += `${indent}</field>\n`;
-                        } else { s += ` />\n`; }
-                    }
-                });
-                return s;
-            }
-            xml += buildFields(fields);
-            xml += `    </fieldset>\n  </fields>\n</config>`;
-            return xml;
+            function build(l, ind = '      ') {
+                const mod = slugify(document.getElementById('moduleName').value || 'custom').toUpperCase(); let s = '';
+                l.forEach(f => {
+                    const k = `MOD_${mod}_${f.name.toUpperCase()}`;
+                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="${k}_LABEL" multiple="true" layout="${f.layout}">\n${ind}  <form>\n${build(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
+                    else s += `${ind}<field name="${f.name}" type="${f.type}" label="${k}_LABEL" default="${f.default || ''}" />\n`;
+                }); return s;
+            } return xml + build(fields) + `    </fieldset>\n  </fields>\n</config>`;
         }
 
         async function generatePackage() {
-            const modName = document.getElementById('moduleName').value || 'My Module';
-            const slug = slugify(modName);
-            const ns = document.getElementById('namespace').value || 'MyNamespace';
-            const author = document.getElementById('author').value || 'John Doe';
-            const authorEmail = document.getElementById('authorEmail').value || '';
-            const authorUrl = document.getElementById('authorUrl').value || '';
-            const client = document.getElementById('clientType').value;
-            const modPrefix = `mod_${slug}`;
-
-            const zip = new JSZip();
-            const root = zip.folder(modPrefix);
-
-            const manifest = `<?xml version="1.0" encoding="UTF-8"?>
-<extension type="module" client="${client}" method="upgrade">
-    <name>${modPrefix}</name>
-    <author>${author}</author>
-    <authorEmail>${authorEmail}</authorEmail>
-    <authorUrl>${authorUrl}</authorUrl>
-    <creationDate>${new Date().toISOString().split('T')[0]}</creationDate>
-    <version>1.0.0</version>
-    <description>${modPrefix.toUpperCase()}_XML_DESCRIPTION</description>
-    <namespace path="src">Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}</namespace>
-    <files>
-        <folder module="${modPrefix}">services</folder>
-        <folder>src</folder>
-        <folder>tmpl</folder>
-    </files>
-    <languages>
-        <language tag="en-GB">language/en-GB/${modPrefix}.ini</language>
-        <language tag="en-GB">language/en-GB/${modPrefix}.sys.ini</language>
-        <language tag="pt-BR">language/pt-BR/${modPrefix}.ini</language>
-        <language tag="pt-BR">language/pt-BR/${modPrefix}.sys.ini</language>
-    </languages>
-    ${generateXMLSnippet()}
-</extension>`;
-            root.file(`${modPrefix}.xml`, manifest);
-
-            let iniContent = `${modPrefix.toUpperCase()}="${modName}"\n${modPrefix.toUpperCase()}_XML_DESCRIPTION="${modPrefix.toUpperCase()}_XML_DESCRIPTION"\n`;
-            let sysIniContent = `${modPrefix.toUpperCase()}="${modName}"\n${modPrefix.toUpperCase()}_XML_DESCRIPTION="${modPrefix.toUpperCase()}_XML_DESCRIPTION"\n`;
-            
-            function addTranslations(fieldList) {
-                fieldList.forEach(f => {
-                    const keyBase = `${modPrefix.toUpperCase()}_${f.name.toUpperCase()}`;
-                    iniContent += `${keyBase}_LABEL="${f.label}"\n`;
-                    iniContent += `${keyBase}_DESC="${f.description}"\n`;
-                    if (f.hint) iniContent += `${keyBase}_HINT="${f.hint}"\n`;
-                    if (f.type === 'subform' && f.fields) { addTranslations(f.fields); }
-                });
-            }
-            addTranslations(fields);
-
-            root.folder(`language/en-GB`).file(`${modPrefix}.ini`, iniContent);
-            root.folder(`language/en-GB`).file(`${modPrefix}.sys.ini`, sysIniContent);
-            root.folder(`language/pt-BR`).file(`${modPrefix}.ini`, iniContent);
-            root.folder(`language/pt-BR`).file(`${modPrefix}.sys.ini`, sysIniContent);
-
-            const provider = `<?php
-defined('_JEXEC') or die;
-use Joomla\\CMS\\Extension\\Service\\Provider\\Module;
-use Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;
-use Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;
-use Joomla\\DI\\Container;
-use Joomla\\DI\\ServiceProviderInterface;
-
-return new class () implements ServiceProviderInterface {
-    public function register(Container $container) {
-        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}'));
-        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}\\\\Helper'));
-        $container->registerServiceProvider(new Module());
-    }
-};`;
-            root.folder('services').file('provider.php', provider);
-
-            const dispatcher = `<?php
-namespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Dispatcher;
-defined('_JEXEC') or die;
-use Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;
-use Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;
-use Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;
-
-class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface {
-    use HelperFactoryAwareTrait;
-    protected function getLayoutData() {
-        return parent::getLayoutData();
-    }
-}`;
-            root.folder('src/Dispatcher').file('Dispatcher.php', dispatcher);
-
-            const helper = `<?php
-namespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Helper;
-defined('_JEXEC') or die;
-
-class ${ns}Helper {
-    public function getItems($params, $app) { return []; }
-}`;
-            root.folder('src/Helper').file(`${ns}Helper.php`, helper);
-
-            // Template Logic
-            let template = `<?php
-defined('_JEXEC') or die;
-use Joomla\\CMS\\Language\\Text;
-?>\n`;
-
-            if (currentPresetKey === 'carousel') {
-                template += `<div class="${modPrefix} carousel slide" id="carousel-<?php echo $module->id; ?>" data-bs-ride="carousel">
-    <?php if ($params->get('indicators')) : ?>
-        <div class="carousel-indicators">
-            <?php foreach ($params->get('slides', []) as $i => $slide) : ?>
-                <button type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo $i === 0 ? 'active' : ''; ?>"></button>
-            <?php endforeach; ?>
-        </div>
-    <?php endif; ?>
-
-    <div class="carousel-inner">
-        <?php foreach ($params->get('slides', []) as $i => $slide) : ?>
-            <div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">
-                <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5><?php echo $slide->title; ?></h5>
-                    <p><?php echo $slide->caption; ?></p>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-</div>`;
-            } else if (currentPresetKey === 'hero') {
-                template += `<div class="${modPrefix} hero-section" style="background-image: url('<?php echo $params->get('bg_image'); ?>'); position: relative; padding: 100px 0;">
-    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: <?php echo $params->get('overlay_color'); ?>; opacity: 0.5;"></div>
-    <div class="container" style="position: relative; z-index: 2; text-align: center; color: #fff;">
-        <h1><?php echo $params->get('main_title'); ?></h1>
-        <div class="lead"><?php echo $params->get('hero_content'); ?></div>
-        <a href="<?php echo $params->get('btn_link'); ?>" class="btn btn-primary mt-4"><?php echo $params->get('btn_text'); ?></a>
-    </div>
-</div>`;
-            } else if (currentPresetKey === 'social') {
-                template += `<div class="${modPrefix} social-links text-center">
-    <?php foreach ($params->get('links', []) as $link) : ?>
-        <a href="<?php echo $link->profile_url; ?>" class="social-icon <?php echo $params->get('icon_size'); ?>">
-            <i class="fab fa-<?php echo $link->network; ?>"></i>
-        </a>
-    <?php endforeach; ?>
-</div>`;
-            } else {
-                // Default Generic Loop
-                template += `<div class="${modPrefix}">
-    <div class="${modPrefix}-content">
-        <?php foreach ($params->toArray() as $key => $value) : ?>
-            <?php if (!empty($value)) : ?>
-                <div class="field-item">
-                    <span class="field-label"><?php echo Text::_('${modPrefix.toUpperCase()}_' + $key.toUpperCase() + '_LABEL'); ?>:</span>
-                    <span class="field-value">
-                        <?php echo is_array($value) ? '<pre>' . json_encode($value, JSON_PRETTY_PRINT) . '</pre>' : $value; ?>
-                    </span>
-                </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    </div>
-</div>`;
-            }
-
-            root.folder('tmpl').file('default.php', template);
-
-            const blob = await zip.generateAsync({type: "blob"});
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = `${modPrefix}.zip`; a.click();
-            URL.revokeObjectURL(url);
+            const modName = document.getElementById('moduleName').value || 'My Module', slug = slugify(modName), ns = document.getElementById('namespace').value || 'MyNamespace', author = document.getElementById('author').value || 'John Doe', client = document.getElementById('clientType').value, prefix = `mod_${slug}`, zip = new JSZip(), root = zip.folder(prefix);
+            root.file(`${prefix}.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="${client}" method="upgrade">\n\t<name>${prefix}</name>\n\t<author>${author}</author>\n\t<namespace path="src">Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}</namespace>\n\t<files><folder module="${prefix}">services</folder><folder>src</folder><folder>tmpl</folder></files>\n\t<languages><language tag="en-GB">language/en-GB/${prefix}.ini</language><language tag="pt-BR">language/pt-BR/${prefix}.ini</language></languages>\n\t${generateXMLSnippet()}\n</extension>`);
+            let ini = `${prefix.toUpperCase()}="${modName}"\n`;
+            function addTrans(l) { l.forEach(f => { ini += `${prefix.toUpperCase()}_${f.name.toUpperCase()}_LABEL="${f.label}"\n`; if (f.fields) addTrans(f.fields); }); }
+            addTrans(fields); ['en-GB', 'pt-BR'].forEach(l => { root.folder(`language/${l}`).file(`${prefix}.ini`, ini); root.folder(`language/${l}`).file(`${prefix}.sys.ini`, ini); });
+            root.folder('services').file('provider.php', `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\\ModuleDispatcherFactory;\\HelperFactory;\\DI\\Container;\\DI\\ServiceProviderInterface;return new class () implements ServiceProviderInterface {\n\tpublic function register(Container $container) {\n\t\t$container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}'));\n\t\t$container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}\\\\Helper'));\n\t\t$container->registerServiceProvider(new Module());\n\t}\n};`);
+            root.folder('src/Dispatcher').file('Dispatcher.php', `<?php\nnamespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Dispatcher;\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\\HelperFactoryAwareInterface;\\HelperFactoryAwareTrait;class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface {\n\tuse HelperFactoryAwareTrait; protected function getLayoutData() { return parent::getLayoutData(); }\n}`);
+            root.folder('src/Helper').file(`${ns}Helper.php`, `<?php\nnamespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Helper;\ndefined('_JEXEC') or die;\nclass ${ns}Helper { public function getItems($params, $app) { return []; } }`);
+            root.folder('tmpl').file('default.php', customPHP);
+            const blob = await zip.generateAsync({type: "blob"}); confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${prefix}.zip`; a.click();
         }
 
-        document.getElementById('moduleName').addEventListener('input', (e) => {
-            const val = e.target.value || "My Module";
-            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
-            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
-            document.getElementById('namespace').value = cap;
-            updatePreview();
-        });
+        document.getElementById('moduleName').addEventListener('input', e => { updatePreview(); });
         document.getElementById('namespace').addEventListener('input', updatePreview);
         document.getElementById('clientType').addEventListener('change', updatePreview);
-
-        const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
-        setLang(userLang);
+        setLang(navigator.language.startsWith('pt') ? 'pt' : 'en');
     </script>
 </body>
 </html>
