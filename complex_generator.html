@@ -72,7 +72,7 @@
         </div>
         <button class="btn-zip" onclick="zip()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
     </aside>
-    <main class="main-content">
+    <main class="main-content" id="mainScroll">
         <header style="display:flex; justify-content:space-between; align-items:center;">
             <h1>Fields Architect</h1>
             <button class="btn-add" onclick="add()"><i class="fa-solid fa-plus"></i> ADD FIELD</button>
@@ -101,22 +101,31 @@
         };
         let list = [], customPHP = '';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
-        function preset(k) {
-            const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n;
-            document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render();
-        }
+        function preset(k) { const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n; document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render(); }
         function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'field_' + Date.now().toString().slice(-3), l: 'New Field', r: false, f: [] }); render(); }
         function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
         function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
         function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
+        
         function render() {
-            const activeId = document.activeElement ? document.activeElement.id : null;
-            const start = document.activeElement ? document.activeElement.selectionStart : 0;
-            const end = document.activeElement ? document.activeElement.selectionEnd : 0;
+            const focused = document.activeElement;
+            const activeId = focused ? focused.id : null;
+            const start = focused && focused.selectionStart !== undefined ? focused.selectionStart : 0;
+            const end = focused && focused.selectionEnd !== undefined ? focused.selectionEnd : 0;
+            const scroll = document.getElementById('mainScroll').scrollTop;
+
             const container = document.getElementById('fields'); container.innerHTML = '';
             list.forEach(x => container.appendChild(card(x))); update();
-            if (activeId) { const el = document.getElementById(activeId); if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(start, end); } }
+            
+            document.getElementById('mainScroll').scrollTop = scroll;
+            if (activeId) {
+                setTimeout(() => {
+                    const el = document.getElementById(activeId);
+                    if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(start, end); }
+                }, 0);
+            }
         }
+
         function card(x) {
             const d = document.createElement('div'); d.className = 'field-card';
             d.innerHTML = `<div class="field-card-header"><strong>${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
