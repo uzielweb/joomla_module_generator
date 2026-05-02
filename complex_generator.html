@@ -72,8 +72,8 @@
         .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
 
         .field-card { background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; }
-        .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1rem; }
+        .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; border-bottom: 1px solid var(--border-white); padding-bottom: 0.8rem; margin-bottom: 1rem; }
+        .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         .btn-add { background: linear-gradient(135deg, var(--br-green), #00c853); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
         .btn-zip { background: linear-gradient(135deg, var(--br-blue), #0039cb); color: var(--br-yellow); border: none; padding: 1.2rem; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -83,7 +83,7 @@
         
         pre, code { font-family: 'Courier New', Courier, monospace !important; font-size: 0.75rem !important; }
         .php-editor-area { width: 100%; height: 380px; background: #000; color: #00ff00; font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; padding: 1rem; border: 1px solid var(--accent); border-radius: 12px; resize: none; line-height: 1.5; }
-        .subform-container { grid-column: span 2; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px dashed var(--border-white); }
+        .subform-container { grid-column: span 2; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px dashed var(--border-white); margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -203,20 +203,20 @@
         function createCard(f) {
             const card = document.createElement('div'); card.className = 'field-card';
             card.innerHTML = `
-                <div class="field-card-header" onclick="this.parentElement.querySelector('.field-card-body').style.display = this.parentElement.querySelector('.field-card-body').style.display === 'none' ? 'grid' : 'none'">
+                <div class="field-card-header">
                     <strong>${f.label}</strong> <small>(${f.type})</small>
                     <button class="lang-btn" style="background:var(--danger); border:none;" onclick="event.stopPropagation(); removeField(${f.id})">X</button>
                 </div>
-                <div class="field-card-body" style="display:none;">
+                <div class="field-card-body">
                     <div class="input-group"><label>Type</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
                     <div class="input-group"><label>Label</label><input type="text" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
                     <div class="input-group"><label>Name</label><input type="text" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
                     ${f.type === 'subform' ? `<div class="subform-container"><div id="sub-${f.id}"></div><button class="btn-add" style="padding:5px 10px; font-size:0.7rem;" onclick="addFieldInside(${f.id})">+ Sub</button></div>` : ''}
                 </div>`;
-            if (f.type === 'subform') { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createCard(sf)); }); }
+            if (f.type === 'subform') { const sub = card.querySelector(`#sub-${f.id}`); (f.fields || []).forEach(sf => { sub.appendChild(createCard(sf)); }); }
             return card;
         }
-        function addFieldInside(pid) { const p = findField(pid, fields); if (p) addField(p.fields); }
+        function addFieldInside(pid) { const p = findField(pid, fields); if (p) { if (!p.fields) p.fields = []; addField(p.fields); } }
 
         function generatePHP(slug) {
             let p = '<?php\ndefined(\'_JEXEC\') or die;\n?>\n<div class="mod-' + slug + '">\n';
@@ -245,20 +245,22 @@
         }
 
         function updatePreview() {
-            const name = document.getElementById('moduleName').value || 'custom';
-            const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            let xml = '<config>\n  <fields name="params">\n    <fieldset name="basic">\n';
-            function build(list, ind) {
-                let s = ''; list.forEach(f => {
-                    if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + build(f.fields, ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
-                    else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="' + f.label + '" />\n';
-                }); return s;
-            }
-            xml += build(fields, '      ') + '    </fieldset>\n  </fields>\n</config>';
-            document.getElementById('xmlPreview').textContent = xml;
-            document.getElementById('folderStructure').textContent = 'mod_' + slug + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
-            if (!phpTouched) { customPHP = generatePHP(slug); document.getElementById('phpEditor').value = customPHP; }
-            if (window.Prism) Prism.highlightAll();
+            try {
+                const name = document.getElementById('moduleName').value || 'custom';
+                const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                let xml = '<config>\n  <fields name="params">\n    <fieldset name="basic">\n';
+                function build(list, ind) {
+                    let s = ''; list.forEach(f => {
+                        if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + build(f.fields || [], ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
+                        else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="' + f.label + '" />\n';
+                    }); return s;
+                }
+                xml += build(fields, '      ') + '    </fieldset>\n  </fields>\n</config>';
+                document.getElementById('xmlPreview').textContent = xml;
+                document.getElementById('folderStructure').textContent = 'mod_' + slug + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
+                if (!phpTouched) { customPHP = generatePHP(slug); document.getElementById('phpEditor').value = customPHP; }
+                if (window.Prism) Prism.highlightAll();
+            } catch(e) { console.error(e); }
         }
 
         async function generatePackage() {
