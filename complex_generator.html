@@ -50,7 +50,7 @@
             color-scheme: dark;
         }
 
-        /* Sidebar */
+        /* Panes */
         .sidebar {
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-white);
@@ -68,7 +68,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .preview-pane {
@@ -82,7 +82,7 @@
             gap: 1.5rem;
         }
 
-        /* UI Elements */
+        /* UI Components */
         .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-bottom: 0.5rem; }
         .logo span { color: var(--br-yellow); }
         .logo i { color: var(--br-green); }
@@ -100,7 +100,6 @@
         }
         .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); border-color: var(--br-yellow); }
 
-        /* Form Controls */
         .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.8rem; }
         .input-group label { font-size: 0.65rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
         .input-group input, .input-group select, .input-group textarea {
@@ -112,9 +111,7 @@
             font-family: inherit;
             font-size: 0.85rem;
         }
-        .input-group input:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); }
 
-        /* Presets Grid */
         .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .preset-btn {
             background: rgba(255,255,255,0.02);
@@ -125,102 +122,31 @@
             cursor: pointer;
             font-size: 0.65rem;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 6px;
-            transition: 0.2s;
+            flex-direction: column; align-items: center; gap: 6px; transition: 0.2s;
         }
         .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); transform: translateY(-2px); }
         .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
 
-        /* Cards */
         .field-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
-            border-radius: 20px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 1.2rem;
             margin-bottom: 1rem;
         }
         .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 1.5rem; }
+        .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 1rem; }
 
-        /* Buttons */
-        .btn-add {
-            background: linear-gradient(135deg, var(--br-green), #00c853);
-            color: #fff;
-            border: none;
-            padding: 0.8rem 1.5rem;
-            border-radius: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-        }
-        .btn-zip {
-            background: linear-gradient(135deg, var(--br-blue), #0039cb);
-            color: var(--br-yellow);
-            border: none;
-            padding: 1rem;
-            border-radius: 14px;
-            font-weight: 800;
-            cursor: pointer;
-            width: 100%;
-            margin-top: auto;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
+        .btn-add { background: linear-gradient(135deg, var(--br-green), #00c853); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
+        .btn-zip { background: linear-gradient(135deg, var(--br-blue), #0039cb); color: var(--br-yellow); border: none; padding: 1.2rem; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 10px; }
 
-        /* Previews */
         .preview-title { font-size: 0.7rem; color: var(--br-yellow); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 5px; }
+        .preview-box { background: #0a0c10; padding: 1rem; border-radius: 12px; border: 1px solid var(--border-white); margin-bottom: 1rem; max-height: 400px; overflow: auto; }
         
-        .preview-box {
-            background: #0a0c10 !important;
-            padding: 1rem !important;
-            border-radius: 12px !important;
-            border: 1px solid var(--border-white) !important;
-            margin-bottom: 1rem;
-            max-height: 400px;
-            overflow: auto;
-        }
-        
-        pre[class*="language-"] {
-            margin: 0 !important;
-            padding: 0 !important;
-            background: transparent !important;
-            font-size: 0.75rem !important;
-        }
-        
-        code[class*="language-"] {
-            color: #ffffff !important;
-            text-shadow: none !important;
-            white-space: pre !important;
-        }
+        pre, code { font-family: 'Courier New', Courier, monospace !important; font-size: 0.75rem !important; }
+        .php-editor-area { width: 100%; height: 380px; background: #000; color: #00ff00; font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; padding: 1rem; border: 1px solid var(--accent); border-radius: 12px; resize: none; line-height: 1.5; }
 
-        .php-editor-area {
-            width: 100%;
-            height: 380px;
-            background: #000;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.8rem;
-            padding: 1rem;
-            border: 1px solid var(--accent);
-            border-radius: 12px;
-            resize: none;
-            line-height: 1.5;
-        }
-
-        .subform-container { grid-column: span 2; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px dashed var(--border-white); }
-        .subform-fields { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
-
-        @media (max-width: 1100px) {
-            body { grid-template-columns: 320px 1fr; }
-            .preview-pane { display: none; }
-        }
+        .subform-container { grid-column: span 2; padding: 1rem; background: rgba(0,0,0,0.3); border-radius: 12px; border: 1px dashed var(--border-white); }
     </style>
 </head>
 <body>
@@ -232,15 +158,15 @@
         </div>
         <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
         
-        <div class="settings-group">
+        <div class="settings">
             <h3 data-i18n="sidebar-meta" style="font-size: 0.6rem; color: rgba(255,255,255,0.4); margin-bottom: 0.8rem; letter-spacing: 1px;">META DATA</h3>
-            <div class="input-group"><label data-i18n="lbl-mod-name">Module Name</label><input type="text" id="moduleName" value="My Custom Module"></div>
-            <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="namespace" value="MyCustomModule"></div>
+            <div class="input-group"><label data-i18n="lbl-mod-name">Module Name</label><input type="text" id="moduleName" value="My Features Grid" oninput="updatePreview()"></div>
+            <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="namespace" value="MyFeaturesGrid" oninput="updatePreview()"></div>
             <div class="input-group"><label data-i18n="lbl-author">Author</label><input type="text" id="author" value="John Doe"></div>
             <div class="input-group"><label data-i18n="lbl-author-url">Author URL</label><input type="text" id="authorUrl" value="https://example.com"></div>
             <div class="input-group">
                 <label data-i18n="lbl-client">Client</label>
-                <select id="clientType">
+                <select id="clientType" onchange="updatePreview()">
                     <option value="site" data-i18n="opt-site">Site (Frontend)</option>
                     <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
                 </select>
@@ -265,7 +191,7 @@
     </aside>
 
     <main class="main-content">
-        <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1rem;">
+        <header style="display:flex; justify-content:space-between; align-items:center;">
             <div>
                 <h1 data-i18n="builder-title" style="font-size: 1.5rem;">Fields Architect</h1>
                 <p data-i18n="builder-subtitle" style="color: rgba(255,255,255,0.4); font-size: 0.8rem;">Configure parameters</p>
@@ -276,24 +202,14 @@
     </main>
 
     <aside class="preview-pane">
-        <div class="preview-section">
-            <h2 class="preview-title" data-i18n="preview-xml">Manifest XML</h2>
-            <div class="preview-box">
-                <pre class="language-markup"><code id="xmlPreview"></code></pre>
-            </div>
-        </div>
+        <h2 class="preview-title" data-i18n="preview-xml">Manifest XML</h2>
+        <div class="preview-box"><pre class="language-markup"><code id="xmlPreview"></code></pre></div>
         
-        <div class="preview-section">
-            <h2 class="preview-title">default.php (Editor)</h2>
-            <textarea id="phpEditor" class="php-editor-area" spellcheck="false" oninput="customPHP = this.value"></textarea>
-        </div>
+        <h2 class="preview-title">default.php (Editor)</h2>
+        <textarea id="phpEditor" class="php-editor-area" spellcheck="false" oninput="customPHP = this.value"></textarea>
 
-        <div class="preview-section">
-            <h2 class="preview-title" data-i18n="preview-struct">File Structure</h2>
-            <div class="preview-box">
-                <pre class="language-bash"><code id="folderStructure"></code></pre>
-            </div>
-        </div>
+        <h2 class="preview-title" data-i18n="preview-struct">File Structure</h2>
+        <div class="preview-box"><pre class="language-bash"><code id="folderStructure"></code></pre></div>
     </aside>
 
     <script>
@@ -303,144 +219,107 @@
         };
 
         const presets = {
-            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'caption', label: 'Caption' }] }, { id: 2, type: 'integer', name: 'interval', label: 'Interval (ms)', default: '5000' }, { id: 3, type: 'radio', name: 'indicators', label: 'Indicators', default: '1' }, { id: 4, type: 'radio', name: 'controls', label: 'Controls', default: '1' }] },
+            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'caption', label: 'Caption' }] }, { id: 2, type: 'integer', name: 'interval', label: 'Interval (ms)', default: '5000' }, { id: 3, type: 'radio', name: 'indicators', label: 'Indicators', default: '1' }] },
             hero: { name: 'My Hero Section', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }] },
-            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }, { id: 13, type: 'textarea', name: 'features', label: 'Features' }, { id: 14, type: 'url', name: 'btn_url', label: 'Btn URL' }] }] },
-            faq: { name: 'My FAQ Accordion', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
-            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }, { id: 13, type: 'textarea', name: 'quote', label: 'Quote' }] }] },
-            features: { name: 'My Features Grid', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'desc', label: 'Description' }]}] },
-            map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }, { id: 4, type: 'integer', name: 'zoom', label: 'Zoom', default: '15' }] },
-            video: { name: 'My Video Hero', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }, { id: 3, type: 'text', name: 'title', label: 'Title' }] },
-            contact: { name: 'My Contact Form', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }, { id: 2, type: 'text', name: 'subject', label: 'Subject' }, { id: 3, type: 'textarea', name: 'success', label: 'Success Msg' }] },
-            social: { name: 'My Social Links', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
+            pricing: { name: 'My Pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }] }] },
+            faq: { name: 'My FAQ', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', fields: [{ id: 11, type: 'text', name: 'q', label: 'Question' }, { id: 12, type: 'textarea', name: 'a', label: 'Answer' }] }] },
+            testimonials: { name: 'My Reviews', fields: [{ id: 1, type: 'subform', name: 'revs', label: 'Reviews', fields: [{ id: 11, type: 'text', name: 'user', label: 'User' }, { id: 12, type: 'textarea', name: 'msg', label: 'Message' }] }] },
+            features: { name: 'My Features', fields: [{ id: 1, type: 'subform', name: 'feats', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }] }] },
+            map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat' }, { id: 3, type: 'text', name: 'lng', label: 'Lng' }] },
+            video: { name: 'My Video', fields: [{ id: 1, type: 'url', name: 'url', label: 'Video URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }] },
+            contact: { name: 'My Contact', fields: [{ id: 1, type: 'email', name: 'to', label: 'Email' }, { id: 2, type: 'text', name: 'sub', label: 'Subject' }] },
+            social: { name: 'My Social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
         };
 
-        let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
-        let fields = [{ id: Date.now(), type: 'text', name: 'title', label: 'Title', default: 'Hello World', collapsed: false, fields: [] }];
+        let currentLang = 'en', fields = [], customPHP = '', phpTouched = false, currentPresetKey = 'features';
         const fieldTypes = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
 
-        function setLang(lang) {
-            currentLang = lang; document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = i18n[currentLang][el.getAttribute('data-i18n')]; });
-            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active'); render();
-        }
-
+        function setLang(lang) { currentLang = lang; document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = i18n[currentLang][el.getAttribute('data-i18n')]; }); render(); }
+        
         function loadPreset(key) {
-            if (fields.length > 0 && !confirm(i18n[currentLang]['confirm-preset'])) return;
-            currentPresetKey = key; phpTouched = false; const p = presets[key];
-            document.getElementById('moduleName').value = p.name;
+            currentPresetKey = key; phpTouched = false;
+            const p = presets[key]; document.getElementById('moduleName').value = p.name;
+            const slug = p.name.normalize("NFD").replace(/[^A-Za-z0-9]/g, '');
+            document.getElementById('namespace').value = slug.charAt(0).toUpperCase() + slug.slice(1);
             fields = JSON.parse(JSON.stringify(p.fields));
-            const val = document.getElementById('moduleName').value;
-            document.getElementById('namespace').value = val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase() + val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').slice(1);
             render(); confetti({ particleCount: 150, origin: { y: 0.7 } });
         }
 
-        function addField(parentFields = fields) { parentFields.push({ id: Date.now(), type: 'text', name: 'field_' + Date.now().toString().slice(-4), label: i18n[currentLang]['field-default-label'], default: '', collapsed: false, fields: [] }); render(); }
-        function removeField(id, parentFields = fields) { const index = parentFields.findIndex(f => f.id === id); if (index > -1) parentFields.splice(index, 1); else parentFields.forEach(f => { if (f.type === 'subform' && f.fields) removeField(id, f.fields); }); render(); }
-        function updateField(id, key, value, parentFields = fields) { const f = findFieldById(id, parentFields); if (f) { f[key] = value; if (key === 'label') f.name = value.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
-        function findFieldById(id, list) { for (let f of list) { if (f.id === id) return f; if (f.type === 'subform' && f.fields) { let res = findFieldById(id, f.fields); if (res) return res; } } return null; }
-        function toggleCollapse(id) { const f = findFieldById(id, fields); if (f) { f.collapsed = !f.collapsed; render(); } }
+        function addField(parent = fields) { parent.push({ id: Date.now(), type: 'text', name: 'field_' + Date.now().toString().slice(-4), label: i18n[currentLang]['field-default-label'], collapsed: false, fields: [] }); render(); }
+        function removeField(id, parent = fields) {
+            const idx = parent.findIndex(f => f.id === id);
+            if (idx > -1) parent.splice(idx, 1);
+            else parent.forEach(f => { if (f.fields) removeField(id, f.fields); });
+            render();
+        }
+        function updateField(id, key, val, parent = fields) {
+            const f = findField(id, parent);
+            if (f) { f[key] = val; if (key === 'label') f.name = val.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); }
+        }
+        function findField(id, list) {
+            for (let f of list) { if (f.id === id) return f; if (f.fields) { let r = findField(id, f.fields); if (r) return r; } } return null;
+        }
 
         function render() {
             const list = document.getElementById('fieldList'); list.innerHTML = '';
-            fields.forEach(f => { list.appendChild(createFieldCard(f)); });
+            fields.forEach(f => { list.appendChild(createCard(f)); });
             updatePreview();
         }
 
-        function createFieldCard(f) {
+        function createCard(f) {
             const card = document.createElement('div'); card.className = 'field-card';
             card.innerHTML = `
-                <div class="field-card-header" onclick="toggleCollapse(${f.id})">
-                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="opacity:0.5"></i><strong>${f.label}</strong><small style="opacity:0.5">(${f.type})</small></div>
+                <div class="field-card-header" onclick="this.parentElement.querySelector('.field-card-body').style.display = this.parentElement.querySelector('.field-card-body').style.display === 'none' ? 'grid' : 'none'">
+                    <strong>${f.label}</strong> <small>(${f.type})</small>
                     <button class="lang-btn" style="background:var(--danger); border:none;" onclick="event.stopPropagation(); removeField(${f.id})">X</button>
                 </div>
-                <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
+                <div class="field-card-body">
                     <div class="input-group"><label>Type</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
                     <div class="input-group"><label>Label</label><input type="text" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
                     <div class="input-group"><label>Name</label><input type="text" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
-                    <div class="input-group"><label>Default</label><input type="text" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)"></div>
-                    ${f.type === 'subform' ? `<div class="subform-container"><div class="subform-fields" id="sub-${f.id}"></div><button class="btn-add" style="font-size:0.7rem; padding:5px 10px;" onclick="addFieldInside(${f.id})">+ Subfield</button></div>` : ''}
+                    ${f.type === 'subform' ? `<div class="subform-container"><div id="sub-${f.id}"></div><button class="btn-add" style="padding:5px 10px; font-size:0.7rem;" onclick="addFieldInside(${f.id})">+ Sub</button></div>` : ''}
                 </div>`;
-            if (f.type === 'subform' && f.fields) { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createFieldCard(sf)); }); }
+            if (f.type === 'subform') { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createCard(sf)); }); }
             return card;
         }
-        function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
+        function addFieldInside(pid) { const p = findField(pid, fields); if (p) addField(p.fields); }
 
-        function generatePHPTemplate(slug) {
-            let p = '<?php\ndefined(\'_JEXEC\') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-' + slug + '">\n';
-            if (currentPresetKey === 'carousel') {
-                p += '  <div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel" data-bs-interval="<?php echo (int)$params->get(\'interval\', 5000); ?>">\n    <?php if ($params->get(\'indicators\', \'1\') == \'1\') : ?>\n      <div class="carousel-indicators">\n        <?php foreach ($params->get(\'slides\', []) as $i => $slide) : ?>\n          <button type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo $i === 0 ? \'active\' : \'\'; ?>"></button>\n        <?php endforeach; ?>\n      </div>\n    <?php endif; ?>\n    <div class="carousel-inner">\n      <?php foreach ($params->get(\'slides\', []) as $i => $slide) : ?>\n        <div class="carousel-item <?php echo $i === 0 ? \'active\' : \'\'; ?>">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n          <?php if ($slide->title || $slide->caption) : ?>\n            <div class="carousel-caption d-none d-md-block">\n              <h5><?php echo $slide->title; ?></h5>\n              <p><?php echo $slide->caption; ?></p>\n            </div>\n          <?php endif; ?>\n        </div>\n      <?php endforeach; ?>\n    </div>\n    <?php if ($params->get(\'controls\', \'1\') == \'1\') : ?>\n      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>\n      <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>\n    <?php endif; ?>\n  </div>\n';
-            } else if (currentPresetKey === 'hero') {
-                p += '  <div class="hero-section p-5 text-center" style="background: url(\'<?php echo $params->get(\'bg_image\'); ?>\') center/cover;">\n    <h1 class="display-3 text-white"><?php echo $params->get(\'title\'); ?></h1>\n    <div class="text-white lead"><?php echo $params->get(\'content\'); ?></div>\n  </div>\n';
-            } else if (currentPresetKey === 'pricing') {
-                p += '  <div class="pricing-grid row">\n    <?php foreach ($params->get(\'plans\', []) as $plan) : ?>\n      <div class="col-md-4">\n        <div class="card text-center mb-4">\n          <div class="card-body">\n            <h3><?php echo $plan->name; ?></h3>\n            <div class="display-4 my-3"><?php echo $plan->price; ?></div>\n            <p><?php echo nl2br($plan->features); ?></p>\n            <a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary">Sign Up</a>\n          </div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            } else if (currentPresetKey === 'faq') {
-                p += '  <div class="accordion" id="faq-<?php echo $module->id; ?>">\n    <?php foreach ($params->get(\'items\', []) as $i => $item) : ?>\n      <div class="accordion-item">\n        <h2 class="accordion-header">\n          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ans-<?php echo $module->id . \'-\' . $i; ?>">\n            <?php echo $item->question; ?>\n          </button>\n        </h2>\n        <div id="ans-<?php echo $module->id . \'-\' . $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>">\n          <div class="accordion-body"><?php echo $item->answer; ?></div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            } else if (currentPresetKey === 'testimonials') {
-                p += '  <div class="row">\n    <?php foreach ($params->get(\'reviews\', []) as $rev) : ?>\n      <div class="col-md-4">\n        <div class="card p-3 mb-4">\n          <div class="d-flex align-items-center mb-3">\n            <img src="<?php echo $rev->avatar; ?>" class="rounded-circle me-3" width="60">\n            <h5 class="mb-0"><?php echo $rev->author; ?></h5>\n          </div>\n          <p class="mb-0 italic">"<?php echo $rev->quote; ?>"</p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            } else if (currentPresetKey === 'features') {
-                p += '  <div class="row">\n    <?php foreach ($params->get(\'features\', []) as $feat) : ?>\n      <div class="col-md-4 text-center mb-4">\n        <div class="p-3">\n          <i class="<?php echo $feat->icon; ?> fa-3x mb-3 text-primary"></i>\n          <h3><?php echo $feat->title; ?></h3>\n          <p><?php echo $feat->desc; ?></p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
-            } else if (currentPresetKey === 'map') {
-                p += '  <div id="map-<?php echo $module->id; ?>" style="height:450px; width:100%; border-radius:12px;"></div>\n  <script>\n    function initMap<?php echo $module->id; ?>() {\n      const pos = { lat: <?php echo (float)$params->get(\'lat\', -23.5); ?>, lng: <?php echo (float)$params->get(\'lng\', -46.6); ?> };\n      const map = new google.maps.Map(document.getElementById("map-<?php echo $module->id; ?>"), {\n        zoom: <?php echo (int)$params->get(\'zoom\', 15); ?>,\n        center: pos\n      });\n      new google.maps.Marker({ position: pos, map: map });\n    }\n  </script>\n  <script async src="https://maps.googleapis.com/maps/api/js?key=<?php echo $params->get(\'api_key\'); ?>&callback=initMap<?php echo $module->id; ?>"></script>\n';
-            } else if (currentPresetKey === 'video') {
-                p += '  <div class="video-hero position-relative p-5 text-center bg-dark" style="min-height:400px;">\n    <video autoplay muted loop poster="<?php echo $params->get(\'poster\'); ?>" class="position-absolute w-100 h-100" style="top:0;left:0;object-fit:cover;opacity:0.5;">\n      <source src="<?php echo $params->get(\'url\'); ?>" type="video/mp4">\n    </video>\n    <div class="position-relative z-index-1">\n      <h1 class="display-3 text-white"><?php echo $params->get(\'title\'); ?></h1>\n    </div>\n  </div>\n';
-            } else if (currentPresetKey === 'contact') {
-                p += '  <div class="card p-4">\n    <form method="post">\n      <div class="mb-3"><label class="form-label">Name</label><input type="text" class="form-control" name="name" required></div>\n      <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>\n      <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4"></textarea></div>\n      <button type="submit" class="btn btn-primary w-100">Send Message</button>\n    </form>\n  </div>\n';
-            } else if (currentPresetKey === 'social') {
-                p += '  <div class="d-flex gap-3 justify-content-center">\n    <?php foreach ($params->get(\'links\', []) as $link) : ?>\n      <a href="<?php echo $link->url; ?>" target="_blank" class="btn btn-primary btn-lg rounded-circle">\n        <i class="<?php echo $link->icon; ?>"></i>\n      </a>\n    <?php endforeach; ?>\n  </div>\n';
-            } else {
-                p += '  <h1><?php echo $params->get(\'title\', \'Welcome\'); ?></h1>\n';
-            }
-            p += '</div>'; return p;
+        function generatePHP(slug) {
+            let p = '<?php\ndefined(\'_JEXEC\') or die;\n?>\n<div class="mod-' + slug + '">\n';
+            if (currentPresetKey === 'features') p += '  <div class="row">\n    <?php foreach ($params->get(\'feats\', []) as $f) : ?>\n      <div class="col-md-4 text-center">\n        <i class="<?php echo $f->icon; ?> fa-2x"></i>\n        <h3><?php echo $f->title; ?></h3>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
+            else if (currentPresetKey === 'carousel') p += '  <div id="car-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel">\n    <div class="carousel-inner">\n      <?php foreach ($params->get(\'slides\', []) as $i => $s) : ?>\n        <div class="carousel-item <?php echo $i === 0 ? \'active\' : \'\'; ?>">\n          <img src="<?php echo $s->image; ?>" class="d-block w-100">\n          <div class="carousel-caption"><h5><?php echo $s->title; ?></h5></div>\n        </div>\n      <?php endforeach; ?>\n    </div>\n  </div>\n';
+            else if (currentPresetKey === 'hero') p += '  <div class="hero p-5 text-center" style="background:url(\'<?php echo $params->get(\'bg_image\'); ?>\') center/cover;">\n    <h1><?php echo $params->get(\'title\'); ?></h1>\n    <div><?php echo $params->get(\'content\'); ?></div>\n  </div>\n';
+            else p += '  <h1><?php echo $params->get(\'title\', \'Hello\'); ?></h1>\n';
+            return p + '</div>';
         }
 
         function updatePreview() {
-            const modName = document.getElementById('moduleName').value || 'My Custom Module';
-            const slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_');
-            
-            // XML
+            const name = document.getElementById('moduleName').value || 'custom';
+            const slug = name.toLowerCase().replace(/[^a-z0-9]/g, '_');
             let xml = '<config>\n  <fields name="params">\n    <fieldset name="basic">\n';
-            function buildXML(list, ind = '      ') {
+            function build(list, ind) {
                 let s = ''; list.forEach(f => {
-                    if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" label="MOD_' + slug.toUpperCase() + '_' + f.name.toUpperCase() + '_LABEL" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + buildXML(f.fields, ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
-                    else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="MOD_' + slug.toUpperCase() + '_' + f.name.toUpperCase() + '_LABEL" default="' + (f.default || '') + '" />\n';
+                    if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + build(f.fields, ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
+                    else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="' + f.label + '" />\n';
                 }); return s;
             }
-            xml += buildXML(fields) + '    </fieldset>\n  </fields>\n</config>';
+            xml += build(fields, '      ') + '    </fieldset>\n  </fields>\n</config>';
             document.getElementById('xmlPreview').textContent = xml;
-
-            // Structure
-            const struct = 'mod_' + slug + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
-            document.getElementById('folderStructure').textContent = struct;
-
-            // PHP
-            if (!phpTouched) {
-                const g = generatePHPTemplate(slug);
-                customPHP = g;
-                document.getElementById('phpEditor').value = g;
-            }
-            if (window.Prism) { Prism.highlightAll(); }
+            document.getElementById('folderStructure').textContent = 'mod_' + slug + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
+            if (!phpTouched) { customPHP = generatePHP(slug); document.getElementById('phpEditor').value = customPHP; }
+            if (window.Prism) Prism.highlightAll();
         }
 
         async function generatePackage() {
-            const modName = document.getElementById('moduleName').value || 'My Module', 
-                  slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_'), 
-                  ns = document.getElementById('namespace').value || 'MyNamespace',
-                  author = document.getElementById('author').value || 'John Doe',
-                  authorUrl = document.getElementById('authorUrl').value || '',
-                  client = document.getElementById('clientType').value,
-                  prefix = 'mod_' + slug, zip = new JSZip(), root = zip.folder(prefix);
-            
-            const manifest = '<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="' + client + '" method="upgrade">\n\t<name>' + prefix + '</name>\n\t<author>' + author + '</author>\n\t<authorUrl>' + authorUrl + '</authorUrl>\n\t<namespace path="src">Joomla\\Module\\' + ns + '\\' + (client === 'site' ? 'Site' : 'Administrator') + '</namespace>\n\t<files><folder module="' + prefix + '">services</folder><folder>src</folder><folder>tmpl</folder></files>\n\t' + document.getElementById('xmlPreview').textContent + '\n</extension>';
-            root.file(prefix + '.xml', manifest);
+            const zip = new JSZip(), name = document.getElementById('moduleName').value, slug = name.toLowerCase().replace(/[^a-z0-9]/g, '_'), prefix = 'mod_' + slug;
+            const root = zip.folder(prefix);
+            root.file(prefix + '.xml', '<?xml version="1.0" encoding="utf-8"?><extension type="module" client="' + document.getElementById('clientType').value + '"><name>' + prefix + '</name><files><folder module="' + prefix + '">services</folder><folder>src</folder><folder>tmpl</folder></files>' + document.getElementById('xmlPreview').textContent + '</extension>');
             root.folder('tmpl').file('default.php', customPHP);
-            const blob = await zip.generateAsync({type: "blob"});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = prefix + '.zip'; a.click();
-            confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
+            const b = await zip.generateAsync({type:"blob"});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = prefix + '.zip'; a.click();
         }
 
-        document.getElementById('moduleName').addEventListener('input', updatePreview);
-        setLang('en');
+        window.onload = () => { loadPreset('features'); setLang('en'); };
     </script>
 </body>
 </html>
