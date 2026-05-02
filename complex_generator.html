@@ -31,7 +31,7 @@
             --dark-bg: #05070a;
             --sidebar-bg: #0a0c10;
             --card-bg: rgba(255, 255, 255, 0.03);
-            --border-white: rgba(255, 255, 255, 0.15);
+            --border-white: rgba(255, 255, 255, 0.08);
             --accent: #00e676;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-title: 'Outfit', sans-serif;
@@ -49,9 +49,9 @@
             color-scheme: dark;
         }
 
-        /* Layout */
+        /* Sidebar */
         .sidebar {
-            width: 300px;
+            width: 320px;
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-white);
             padding: 1.5rem;
@@ -65,7 +65,7 @@
         }
 
         .main-content {
-            margin-left: 300px;
+            margin-left: 320px;
             flex: 1;
             padding: 2rem 2.5rem;
             display: flex;
@@ -88,101 +88,149 @@
 
         .main-with-preview { margin-right: 480px; }
 
-        /* Typography */
-        h1, h2, h3 { font-family: var(--font-title); }
+        /* Logo & Lang */
         .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-bottom: 0.5rem; }
         .logo span { color: var(--br-yellow); }
         .logo i { color: var(--br-green); }
 
-        /* Lang Switcher */
+        .lang-switcher { display: flex; gap: 8px; margin-bottom: 0.2rem; }
         .lang-btn {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-white);
             color: #fff;
-            padding: 4px 10px;
-            border-radius: 6px;
+            padding: 6px 12px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 0.65rem;
+            font-size: 0.7rem;
+            font-weight: 700;
             transition: 0.3s;
         }
         .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); border-color: var(--br-yellow); }
 
-        /* Presets */
-        .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 0.5rem; }
+        /* Presets Grid */
+        .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 0.5rem; }
         .preset-btn {
-            background: rgba(255,255,255,0.03);
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-white);
             color: #fff;
-            padding: 8px 6px;
-            border-radius: 10px;
+            padding: 10px 8px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 0.6rem;
+            font-size: 0.65rem;
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             transition: 0.3s;
         }
-        .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); }
-        .preset-btn i { font-size: 1rem; color: var(--br-yellow); }
+        .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); transform: translateY(-2px); }
+        .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
 
-        /* Code Blocks */
-        .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.8rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 5px; }
-        
-        .code-preview {
-            background: #0a0c10 !important;
-            padding: 1rem !important;
-            border-radius: 8px !important;
-            font-family: 'Courier New', Courier, monospace !important;
-            font-size: 0.7rem !important;
-            border: 1px solid var(--border-white) !important;
-            color: #ffffff !important;
-            white-space: pre-wrap !important;
-            overflow: auto;
-            margin-bottom: 1.5rem !important;
-            display: block;
-        }
-        .code-preview code { color: #ffffff !important; }
-
-        .php-editor-area {
-            width: 100%;
-            height: 350px;
-            background: #000;
-            color: #00ff00;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.75rem;
-            padding: 1rem;
-            border: 1px solid var(--accent);
-            border-radius: 8px;
-            resize: vertical;
-            margin-bottom: 1.5rem;
-            line-height: 1.4;
-        }
-
-        /* Form */
-        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.2rem; }
-        .input-group label { font-size: 0.7rem; font-weight: 700; color: var(--br-yellow); text-transform: uppercase; }
+        /* Form Controls */
+        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem; }
+        .input-group label { font-size: 0.7rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; }
         .input-group input, .input-group select, .input-group textarea {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-white);
-            padding: 0.7rem;
-            border-radius: 10px;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
             color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: 0.3s;
         }
+        .input-group input:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); box-shadow: 0 0 15px rgba(0,230,118,0.1); }
 
+        /* Field Architect */
+        .field-list { display: flex; flex-direction: column; gap: 1rem; }
         .field-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
-            border-radius: 16px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
+            border-radius: 20px;
+            padding: 1.5rem;
+            transition: 0.3s;
+            position: relative;
         }
+        .field-card:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.05); }
         .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .field-card-body { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 1.5rem; }
+        
+        .btn-icon { background: transparent; border: none; color: rgba(255,255,255,0.4); cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        .btn-icon:hover { color: var(--danger); transform: scale(1.1); }
 
-        .btn-zip { background: linear-gradient(135deg, var(--br-blue), #0039cb); color: var(--br-yellow); border: none; padding: 1rem; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 1rem; }
+        .btn-add {
+            background: linear-gradient(135deg, var(--br-green), #00c853);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,200,83,0.2);
+        }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,200,83,0.3); }
 
-        @media (max-width: 1100px) {
+        .btn-zip {
+            background: linear-gradient(135deg, var(--br-blue), #0039cb);
+            color: var(--br-yellow);
+            border: none;
+            padding: 1.2rem;
+            border-radius: 14px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+        .btn-zip:hover { transform: scale(1.02); filter: brightness(1.1); }
+
+        /* Code Previews */
+        .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.8rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 8px; }
+        
+        .code-preview-box {
+            background: #0a0c10 !important;
+            padding: 1rem !important;
+            border-radius: 12px !important;
+            font-family: 'Courier New', Courier, monospace !important;
+            font-size: 0.7rem !important;
+            border: 1px solid var(--border-white) !important;
+            color: #ffffff !important; /* Visibility Fix */
+            white-space: pre-wrap !important;
+            overflow: auto;
+            margin-bottom: 1.5rem !important;
+        }
+        .code-preview-box code { color: #ffffff !important; }
+
+        .php-editor-area {
+            width: 100%;
+            height: 380px;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.8rem;
+            padding: 1rem;
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            resize: vertical;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* Subform Containers */
+        .subform-container { grid-column: span 2; padding: 1.2rem; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px dashed var(--border-white); }
+        .subform-fields { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
+
+        @media (max-width: 1200px) {
             .preview-pane { display: none; }
             .main-with-preview { margin-right: 0; }
         }
@@ -198,11 +246,19 @@
         <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
         
         <div class="settings-group">
-            <h3 data-i18n="sidebar-meta" style="font-size: 0.7rem; opacity: 0.5; margin-bottom: 1rem;">META DATA</h3>
+            <h3 data-i18n="sidebar-meta" style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; letter-spacing: 1px;">META DATA</h3>
             <div class="input-group"><label data-i18n="lbl-mod-name">Module Name</label><input type="text" id="moduleName" value="My Custom Module"></div>
             <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="namespace" value="MyCustomModule"></div>
+            <div class="input-group"><label data-i18n="lbl-author">Author</label><input type="text" id="author" value="John Doe"></div>
+            <div class="input-group">
+                <label data-i18n="lbl-client">Client</label>
+                <select id="clientType">
+                    <option value="site" data-i18n="opt-site">Site (Frontend)</option>
+                    <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
+                </select>
+            </div>
             
-            <h3 data-i18n="sidebar-presets" style="font-size: 0.7rem; opacity: 0.5; margin: 1rem 0;">PRESETS</h3>
+            <h3 data-i18n="sidebar-presets" style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin: 1.5rem 0 0.8rem 0; letter-spacing: 1px;">PRESETS</h3>
             <div class="presets-grid">
                 <button class="preset-btn" onclick="loadPreset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
                 <button class="preset-btn" onclick="loadPreset('hero')"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
@@ -222,44 +278,47 @@
 
     <main class="main-content main-with-preview">
         <header style="display:flex; justify-content:space-between; align-items:center;">
-            <div><h1 data-i18n="builder-title">Fields Architect</h1><p data-i18n="builder-subtitle" style="opacity:0.5;">Configure parameters</p></div>
-            <button onclick="addField()" style="background:var(--accent); color:#000; border:none; padding:0.8rem 1.5rem; border-radius:12px; font-weight:800; cursor:pointer;">+ ADD FIELD</button>
+            <div>
+                <h1 data-i18n="builder-title">Fields Architect</h1>
+                <p data-i18n="builder-subtitle" style="color: rgba(255,255,255,0.4)">Configure parameters</p>
+            </div>
+            <button class="btn-add" onclick="addField()"><i class="fa-solid fa-plus"></i> <span data-i18n="btn-add">ADD FIELD</span></button>
         </header>
-        <div id="fieldList"></div>
+        <div id="fieldList" class="field-list"></div>
     </main>
 
     <aside class="preview-pane">
-        <h2 class="preview-title" data-i18n="preview-xml">Manifest XML</h2>
-        <pre class="code-preview language-markup"><code id="xmlPreview"></code></pre>
+        <h2 class="preview-title" data-i18n="preview-xml">Manifest XML Preview</h2>
+        <pre class="code-preview-box language-markup"><code id="xmlPreview"></code></pre>
         
         <h2 class="preview-title">default.php (Editable)</h2>
         <textarea id="phpEditor" class="php-editor-area" spellcheck="false" oninput="customPHP = this.value"></textarea>
 
         <h2 class="preview-title" data-i18n="preview-struct">Structure</h2>
-        <pre class="code-preview language-bash"><code id="folderStructure"></code></pre>
+        <pre class="code-preview-box language-bash"><code id="folderStructure"></code></pre>
     </aside>
 
     <script>
         const i18n = {
-            en: { "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace", "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters", "preview-xml": "Manifest XML", "preview-struct": "Structure", "field-default-label": "New Field", "confirm-preset": "Replace fields?" },
-            pt: { "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace", "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros", "preview-xml": "Manifest XML", "preview-struct": "Estrutura", "field-default-label": "Novo Campo", "confirm-preset": "Substituir campos?" }
+            en: { "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace", "lbl-author": "Author", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters", "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure", "field-default-label": "New Field", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?" },
+            pt: { "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace", "lbl-author": "Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros", "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura", "field-default-label": "Novo Campo", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?" }
         };
 
         const presets = {
-            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }] }] },
-            hero: { name: 'My Hero Section', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title' }] },
-            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }] }] },
-            faq: { name: 'My FAQ Accordion', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }] }] },
-            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }] }] },
-            features: { name: 'My Features Grid', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }]}] },
-            map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }] },
-            video: { name: 'My Video Hero', fields: [{ id: 1, type: 'url', name: 'url', label: 'Video' }] },
-            contact: { name: 'My Contact Form', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }] },
-            social: { name: 'My Social Links', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }] }] }
+            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }] }] },
+            hero: { name: 'My Hero Section', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }] },
+            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }] }] },
+            faq: { name: 'My FAQ Accordion', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
+            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }] }] },
+            features: { name: 'My Features Grid', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }]}] },
+            map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }] },
+            video: { name: 'My Video Hero', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }] },
+            contact: { name: 'My Contact Form', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }, { id: 2, type: 'text', name: 'subject', label: 'Subject' }] },
+            social: { name: 'My Social Links', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
         };
 
         let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
-        let fields = [{ id: Date.now(), type: 'text', name: 'title', label: 'Title', default: 'Hello', collapsed: false }];
+        let fields = [{ id: Date.now(), type: 'text', name: 'title', label: 'Title', description: 'Module title', default: 'Hello World', collapsed: false, fields: [] }];
         const fieldTypes = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
 
         function setLang(lang) {
@@ -275,42 +334,63 @@
             fields = JSON.parse(JSON.stringify(p.fields));
             const val = document.getElementById('moduleName').value;
             document.getElementById('namespace').value = val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase() + val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').slice(1);
-            render(); confetti({ particleCount: 100 });
+            render(); confetti({ particleCount: 100, spread: 60, origin: { y: 0.8 } });
         }
 
-        function addField() { fields.push({ id: Date.now(), type: 'text', name: 'new_field', label: i18n[currentLang]['field-default-label'], collapsed: false }); render(); }
-        function removeField(id) { fields = fields.filter(f => f.id !== id); render(); }
-        function updateField(id, key, value) { const f = fields.find(f => f.id === id); if (f) { f[key] = value; if (key === 'label') f.name = value.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
+        function addField(parentFields = fields) { parentFields.push({ id: Date.now(), type: 'text', name: 'new_field_' + Date.now().toString().slice(-4), label: i18n[currentLang]['field-default-label'], description: '', default: '', collapsed: false, fields: [] }); render(); }
+        function removeField(id, parentFields = fields) { const index = parentFields.findIndex(f => f.id === id); if (index > -1) parentFields.splice(index, 1); else parentFields.forEach(f => { if (f.type === 'subform' && f.fields) removeField(id, f.fields); }); render(); }
+        function updateField(id, key, value, parentFields = fields) { const f = findFieldById(id, parentFields); if (f) { if (key === 'name') value = value.toLowerCase().replace(/[^a-z0-9]/g, '_'); f[key] = value; if (key === 'label' && !f.nameTouched) f.name = value.toLowerCase().replace(/[^a-z0-9]/g, '_'); if (key === 'name') f.nameTouched = true; render(); } }
+        function findFieldById(id, list) { for (let f of list) { if (f.id === id) return f; if (f.type === 'subform' && f.fields) { let res = findFieldById(id, f.fields); if (res) return res; } } return null; }
+        function toggleCollapse(id) { const f = findFieldById(id, fields); if (f) { f.collapsed = !f.collapsed; render(); } }
 
         function render() {
             const list = document.getElementById('fieldList'); list.innerHTML = '';
-            fields.forEach(f => {
-                const card = document.createElement('div'); card.className = 'field-card';
-                card.innerHTML = `<div class="field-card-header"><strong>${f.label}</strong><button onclick="removeField(${f.id})">X</button></div>
-                <div class="field-card-body" style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px;">
-                    <input type="text" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)">
-                    <select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select>
-                </div>`;
-                list.appendChild(card);
-            });
+            fields.forEach(f => { list.appendChild(createFieldCard(f)); });
             updatePreview();
         }
+
+        function createFieldCard(f, isSub = false) {
+            const card = document.createElement('div'); card.className = `field-card ${f.collapsed ? 'collapsed' : ''}`;
+            card.innerHTML = `
+                <div class="field-card-header" onclick="toggleCollapse(${f.id})">
+                    <div style="display:flex; align-items:center; gap:12px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="opacity:0.5"></i><strong>${f.label}</strong><span style="font-size:0.65rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 10px; border-radius:10px;">${f.type}</span></div>
+                    <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
+                </div>
+                <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
+                    <div class="input-group"><label>Type</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>Label</label><input type="text" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
+                    <div class="input-group"><label>Name</label><input type="text" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
+                    <div class="input-group"><label>Default</label><input type="text" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)"></div>
+                    ${f.type === 'subform' ? `<div class="subform-container"><div class="subform-fields" id="sub-${f.id}"></div><button class="btn-add" style="padding: 8px 16px; font-size: 0.75rem; margin-top:10px;" onclick="addFieldInside(${f.id})">+ SUBFIELD</button></div>` : ''}
+                </div>`;
+            if (f.type === 'subform' && f.fields) { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createFieldCard(sf, true)); }); }
+            return card;
+        }
+        function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function updatePreview() {
             const modName = document.getElementById('moduleName').value || 'custom';
             const slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_');
             
+            // XML
             let xml = `<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
-            fields.forEach(f => { xml += `      <field name="${f.name}" type="${f.type}" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" />\n`; });
-            xml += `    </fieldset>\n  </fields>\n</config>`;
+            function buildXML(list, ind = '      ') {
+                let s = ''; list.forEach(f => {
+                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n${ind}  <form>\n${buildXML(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
+                    else s += `${ind}<field name="${f.name}" type="${f.type}" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" default="${f.default || ''}" />\n`;
+                }); return s;
+            }
+            xml += buildXML(fields) + `    </fieldset>\n  </fields>\n</config>`;
             document.getElementById('xmlPreview').textContent = xml;
 
+            // Structure
             const struct = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`;
             document.getElementById('folderStructure').textContent = struct;
 
+            // PHP
             if (!phpTouched) {
-                let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="${slug}">\n`;
-                if (currentPresetKey === 'carousel') p += `  <!-- Carousel slides -->\n  <?php foreach ($params->get('slides', []) as $slide) : ?>\n    <img src="<?php echo $slide->image; ?>">\n  <?php endforeach; ?>\n`;
+                let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-${slug}">\n`;
+                if (currentPresetKey === 'carousel') p += `  <div class="carousel slide" data-bs-ride="carousel">\n    <div class="carousel-inner">\n      <?php foreach ($params->get('slides', []) as $slide) : ?>\n        <div class="carousel-item">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100">\n        </div>\n      <?php endforeach; ?>\n    </div>\n  </div>\n`;
                 else p += `  <h1><?php echo $params->get('title', 'Hello'); ?></h1>\n`;
                 p += `</div>`;
                 customPHP = p;
@@ -321,10 +401,21 @@
 
         async function generatePackage() {
             const modName = document.getElementById('moduleName').value || 'My Module', slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_'), ns = document.getElementById('namespace').value || 'MyNamespace', prefix = `mod_${slug}`, zip = new JSZip(), root = zip.folder(prefix);
-            root.file(`${prefix}.xml`, `<extension type="module" client="site" method="upgrade"><name>${prefix}</name><namespace path="src">Joomla\\Module\\${ns}\\Site</namespace></extension>`);
+            root.file(`${prefix}.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="site" method="upgrade"><name>${prefix}</name><namespace path="src">Joomla\\Module\\${ns}\\Site</namespace><files><folder module="${prefix}">services</folder><folder>src</folder><folder>tmpl</folder></files>${generateXMLSnippet()}</extension>`);
             root.folder('tmpl').file('default.php', customPHP);
             const blob = await zip.generateAsync({type: "blob"});
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${prefix}.zip`; a.click();
+        }
+
+        function generateXMLSnippet() {
+            const slug = (document.getElementById('moduleName').value || 'custom').toLowerCase().replace(/[^a-z0-9]/g, '_');
+            let xml = `\n<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
+            function build(list, ind = '      ') {
+                let s = ''; list.forEach(f => {
+                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n${ind}  <form>\n${build(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
+                    else s += `${ind}<field name="${f.name}" type="${f.type}" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" default="${f.default || ''}" />\n`;
+                }); return s;
+            } return xml + build(fields) + `    </fieldset>\n  </fields>\n</config>`;
         }
 
         document.getElementById('moduleName').addEventListener('input', updatePreview);
