@@ -428,8 +428,7 @@
                     { id: 1, type: 'email', name: 'recipient', label: 'Recipient Email', description: 'Where to send leads', default: 'contact@example.com' },
                     { id: 2, type: 'text', name: 'subject_prefix', label: 'Subject Prefix', description: 'Prefix for emails', default: '[Lead From Website]' },
                     { id: 3, type: 'textarea', name: 'success_msg', label: 'Success Message', description: 'Shown after submit', default: 'Thank you! We will get back to you soon.' },
-                    { id: 4, type: 'checkbox', name: 'show_phone', label: 'Show Phone Field', description: 'Enable phone input', default: '1' },
-                    { id: 5, type: 'calendar', name: 'event_date', label: 'Preferred Date', description: 'Allow date picking' }
+                    { id: 4, type: 'checkbox', name: 'show_phone', label: 'Show Phone Field', description: 'Enable phone input', default: '1' }
                 ]
             },
             social: {
@@ -442,8 +441,7 @@
                             { label: 'WhatsApp', value: 'whatsapp' },
                             { label: 'LinkedIn', value: 'linkedin' }
                         ]},
-                        { id: 12, type: 'url', name: 'profile_url', label: 'Profile URL' },
-                        { id: 13, type: 'text', name: 'custom_class', label: 'CSS Class' }
+                        { id: 12, type: 'url', name: 'profile_url', label: 'Profile URL' }
                     ]},
                     { id: 2, type: 'radio', name: 'icon_size', label: 'Icon Size', default: 'medium', options: [
                         { label: 'Small', value: 'small' },
@@ -455,6 +453,7 @@
         };
 
         let currentLang = 'en';
+        let currentPresetKey = null;
 
         function t(key) {
             return i18n[currentLang][key] || key;
@@ -482,12 +481,11 @@
 
         function loadPreset(key) {
             if (fields.length > 0 && !confirm(t('confirm-preset'))) return;
+            currentPresetKey = key;
             const preset = presets[key];
             document.getElementById('moduleName').value = preset.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
-            // Deep copy fields to avoid reference issues
             fields = JSON.parse(JSON.stringify(preset.fields));
             
-            // Auto update namespace
             const val = document.getElementById('moduleName').value;
             const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
             const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
@@ -498,6 +496,7 @@
         }
 
         function addField(parentFields = fields) {
+            currentPresetKey = null; // Break preset sync if user adds field
             const newField = {
                 id: Date.now(),
                 type: 'text',
@@ -515,6 +514,7 @@
         }
 
         function removeField(id, parentFields = fields) {
+            currentPresetKey = null;
             const index = parentFields.findIndex(f => f.id === id);
             if (index > -1) {
                 parentFields.splice(index, 1);
@@ -860,15 +860,54 @@ class ${ns}Helper {
 }`;
             root.folder('src/Helper').file(`${ns}Helper.php`, helper);
 
-            const template = `<?php
+            // Template Logic
+            let template = `<?php
 defined('_JEXEC') or die;
 use Joomla\\CMS\\Language\\Text;
-?>
-<div class="${modPrefix}">
-    <?php if ($params->get('show_title')) : ?>
-        <h3><?php echo Text::_('${modPrefix.toUpperCase()}'); ?></h3>
+?>\n`;
+
+            if (currentPresetKey === 'carousel') {
+                template += `<div class="${modPrefix} carousel slide" id="carousel-<?php echo $module->id; ?>" data-bs-ride="carousel">
+    <?php if ($params->get('indicators')) : ?>
+        <div class="carousel-indicators">
+            <?php foreach ($params->get('slides', []) as $i => $slide) : ?>
+                <button type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo $i === 0 ? 'active' : ''; ?>"></button>
+            <?php endforeach; ?>
+        </div>
     <?php endif; ?>
 
+    <div class="carousel-inner">
+        <?php foreach ($params->get('slides', []) as $i => $slide) : ?>
+            <div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">
+                <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5><?php echo $slide->title; ?></h5>
+                    <p><?php echo $slide->caption; ?></p>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>`;
+            } else if (currentPresetKey === 'hero') {
+                template += `<div class="${modPrefix} hero-section" style="background-image: url('<?php echo $params->get('bg_image'); ?>'); position: relative; padding: 100px 0;">
+    <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: <?php echo $params->get('overlay_color'); ?>; opacity: 0.5;"></div>
+    <div class="container" style="position: relative; z-index: 2; text-align: center; color: #fff;">
+        <h1><?php echo $params->get('main_title'); ?></h1>
+        <div class="lead"><?php echo $params->get('hero_content'); ?></div>
+        <a href="<?php echo $params->get('btn_link'); ?>" class="btn btn-primary mt-4"><?php echo $params->get('btn_text'); ?></a>
+    </div>
+</div>`;
+            } else if (currentPresetKey === 'social') {
+                template += `<div class="${modPrefix} social-links text-center">
+    <?php foreach ($params->get('links', []) as $link) : ?>
+        <a href="<?php echo $link->profile_url; ?>" class="social-icon <?php echo $params->get('icon_size'); ?>">
+            <i class="fab fa-<?php echo $link->network; ?>"></i>
+        </a>
+    <?php endforeach; ?>
+</div>`;
+            } else {
+                // Default Generic Loop
+                template += `<div class="${modPrefix}">
     <div class="${modPrefix}-content">
         <?php foreach ($params->toArray() as $key => $value) : ?>
             <?php if (!empty($value)) : ?>
@@ -882,6 +921,8 @@ use Joomla\\CMS\\Language\\Text;
         <?php endforeach; ?>
     </div>
 </div>`;
+            }
+
             root.folder('tmpl').file('default.php', template);
 
             const blob = await zip.generateAsync({type: "blob"});
