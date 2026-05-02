@@ -57,7 +57,7 @@
             padding: 1.5rem;
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1.2rem;
             position: fixed;
             height: 100vh;
             overflow-y: auto;
@@ -128,16 +128,16 @@
         .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
 
         /* Form Controls */
-        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 1.2rem; }
-        .input-group label { font-size: 0.7rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.8rem; }
+        .input-group label { font-size: 0.65rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
         .input-group input, .input-group select, .input-group textarea {
             background: rgba(255,255,255,0.05);
             border: 1px solid var(--border-white);
-            padding: 0.8rem 1rem;
-            border-radius: 12px;
+            padding: 0.7rem 0.9rem;
+            border-radius: 10px;
             color: #fff;
             font-family: inherit;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: 0.3s;
         }
         .input-group input:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); box-shadow: 0 0 15px rgba(0,230,118,0.1); }
@@ -204,7 +204,7 @@
             font-family: 'Courier New', Courier, monospace !important;
             font-size: 0.7rem !important;
             border: 1px solid var(--border-white) !important;
-            color: #ffffff !important; /* Visibility Fix */
+            color: #ffffff !important;
             white-space: pre-wrap !important;
             overflow: auto;
             margin-bottom: 1.5rem !important;
@@ -226,7 +226,6 @@
             line-height: 1.5;
         }
 
-        /* Subform Containers */
         .subform-container { grid-column: span 2; padding: 1.2rem; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px dashed var(--border-white); }
         .subform-fields { display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
 
@@ -246,10 +245,11 @@
         <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
         
         <div class="settings-group">
-            <h3 data-i18n="sidebar-meta" style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin-bottom: 1rem; letter-spacing: 1px;">META DATA</h3>
+            <h3 data-i18n="sidebar-meta" style="font-size: 0.65rem; color: rgba(255,255,255,0.4); margin-bottom: 0.8rem; letter-spacing: 1px;">META DATA</h3>
             <div class="input-group"><label data-i18n="lbl-mod-name">Module Name</label><input type="text" id="moduleName" value="My Custom Module"></div>
             <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="namespace" value="MyCustomModule"></div>
             <div class="input-group"><label data-i18n="lbl-author">Author</label><input type="text" id="author" value="John Doe"></div>
+            <div class="input-group"><label data-i18n="lbl-author-url">Author URL</label><input type="text" id="authorUrl" value="https://example.com"></div>
             <div class="input-group">
                 <label data-i18n="lbl-client">Client</label>
                 <select id="clientType">
@@ -258,7 +258,7 @@
                 </select>
             </div>
             
-            <h3 data-i18n="sidebar-presets" style="font-size: 0.7rem; color: rgba(255,255,255,0.4); margin: 1.5rem 0 0.8rem 0; letter-spacing: 1px;">PRESETS</h3>
+            <h3 data-i18n="sidebar-presets" style="font-size: 0.65rem; color: rgba(255,255,255,0.4); margin: 1.2rem 0 0.6rem 0; letter-spacing: 1px;">PRESETS</h3>
             <div class="presets-grid">
                 <button class="preset-btn" onclick="loadPreset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
                 <button class="preset-btn" onclick="loadPreset('hero')"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
@@ -300,8 +300,8 @@
 
     <script>
         const i18n = {
-            en: { "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace", "lbl-author": "Author", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters", "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure", "field-default-label": "New Field", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?" },
-            pt: { "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace", "lbl-author": "Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros", "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura", "field-default-label": "Novo Campo", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?" }
+            en: { "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace", "lbl-author": "Author", "lbl-author-url": "Author URL", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters", "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure", "field-default-label": "New Field", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?" },
+            pt: { "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace", "lbl-author": "Autor", "lbl-author-url": "URL do Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros", "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura", "field-default-label": "Novo Campo", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?" }
         };
 
         const presets = {
@@ -400,10 +400,17 @@
         }
 
         async function generatePackage() {
-            const modName = document.getElementById('moduleName').value || 'My Module', slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_'), ns = document.getElementById('namespace').value || 'MyNamespace', prefix = `mod_${slug}`, zip = new JSZip(), root = zip.folder(prefix);
-            root.file(`${prefix}.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="site" method="upgrade"><name>${prefix}</name><namespace path="src">Joomla\\Module\\${ns}\\Site</namespace><files><folder module="${prefix}">services</folder><folder>src</folder><folder>tmpl</folder></files>${generateXMLSnippet()}</extension>`);
+            const modName = document.getElementById('moduleName').value || 'My Module', 
+                  slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_'), 
+                  ns = document.getElementById('namespace').value || 'MyNamespace',
+                  author = document.getElementById('author').value || 'John Doe',
+                  authorUrl = document.getElementById('authorUrl').value || '',
+                  client = document.getElementById('clientType').value,
+                  prefix = `mod_${slug}`, zip = new JSZip(), root = zip.folder(prefix);
+            
+            root.file(`${prefix}.xml`, `<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="${client}" method="upgrade">\n\t<name>${prefix}</name>\n\t<author>${author}</author>\n\t<authorUrl>${authorUrl}</authorUrl>\n\t<namespace path="src">Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}</namespace>\n\t<files><folder module="${prefix}">services</folder><folder>src</folder><folder>tmpl</folder></files>\n\t${generateXMLSnippet()}\n</extension>`);
             root.folder('tmpl').file('default.php', customPHP);
-            const blob = await zip.generateAsync({type: "blob"});
+            const blob = await zip.generateAsync({type: "blob"}); confetti({ particleCount: 150 });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${prefix}.zip`; a.click();
         }
 
