@@ -89,15 +89,15 @@
     </aside>
     <script>
         const presets = {
-            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', r: true, f: [{ id: 11, t: 'media', n: 'img', l: 'Image', r: true }, { id: 12, t: 'text', n: 'txt', l: 'Title', r: false }] }] },
-            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'bg', l: 'Background', r: true }, { id: 2, t: 'text', n: 'h1', l: 'Title', r: true }] },
-            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', r: true, f: [{ id: 11, t: 'text', n: 'p', l: 'Price', r: true }] }] },
-            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'FAQ', r: true, f: [{ id: 11, t: 'text', n: 'q', l: 'Q', r: true }, { id: 12, t: 'textarea', n: 'a', l: 'A', r: true }] }] },
-            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'feats', l: 'Features', r: true, f: [{ id: 11, t: 'text', n: 'i', l: 'Icon', r: true }, { id: 12, t: 'text', n: 't', l: 'Title', r: true }] }] },
-            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', r: true, f: [{ id: 11, t: 'text', n: 'i', l: 'Icon', r: true }, { id: 12, t: 'url', n: 'u', l: 'URL', r: true }] }] },
-            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'k', l: 'API Key', r: true }, { id: 2, t: 'text', n: 'lt', l: 'Lat', r: false }] },
-            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'u', l: 'URL', r: true }, { id: 2, t: 'media', n: 'p', l: 'Poster', r: false }] },
-            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to', l: 'To', r: true }] }
+            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', r: true, f: [{ id: 11, t: 'media', n: 'image', l: 'Image', r: true }, { id: 12, t: 'text', n: 'title', l: 'Title', r: false }] }] },
+            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'background', l: 'Background', r: true }, { id: 2, t: 'text', n: 'title', l: 'Title', r: true }] },
+            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', r: true, f: [{ id: 11, t: 'text', n: 'price', l: 'Price', r: true }] }] },
+            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'FAQ', r: true, f: [{ id: 11, t: 'text', n: 'question', l: 'Question', r: true }, { id: 12, t: 'textarea', n: 'answer', l: 'Answer', r: true }] }] },
+            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'features', l: 'Features', r: true, f: [{ id: 11, t: 'text', n: 'icon', l: 'Icon', r: true }, { id: 12, t: 'text', n: 'title', l: 'Title', r: true }] }] },
+            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', r: true, f: [{ id: 11, t: 'text', n: 'icon', l: 'Icon', r: true }, { id: 12, t: 'url', n: 'url', l: 'URL', r: true }] }] },
+            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'api_key', l: 'API Key', r: true }, { id: 2, t: 'text', n: 'latitude', l: 'Latitude', r: false }] },
+            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'url', l: 'URL', r: true }, { id: 2, t: 'media', n: 'poster', l: 'Poster', r: false }] },
+            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to_email', l: 'To Email', r: true }] }
         };
         let list = [], customPHP = '';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
@@ -152,7 +152,6 @@
             const nsInput = document.getElementById('ns');
             if (document.activeElement.id === 'modName') nsInput.value = n.replace(/[^a-zA-Z0-9]/g, '');
             const nsVal = nsInput.value;
-
             let xml = '\x3C?xml version="1.0" encoding="utf-8"?\x3E\n\x3Cextension type="module" client="' + document.getElementById('client').value + '" method="upgrade"\x3E\n';
             xml += '  \x3Cname\x3E' + 'mod_' + s + '\x3C/name\x3E\n  \x3Cnamespace\x3EJoomla\\Module\\' + nsVal + '\x3C/namespace\x3E\n';
             xml += '  \x3Cfiles\x3E\n    \x3Cfolder module="mod_' + s + '"\x3Etmpl\x3C/folder\x3E\n    \x3Cfolder\x3Esrc\x3C/folder\x3E\n    \x3Cfolder\x3Eservices\x3C/folder\x3E\n  \x3C/files\x3E\n';
