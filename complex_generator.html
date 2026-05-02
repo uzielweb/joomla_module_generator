@@ -4,21 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joomla Advanced Generator | Pro Scaffolding</title>
-    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markup.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-php.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
-
     <style>
         :root {
             --br-green: #009c3b; --br-yellow: #ffdf00; --br-blue: #002776; --br-white: #ffffff;
@@ -26,34 +22,25 @@
             --border-white: rgba(255, 255, 255, 0.08); --accent: #00e676;
             --font-main: 'Plus Jakarta Sans', sans-serif; --danger: #ff5252;
         }
-
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: var(--font-main); background-color: var(--dark-bg); color: var(--br-white); height: 100vh; overflow: hidden; display: grid; grid-template-columns: 320px 1fr 480px; color-scheme: dark; }
-
         .sidebar { background: var(--sidebar-bg); border-right: 1px solid var(--border-white); padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.2rem; }
         .main-content { padding: 2rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
         .preview-pane { background: #000; border-left: 1px solid var(--border-white); padding: 1.5rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; }
-
         .logo { font-size: 1.4rem; font-weight: 800; display: flex; align-items: center; gap: 10px; color: #fff; text-decoration: none; margin-bottom: 0.5rem; }
         .logo span { color: var(--br-yellow); }
         .logo i { color: var(--br-green); }
-
         .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 0.8rem; }
         .input-group label { font-size: 0.65rem; font-weight: 800; color: var(--br-yellow); text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.8; }
         .input-group input, .input-group select, .input-group textarea { background: rgba(255,255,255,0.05); border: 1px solid var(--border-white); padding: 0.7rem 0.9rem; border-radius: 10px; color: #fff; font-size: 0.85rem; }
-
         .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .preset-btn { background: rgba(255,255,255,0.02); border: 1px solid var(--border-white); color: #fff; padding: 10px 8px; border-radius: 12px; cursor: pointer; font-size: 0.65rem; display: flex; flex-direction: column; align-items: center; gap: 6px; }
         .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); transform: translateY(-2px); }
-        .preset-btn i { font-size: 1.1rem; color: var(--br-yellow); }
-
         .field-card { background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 16px; padding: 1.2rem; margin-bottom: 1rem; }
         .field-card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-white); padding-bottom: 0.8rem; margin-bottom: 1rem; }
         .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-
         .btn-add { background: linear-gradient(135deg, var(--br-green), #00c853); color: #fff; border: none; padding: 0.8rem 1.5rem; border-radius: 14px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 10px; }
         .btn-zip { background: linear-gradient(135deg, var(--br-blue), #0039cb); color: var(--br-yellow); border: none; padding: 1.2rem; border-radius: 14px; font-weight: 800; cursor: pointer; width: 100%; margin-top: auto; display: flex; align-items: center; justify-content: center; gap: 10px; }
-
         .preview-title { font-size: 0.7rem; color: var(--br-yellow); margin-bottom: 0.5rem; text-transform: uppercase; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 5px; }
         .preview-box { background: #0a0c10; padding: 1rem; border-radius: 12px; border: 1px solid var(--border-white); margin-bottom: 1rem; max-height: 400px; overflow: auto; }
         .php-editor-area { width: 100%; height: 380px; background: #000; color: #00ff00; font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; padding: 1rem; border: 1px solid var(--accent); border-radius: 12px; resize: none; line-height: 1.5; }
@@ -61,7 +48,6 @@
     </style>
 </head>
 <body>
-
     <aside class="sidebar">
         <a href="index.html" class="logo"><i class="fa-solid fa-cube"></i> Joomla<span>Gen</span></a>
         <div class="settings">
@@ -86,7 +72,6 @@
         </div>
         <button class="btn-zip" onclick="zip()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
     </aside>
-
     <main class="main-content">
         <header style="display:flex; justify-content:space-between; align-items:center;">
             <h1>Fields Architect</h1>
@@ -94,7 +79,6 @@
         </header>
         <div id="fields"></div>
     </main>
-
     <aside class="preview-pane">
         <h2 class="preview-title">Manifest XML</h2>
         <div class="preview-box"><pre class="language-markup"><code id="xml"></code></pre></div>
@@ -103,38 +87,32 @@
         <h2 class="preview-title">Structure</h2>
         <div class="preview-box"><pre class="language-bash"><code id="struct"></code></pre></div>
     </aside>
-
     <script>
         const presets = {
-            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', f: [{ id: 11, t: 'media', n: 'img', l: 'Image' }, { id: 12, t: 'text', n: 'txt', l: 'Title' }] }] },
-            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'bg', l: 'Background' }, { id: 2, t: 'text', n: 'h1', l: 'Title' }] },
-            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', f: [{ id: 11, t: 'text', n: 'p', l: 'Price' }] }] },
-            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'FAQ', f: [{ id: 11, t: 'text', n: 'q', l: 'Q' }, { id: 12, t: 'textarea', n: 'a', l: 'A' }] }] },
-            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'feats', l: 'Features', f: [{ id: 11, t: 'text', n: 'i', l: 'Icon' }, { id: 12, t: 'text', n: 't', l: 'Title' }] }] },
-            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', f: [{ id: 11, t: 'text', n: 'i', l: 'Icon' }, { id: 12, t: 'url', n: 'u', l: 'URL' }] }] },
-            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'k', l: 'API Key' }, { id: 2, t: 'text', n: 'lt', l: 'Lat' }] },
-            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'u', l: 'URL' }, { id: 2, t: 'media', n: 'p', l: 'Poster' }] },
-            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to', l: 'To' }] }
+            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', r: true, f: [{ id: 11, t: 'media', n: 'img', l: 'Image', r: true }, { id: 12, t: 'text', n: 'txt', l: 'Title', r: false }] }] },
+            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'bg', l: 'Background', r: true }, { id: 2, t: 'text', n: 'h1', l: 'Title', r: true }] },
+            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', r: true, f: [{ id: 11, t: 'text', n: 'p', l: 'Price', r: true }] }] },
+            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'FAQ', r: true, f: [{ id: 11, t: 'text', n: 'q', l: 'Q', r: true }, { id: 12, t: 'textarea', n: 'a', l: 'A', r: true }] }] },
+            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'feats', l: 'Features', r: true, f: [{ id: 11, t: 'text', n: 'i', l: 'Icon', r: true }, { id: 12, t: 'text', n: 't', l: 'Title', r: true }] }] },
+            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', r: true, f: [{ id: 11, t: 'text', n: 'i', l: 'Icon', r: true }, { id: 12, t: 'url', n: 'u', l: 'URL', r: true }] }] },
+            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'k', l: 'API Key', r: true }, { id: 2, t: 'text', n: 'lt', l: 'Lat', r: false }] },
+            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'u', l: 'URL', r: true }, { id: 2, t: 'media', n: 'p', l: 'Poster', r: false }] },
+            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to', l: 'To', r: true }] }
         };
-
         let list = [], customPHP = '';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
-
         function preset(k) {
             const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n;
             document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render();
         }
-
-        function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'field_' + Date.now().toString().slice(-3), l: 'New Field', f: [] }); render(); }
+        function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'field_' + Date.now().toString().slice(-3), l: 'New Field', r: false, f: [] }); render(); }
         function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
         function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
         function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
-
         function render() {
             const container = document.getElementById('fields'); container.innerHTML = '';
             list.forEach(x => container.appendChild(card(x))); update();
         }
-
         function card(x) {
             const d = document.createElement('div'); d.className = 'field-card';
             d.innerHTML = `<div class="field-card-header"><strong>${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
@@ -142,42 +120,46 @@
                 <div class="input-group"><label>Type</label><select onchange="upd(${x.id},'t',this.value)">${types.map(t=>`<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
                 <div class="input-group"><label>Label</label><input type="text" value="${x.l}" oninput="upd(${x.id},'l',this.value)"></div>
                 <div class="input-group"><label>Name</label><input type="text" value="${x.n}" oninput="upd(${x.id},'n',this.value)"></div>
+                <div class="input-group" style="flex-direction:row;align-items:center;gap:10px;"><input type="checkbox" ${x.r?'checked':''} onchange="upd(${x.id},'r',this.checked)" style="width:auto;"><label style="margin:0;">Required</label></div>
                 ${x.t==='subform'?`<div class="subform-container"><div id="s-${x.id}"></div><button class="btn-add" style="font-size:0.7rem;padding:4px;" onclick="addIn(${x.id})">+ Sub</button></div>`:''}
             </div>`;
             if (x.t==='subform') { const s = d.querySelector(`#s-${x.id}`); (x.f||[]).forEach(sf=>s.appendChild(card(sf))); }
             return d;
         }
         function addIn(pid) { const p = find(pid, list); if (p) { if (!p.f) p.f = []; add(p.f); } }
-
         function genPHP(fields, slug) {
             let res = '\x3C?php\ndefined(\'_JEXEC\') or die;\n?\x3E\n\x3Cdiv class="mod-' + slug + '"\x3E\n';
             function build(l, ind) {
                 let s = ''; l.forEach(x => {
+                    const getStr = '$params-\x3Eget(\'' + x.n + '\')';
+                    let core = '';
                     if (x.t === 'subform') {
-                        s += ind + '  \x3Cdiv class="' + x.n + '-container"\x3E\n';
-                        s += ind + '    \x3C?php foreach ($params-\x3Eget(\'' + x.n + '\', []) as $item) : ?\x3E\n';
-                        s += ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n';
-                        s += ind + '    \x3C?php endforeach; ?\x3E\n';
-                        s += ind + '  \x3C/div\x3E\n';
+                        core = ind + '  \x3Cdiv class="' + x.n + '-container"\x3E\n';
+                        core += ind + '    \x3C?php foreach (' + getStr + ', []) as $item) : ?\x3E\n';
+                        core += ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n';
+                        core += ind + '    \x3C?php endforeach; ?\x3E\n';
+                        core += ind + '  \x3C/div\x3E\n';
                     } else if (x.t === 'media') {
-                        s += ind + '  \x3Cimg src="\x3C?php echo $params-\x3Eget(\'' + x.n + '\'); ?\x3E" alt="' + x.l + '" /\x3E\n';
+                        core = ind + '  \x3Cimg src="\x3C?php echo ' + getStr + '; ?\x3E" alt="' + x.l + '" /\x3E\n';
                     } else {
-                        s += ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo $params-\x3Eget(\'' + x.n + '\'); ?\x3E\x3C/p\x3E\n';
+                        core = ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo ' + getStr + '; ?\x3E\x3C/p\x3E\n';
                     }
+                    if (x.r) s += core;
+                    else s += ind + '\x3C?php if (' + getStr + ') : ?\x3E\n' + core + ind + '\x3C?php endif; ?\x3E\n';
                 }); return s;
             }
             res += build(fields, '  ');
             return res + '\x3C/div\x3E';
         }
-
         function update() {
             const n = document.getElementById('modName').value || 'custom';
             const s = n.toLowerCase().replace(/[^a-z0-9]/g, '_');
             let xml = '\x3Cconfig\x3E\n  \x3Cfields name="params"\x3E\n    \x3Cfieldset name="basic"\x3E\n';
             function b(l, i) {
                 let r = ''; l.forEach(x => {
-                    if (x.t === 'subform') r += i + '\x3Cfield name="' + x.n + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid"\x3E\n' + i + '  \x3Cform\x3E\n' + b(x.f || [], i + '    ') + i + '  \x3C/form\x3E\n' + i + '\x3C/field\x3E\n';
-                    else r += i + '\x3Cfield name="' + x.n + '" type="' + x.t + '" label="' + x.l + '" /\x3E\n';
+                    const req = x.r ? ' required="true"' : '';
+                    if (x.t === 'subform') r += i + '\x3Cfield name="' + x.n + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid"' + req + '\x3E\n' + i + '  \x3Cform\x3E\n' + b(x.f || [], i + '    ') + i + '  \x3C/form\x3E\n' + i + '\x3C/field\x3E\n';
+                    else r += i + '\x3Cfield name="' + x.n + '" type="' + x.t + '" label="' + x.l + '"' + req + ' /\x3E\n';
                 }); return r;
             }
             xml += b(list, '      ') + '    \x3C/fieldset\x3E\n  \x3C/fields\x3E\n\x3C/config\x3E';
@@ -186,7 +168,6 @@
             customPHP = genPHP(list, s); document.getElementById('php').value = customPHP;
             if (window.Prism) Prism.highlightAll();
         }
-
         async function zip() {
             const z = new JSZip(), n = document.getElementById('modName').value, s = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), p = 'mod_' + s;
             const r = z.folder(p);
@@ -196,7 +177,6 @@
             const a = document.createElement('a'); a.href = URL.createObjectURL(bl); a.download = p + '.zip'; a.click();
             confetti({ particleCount: 200 });
         }
-
         window.onload = () => preset('features');
     </script>
 </body>
