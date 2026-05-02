@@ -56,7 +56,7 @@
             <div class="input-group"><label>Namespace</label><input type="text" id="ns" value="MyFeatures"></div>
             <div class="input-group"><label>Author</label><input type="text" id="author" value="John Doe"></div>
             <div class="input-group"><label>Author URL</label><input type="text" id="authorUrl" value="https://example.com"></div>
-            <div class="input-group"><label>Client</label><select id="client"><option value="site">Site</option><option value="administrator">Admin</option></select></div>
+            <div class="input-group"><label>Client</label><select id="client" onchange="update()"><option value="site">Site</option><option value="administrator">Admin</option></select></div>
             <h3 style="font-size: 0.6rem; color: rgba(255,255,255,0.4); margin: 1rem 0 0.6rem 0;">PRESETS</h3>
             <div class="presets-grid">
                 <button class="preset-btn" onclick="preset('carousel')"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
@@ -72,7 +72,7 @@
         </div>
         <button class="btn-zip" onclick="zip()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
     </aside>
-    <main class="main-content" id="mainScroll">
+    <main class="main-content">
         <header style="display:flex; justify-content:space-between; align-items:center;">
             <h1>Fields Architect</h1>
             <button class="btn-add" onclick="add()"><i class="fa-solid fa-plus"></i> ADD FIELD</button>
@@ -101,36 +101,35 @@
         };
         let list = [], customPHP = '';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
+        
         function preset(k) { const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n; document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render(); }
         function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'field_' + Date.now().toString().slice(-3), l: 'New Field', r: false, f: [] }); render(); }
         function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
-        function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
         function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
-        
-        function render() {
-            const focused = document.activeElement;
-            const activeId = focused ? focused.id : null;
-            const start = focused && focused.selectionStart !== undefined ? focused.selectionStart : 0;
-            const end = focused && focused.selectionEnd !== undefined ? focused.selectionEnd : 0;
-            const scroll = document.getElementById('mainScroll').scrollTop;
 
-            const container = document.getElementById('fields'); container.innerHTML = '';
-            list.forEach(x => container.appendChild(card(x))); update();
-            
-            document.getElementById('mainScroll').scrollTop = scroll;
-            if (activeId) {
-                setTimeout(() => {
-                    const el = document.getElementById(activeId);
-                    if (el) { el.focus(); if (el.setSelectionRange) el.setSelectionRange(start, end); }
-                }, 0);
+        function upd(id, k, v, p = list) {
+            const x = find(id, p);
+            if (x) {
+                x[k] = v;
+                if (k === 'l') {
+                    x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_');
+                    const header = document.querySelector(`#h-${id}`); if (header) header.innerText = v;
+                    const nameInput = document.querySelector(`#n-${id}`); if (nameInput) nameInput.value = x.n;
+                }
+                update();
             }
         }
 
+        function render() {
+            const container = document.getElementById('fields'); container.innerHTML = '';
+            list.forEach(x => container.appendChild(card(x))); update();
+        }
+
         function card(x) {
-            const d = document.createElement('div'); d.className = 'field-card';
-            d.innerHTML = `<div class="field-card-header"><strong>${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
+            const d = document.createElement('div'); d.className = 'field-card'; d.id = `card-${x.id}`;
+            d.innerHTML = `<div class="field-card-header"><strong id="h-${x.id}">${x.l}</strong><button style="background:var(--danger);color:#fff;border:none;cursor:pointer;padding:2px 6px;" onclick="rem(${x.id})">X</button></div>
             <div class="field-card-body">
-                <div class="input-group"><label>Type</label><select id="t-${x.id}" onchange="upd(${x.id},'t',this.value)">${types.map(t=>`<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
+                <div class="input-group"><label>Type</label><select id="t-${x.id}" onchange="upd(${x.id},'t',this.value);render()">${types.map(t=>`<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
                 <div class="input-group"><label>Label</label><input type="text" id="l-${x.id}" value="${x.l}" oninput="upd(${x.id},'l',this.value)"></div>
                 <div class="input-group"><label>Name</label><input type="text" id="n-${x.id}" value="${x.n}" oninput="upd(${x.id},'n',this.value)"></div>
                 <div class="input-group" style="flex-direction:row;align-items:center;gap:10px;"><input type="checkbox" id="r-${x.id}" ${x.r?'checked':''} onchange="upd(${x.id},'r',this.checked)" style="width:auto;"><label style="margin:0;">Required</label></div>
@@ -139,7 +138,8 @@
             if (x.t==='subform') { const s = d.querySelector(`#s-${x.id}`); (x.f||[]).forEach(sf=>s.appendChild(card(sf))); }
             return d;
         }
-        function addIn(pid) { const p = find(pid, list); if (p) { if (!p.f) p.f = []; add(p.f); } }
+        function addIn(pid) { const p = find(pid, list); if (p) { if (!p.f) p.f = []; add(p.f); render(); } }
+
         function genPHP(fields, slug) {
             let res = '\x3C?php\ndefined(\'_JEXEC\') or die;\n?\x3E\n\x3Cdiv class="mod-' + slug + '"\x3E\n';
             function build(l, ind) {
@@ -147,11 +147,7 @@
                     const getStr = '$params-\x3Eget(\'' + x.n + '\')';
                     let core = '';
                     if (x.t === 'subform') {
-                        core = ind + '  \x3Cdiv class="' + x.n + '-container"\x3E\n';
-                        core += ind + '    \x3C?php foreach (' + getStr + ', []) as $item) : ?\x3E\n';
-                        core += ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n';
-                        core += ind + '    \x3C?php endforeach; ?\x3E\n';
-                        core += ind + '  \x3C/div\x3E\n';
+                        core = ind + '  \x3Cdiv class="' + x.n + '-container"\x3E\n' + ind + '    \x3C?php foreach (' + getStr + ', []) as $item) : ?\x3E\n' + ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n' + ind + '    \x3C?php endforeach; ?\x3E\n' + ind + '  \x3C/div\x3E\n';
                     } else if (x.t === 'media') { core = ind + '  \x3Cimg src="\x3C?php echo ' + getStr + '; ?\x3E" alt="' + x.l + '" /\x3E\n'; }
                     else { core = ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo ' + getStr + '; ?\x3E\x3C/p\x3E\n'; }
                     if (x.r) s += core; else s += ind + '\x3C?php if (' + getStr + ') : ?\x3E\n' + core + ind + '\x3C?php endif; ?\x3E\n';
@@ -159,6 +155,7 @@
             }
             res += build(fields, '  '); return res + '\x3C/div\x3E';
         }
+
         function update() {
             const n = document.getElementById('modName').value || 'custom';
             const s = n.toLowerCase().replace(/[^a-z0-9]/g, '_');
@@ -176,6 +173,7 @@
             customPHP = genPHP(list, s); document.getElementById('php').value = customPHP;
             if (window.Prism) Prism.highlightAll();
         }
+
         async function zip() {
             const z = new JSZip(), n = document.getElementById('modName').value, s = n.toLowerCase().replace(/[^a-z0-9]/g, '_'), p = 'mod_' + s;
             const r = z.folder(p);
