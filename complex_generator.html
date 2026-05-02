@@ -144,6 +144,7 @@
         }
 
         /* Field Builder */
+        .builder-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
         .field-list { display: flex; flex-direction: column; gap: 1rem; }
         .field-card {
             background: var(--card-bg);
@@ -193,7 +194,7 @@
         /* Preview */
         .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.6rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; }
         
-        .code-container { position: relative; margin-bottom: 1.2rem; min-height: 50px; background: #000; border-radius: 8px; border: 1px solid var(--border-white); }
+        .code-container { position: relative; margin-bottom: 1.2rem; min-height: 50px; background: #000; border-radius: 8px; border: 1px solid var(--border-white); overflow: hidden; }
         .xml-preview {
             background: transparent !important;
             padding: 0.8rem !important;
@@ -300,7 +301,15 @@
 
         const presets = {
             carousel: { name: 'mod_carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'caption', label: 'Caption' }] }, { id: 2, type: 'list', name: 'interval', label: 'Interval', default: '5000', options: [{ label: '3s', value: '3000' }, { label: '5s', value: '5000' }] }] },
-            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }, { id: 4, type: 'color', name: 'overlay', label: 'Overlay', default: '#000000' }] }
+            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }, { id: 4, type: 'color', name: 'overlay', label: 'Overlay', default: '#000000' }] },
+            pricing: { name: 'mod_pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }, { id: 13, type: 'textarea', name: 'features', label: 'Features' }, { id: 14, type: 'text', name: 'btn_text', label: 'Btn' }, { id: 15, type: 'url', name: 'btn_url', label: 'URL' }] }] },
+            faq: { name: 'mod_faq', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
+            testimonials: { name: 'mod_testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }, { id: 13, type: 'textarea', name: 'quote', label: 'Quote' }] }] },
+            features: { name: 'mod_features', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'desc', label: 'Desc' }]}, { id: 2, type: 'integer', name: 'cols', label: 'Cols', default: '3' }] },
+            map: { name: 'mod_map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }, { id: 4, type: 'integer', name: 'zoom', label: 'Zoom', default: '15' }] },
+            video: { name: 'mod_video', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }, { id: 3, type: 'text', name: 'hero_title', label: 'Title' }, { id: 4, type: 'radio', name: 'autoplay', label: 'Autoplay', default: '1', options: [{label:'Yes',value:'1'},{label:'No',value:'0'}]}] },
+            contact: { name: 'mod_contact', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }, { id: 2, type: 'text', name: 'subject', label: 'Subject' }, { id: 3, type: 'textarea', name: 'success', label: 'Success Msg' }] },
+            social: { name: 'mod_social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
         };
 
         let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
@@ -317,7 +326,7 @@
         function safeHighlight(id) {
             if (window.Prism) {
                 const el = document.getElementById(id);
-                if (el) Prism.highlightElement(el);
+                if (el) { Prism.highlightElement(el); }
             }
         }
 
@@ -328,13 +337,13 @@
         }
         function syncScroll() {
             const tx = document.getElementById('phpEditor'), pr = document.getElementById('phpPre');
-            pr.scrollTop = tx.scrollTop; pr.scrollLeft = tx.scrollLeft;
+            if (tx && pr) { pr.scrollTop = tx.scrollTop; pr.scrollLeft = tx.scrollLeft; }
         }
 
         function loadPreset(key) {
             if (fields.length > 0 && !confirm(t('confirm-preset'))) return;
             currentPresetKey = key; phpTouched = false;
-            const p = presets[key] || { name: 'mod_custom', fields: [] };
+            const p = presets[key];
             document.getElementById('moduleName').value = p.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             fields = JSON.parse(JSON.stringify(p.fields));
             const val = document.getElementById('moduleName').value;
@@ -346,13 +355,13 @@
         function removeField(id, parentFields = fields) { const index = parentFields.findIndex(f => f.id === id); if (index > -1) parentFields.splice(index, 1); else parentFields.forEach(f => { if (f.type === 'subform' && f.fields) removeField(id, f.fields); }); render(); }
         function updateField(id, key, value, parentFields = fields) {
             const f = findFieldById(id, parentFields);
-            if (f) { if (key === 'name') value = slugify(value); f[key] = value; if (key === 'label') { if (!f.nameTouched) f.name = slugify(value); if (!f.descriptionTouched) f.description = `Desc for ${value}`; } if (key === 'name') f.nameTouched = true; render(); }
+            if (f) { if (key === 'name') value = slugify(value); f[key] = value; if (key === 'label') { if (!f.nameTouched) f.name = slugify(value); } if (key === 'name') f.nameTouched = true; render(); }
         }
 
         function slugify(s) { return s ? s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_') : ''; }
         function findFieldById(id, list) { for (let f of list) { if (f.id === id) return f; if (f.type === 'subform' && f.fields) { let res = findFieldById(id, f.fields); if (res) return res; } } return null; }
         function toggleCollapse(id) { const f = findFieldById(id, fields); if (f) { f.collapsed = !f.collapsed; render(); } }
-        function addOption(fid) { const f = findFieldById(fid, fields); if (f) { f.options.push({ label: 'Opt', value: '' }); render(); } }
+        function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function render() {
             const list = document.getElementById('fieldList'); 
@@ -364,7 +373,7 @@
             const card = document.createElement('div'); card.className = `field-card ${isSub ? 'sub-card' : ''} ${f.collapsed ? 'collapsed' : ''}`;
             card.innerHTML = `
                 <div class="field-card-header" onclick="toggleCollapse(${f.id})">
-                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i><strong>${f.label}</strong><span style="font-size:0.65rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span></div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i><strong>${f.label}</strong><span style="font-size:0.6rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span></div>
                     <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
@@ -376,8 +385,6 @@
             if (f.type === 'subform' && f.fields) { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createFieldCard(sf, true)); }); }
             return card;
         }
-
-        function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function updatePreview() {
             const xml = generateXMLSnippet(); 
@@ -399,8 +406,10 @@
 
         function generatePHPTemplate(slug) {
             let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n`;
-            if (currentPresetKey === 'carousel') p += `<div id="${slug}-<?php echo $module->id; ?>" class="${slug} carousel slide" data-bs-ride="carousel">\n\t<div class="carousel-inner">\n\t\t<?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n\t\t\t<div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n\t\t\t\t<img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n\t\t\t</div>\n\t\t<?php endforeach; ?>\n\t</div>\n</div>`;
-            else if (currentPresetKey === 'hero') p += `<div class="${slug} hero-section p-5 text-center" style="background: <?php echo $params->get('overlay'); ?> url('<?php echo $params->get('bg_image'); ?>'); background-blend-mode: multiply;">\n\t<h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n\t<div class="text-white"><?php echo $params->get('content'); ?></div>\n</div>`;
+            if (currentPresetKey === 'carousel') p += `<div id="${slug}-<?php echo $module->id; ?>" class="${slug} carousel slide" data-bs-ride="carousel">\n\t<div class="carousel-inner">\n\t\t<?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n\t\t\t<div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n\t\t\t\t<img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n\t\t\t\t<div class="carousel-caption d-none d-md-block">\n\t\t\t\t\t<h5><?php echo $slide->title; ?></h5>\n\t\t\t\t\t<p><?php echo $slide->caption; ?></p>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t<?php endforeach; ?>\n\t</div>\n</div>`;
+            else if (currentPresetKey === 'pricing') p += `<div class="${slug} pricing-grid row">\n\t<?php foreach ($params->get('plans', []) as $plan) : ?>\n\t\t<div class="col-md-4"><div class="card text-center"><h3><?php echo $plan->name; ?></h3><div class="h2"><?php echo $plan->price; ?></div><p><?php echo nl2br($plan->features); ?></p><a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary"><?php echo $plan->btn_text; ?></a></div></div>\n\t<?php endforeach; ?>\n</div>`;
+            else if (currentPresetKey === 'faq') p += `<div class="${slug} accordion" id="faq-<?php echo $module->id; ?>">\n\t<?php foreach ($params->get('items', []) as $i => $item) : ?>\n\t\t<div class="accordion-item"><h2 class="accordion-header"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#ans-<?php echo $i; ?>"><?php echo $item->question; ?></button></h2><div id="ans-<?php echo $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>"><div class="accordion-body"><?php echo $item->answer; ?></div></div></div>\n\t<?php endforeach; ?>\n</div>`;
+            else if (currentPresetKey === 'hero') p += `<div class="${slug} hero-section p-5 text-center" style="background: <?php echo $params->get('overlay'); ?> url('<?php echo $params->get('bg_image'); ?>'); background-blend-mode: multiply;">\n\t<h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n\t<div class="text-white lead"><?php echo $params->get('content'); ?></div>\n</div>`;
             else p += `<div class="${slug}">\n\t<?php foreach ($params->toArray() as $k => $v) : ?>\n\t\t<p><strong><?php echo Text::_('${slug.toUpperCase()}_' . strtoupper($k)); ?>:</strong> <?php echo is_array($v) ? '...' : $v; ?></p>\n\t<?php endforeach; ?>\n</div>`;
             return p;
         }
@@ -435,6 +444,7 @@
         
         window.onload = () => {
             setLang(navigator.language.startsWith('pt') ? 'pt' : 'en');
+            updatePreview();
         };
     </script>
 </body>
