@@ -50,7 +50,7 @@
             color-scheme: dark;
         }
 
-        /* Panes */
+        /* Sidebar */
         .sidebar {
             background: var(--sidebar-bg);
             border-right: 1px solid var(--border-white);
@@ -114,7 +114,7 @@
         }
         .input-group input:focus { border-color: var(--accent); background: rgba(255,255,255,0.08); }
 
-        /* Presets */
+        /* Presets Grid */
         .presets-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
         .preset-btn {
             background: rgba(255,255,255,0.02);
@@ -367,50 +367,50 @@
         function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function generatePHPTemplate(slug) {
-            let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-${slug}">\n`;
+            let p = '<?php\ndefined(\'_JEXEC\') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n<div class="mod-' + slug + '">\n';
             if (currentPresetKey === 'carousel') {
-                p += `  <div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel" data-bs-interval="<?php echo (int)$params->get('interval', 5000); ?>">\n    <?php if ($params->get('indicators', '1') == '1') : ?>\n      <div class="carousel-indicators">\n        <?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n          <button type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo $i === 0 ? 'active' : ''; ?>"></button>\n        <?php endforeach; ?>\n      </div>\n    <?php endif; ?>\n    <div class="carousel-inner">\n      <?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n        <div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n          <?php if ($slide->title || $slide->caption) : ?>\n            <div class="carousel-caption d-none d-md-block">\n              <h5><?php echo $slide->title; ?></h5>\n              <p><?php echo $slide->caption; ?></p>\n            </div>\n          <?php endif; ?>\n        </div>\n      <?php endforeach; ?>\n    </div>\n    <?php if ($params->get('controls', '1') == '1') : ?>\n      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>\n      <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>\n    <?php endif; ?>\n  </div>\n`;
+                p += '  <div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel" data-bs-interval="<?php echo (int)$params->get(\'interval\', 5000); ?>">\n    <?php if ($params->get(\'indicators\', \'1\') == \'1\') : ?>\n      <div class="carousel-indicators">\n        <?php foreach ($params->get(\'slides\', []) as $i => $slide) : ?>\n          <button type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide-to="<?php echo $i; ?>" class="<?php echo $i === 0 ? \'active\' : \'\'; ?>"></button>\n        <?php endforeach; ?>\n      </div>\n    <?php endif; ?>\n    <div class="carousel-inner">\n      <?php foreach ($params->get(\'slides\', []) as $i => $slide) : ?>\n        <div class="carousel-item <?php echo $i === 0 ? \'active\' : \'\'; ?>">\n          <img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n          <?php if ($slide->title || $slide->caption) : ?>\n            <div class="carousel-caption d-none d-md-block">\n              <h5><?php echo $slide->title; ?></h5>\n              <p><?php echo $slide->caption; ?></p>\n            </div>\n          <?php endif; ?>\n        </div>\n      <?php endforeach; ?>\n    </div>\n    <?php if ($params->get(\'controls\', \'1\') == \'1\') : ?>\n      <button class="carousel-control-prev" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="prev"><span class="carousel-control-prev-icon"></span></button>\n      <button class="carousel-control-next" type="button" data-bs-target="#carousel-<?php echo $module->id; ?>" data-bs-slide="next"><span class="carousel-control-next-icon"></span></button>\n    <?php endif; ?>\n  </div>\n';
             } else if (currentPresetKey === 'hero') {
-                p += `  <div class="hero-section p-5 text-center" style="background: url('<?php echo $params->get('bg_image'); ?>') center/cover;">\n    <h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n    <div class="text-white lead"><?php echo $params->get('content'); ?></div>\n  </div>\n`;
+                p += '  <div class="hero-section p-5 text-center" style="background: url(\'<?php echo $params->get(\'bg_image\'); ?>\') center/cover;">\n    <h1 class="display-3 text-white"><?php echo $params->get(\'title\'); ?></h1>\n    <div class="text-white lead"><?php echo $params->get(\'content\'); ?></div>\n  </div>\n';
             } else if (currentPresetKey === 'pricing') {
-                p += `  <div class="pricing-grid row">\n    <?php foreach ($params->get('plans', []) as $plan) : ?>\n      <div class="col-md-4">\n        <div class="card text-center mb-4">\n          <div class="card-body">\n            <h3><?php echo $plan->name; ?></h3>\n            <div class="display-4 my-3"><?php echo $plan->price; ?></div>\n            <p><?php echo nl2br($plan->features); ?></p>\n            <a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary">Sign Up</a>\n          </div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n`;
+                p += '  <div class="pricing-grid row">\n    <?php foreach ($params->get(\'plans\', []) as $plan) : ?>\n      <div class="col-md-4">\n        <div class="card text-center mb-4">\n          <div class="card-body">\n            <h3><?php echo $plan->name; ?></h3>\n            <div class="display-4 my-3"><?php echo $plan->price; ?></div>\n            <p><?php echo nl2br($plan->features); ?></p>\n            <a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary">Sign Up</a>\n          </div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
             } else if (currentPresetKey === 'faq') {
-                p += `  <div class="accordion" id="faq-<?php echo $module->id; ?>">\n    <?php foreach ($params->get('items', []) as $i => $item) : ?>\n      <div class="accordion-item">\n        <h2 class="accordion-header">\n          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ans-<?php echo $module->id . '-' . $i; ?>">\n            <?php echo $item->question; ?>\n          </button>\n        </h2>\n        <div id="ans-<?php echo $module->id . '-' . $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>">\n          <div class="accordion-body"><?php echo $item->answer; ?></div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n`;
+                p += '  <div class="accordion" id="faq-<?php echo $module->id; ?>">\n    <?php foreach ($params->get(\'items\', []) as $i => $item) : ?>\n      <div class="accordion-item">\n        <h2 class="accordion-header">\n          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#ans-<?php echo $module->id . \'-\' . $i; ?>">\n            <?php echo $item->question; ?>\n          </button>\n        </h2>\n        <div id="ans-<?php echo $module->id . \'-\' . $i; ?>" class="accordion-collapse collapse" data-bs-parent="#faq-<?php echo $module->id; ?>">\n          <div class="accordion-body"><?php echo $item->answer; ?></div>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
             } else if (currentPresetKey === 'testimonials') {
-                p += `  <div class="row">\n    <?php foreach ($params->get('reviews', []) as $rev) : ?>\n      <div class="col-md-4">\n        <div class="card p-3 mb-4">\n          <div class="d-flex align-items-center mb-3">\n            <img src="<?php echo $rev->avatar; ?>" class="rounded-circle me-3" width="60">\n            <h5 class="mb-0"><?php echo $rev->author; ?></h5>\n          </div>\n          <p class="mb-0 italic">"<?php echo $rev->quote; ?>"</p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n`;
+                p += '  <div class="row">\n    <?php foreach ($params->get(\'reviews\', []) as $rev) : ?>\n      <div class="col-md-4">\n        <div class="card p-3 mb-4">\n          <div class="d-flex align-items-center mb-3">\n            <img src="<?php echo $rev->avatar; ?>" class="rounded-circle me-3" width="60">\n            <h5 class="mb-0"><?php echo $rev->author; ?></h5>\n          </div>\n          <p class="mb-0 italic">"<?php echo $rev->quote; ?>"</p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
             } else if (currentPresetKey === 'features') {
-                p += `  <div class="row">\n    <?php foreach ($params->get('features', []) as $feat) : ?>\n      <div class="col-md-4 text-center mb-4">\n        <div class="p-3">\n          <i class="<?php echo $feat->icon; ?> fa-3x mb-3 text-primary"></i>\n          <h3><?php echo $feat->title; ?></h3>\n          <p><?php echo $feat->desc; ?></p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n`;
+                p += '  <div class="row">\n    <?php foreach ($params->get(\'features\', []) as $feat) : ?>\n      <div class="col-md-4 text-center mb-4">\n        <div class="p-3">\n          <i class="<?php echo $feat->icon; ?> fa-3x mb-3 text-primary"></i>\n          <h3><?php echo $feat->title; ?></h3>\n          <p><?php echo $feat->desc; ?></p>\n        </div>\n      </div>\n    <?php endforeach; ?>\n  </div>\n';
             } else if (currentPresetKey === 'map') {
-                p += `  <div id="map-<?php echo $module->id; ?>" style="height:450px; width:100%; border-radius:12px;"></div>\n  <script>\n    function initMap<?php echo $module->id; ?>() {\n      const pos = { lat: <?php echo (float)$params->get('lat', -23.5); ?>, lng: <?php echo (float)$params->get('lng', -46.6); ?> };\n      const map = new google.maps.Map(document.getElementById("map-<?php echo $module->id; ?>"), {\n        zoom: <?php echo (int)$params->get('zoom', 15); ?>,\n        center: pos\n      });\n      new google.maps.Marker({ position: pos, map: map });\n    }\n  </script>\n  <script async src="https://maps.googleapis.com/maps/api/js?key=<?php echo $params->get('api_key'); ?>&callback=initMap<?php echo $module->id; ?>"></script>\n`;
+                p += '  <div id="map-<?php echo $module->id; ?>" style="height:450px; width:100%; border-radius:12px;"></div>\n  <script>\n    function initMap<?php echo $module->id; ?>() {\n      const pos = { lat: <?php echo (float)$params->get(\'lat\', -23.5); ?>, lng: <?php echo (float)$params->get(\'lng\', -46.6); ?> };\n      const map = new google.maps.Map(document.getElementById("map-<?php echo $module->id; ?>"), {\n        zoom: <?php echo (int)$params->get(\'zoom\', 15); ?>,\n        center: pos\n      });\n      new google.maps.Marker({ position: pos, map: map });\n    }\n  </script>\n  <script async src="https://maps.googleapis.com/maps/api/js?key=<?php echo $params->get(\'api_key\'); ?>&callback=initMap<?php echo $module->id; ?>"></script>\n';
             } else if (currentPresetKey === 'video') {
-                p += `  <div class="video-hero position-relative p-5 text-center bg-dark" style="min-height:400px;">\n    <video autoplay muted loop poster="<?php echo $params->get('poster'); ?>" class="position-absolute w-100 h-100" style="top:0;left:0;object-fit:cover;opacity:0.5;">\n      <source src="<?php echo $params->get('url'); ?>" type="video/mp4">\n    </video>\n    <div class="position-relative z-index-1">\n      <h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n    </div>\n  </div>\n`;
+                p += '  <div class="video-hero position-relative p-5 text-center bg-dark" style="min-height:400px;">\n    <video autoplay muted loop poster="<?php echo $params->get(\'poster\'); ?>" class="position-absolute w-100 h-100" style="top:0;left:0;object-fit:cover;opacity:0.5;">\n      <source src="<?php echo $params->get(\'url\'); ?>" type="video/mp4">\n    </video>\n    <div class="position-relative z-index-1">\n      <h1 class="display-3 text-white"><?php echo $params->get(\'title\'); ?></h1>\n    </div>\n  </div>\n';
             } else if (currentPresetKey === 'contact') {
-                p += `  <div class="card p-4">\n    <form method="post">\n      <div class="mb-3"><label class="form-label">Name</label><input type="text" class="form-control" name="name" required></div>\n      <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>\n      <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4"></textarea></div>\n      <button type="submit" class="btn btn-primary w-100">Send Message</button>\n    </form>\n  </div>\n`;
+                p += '  <div class="card p-4">\n    <form method="post">\n      <div class="mb-3"><label class="form-label">Name</label><input type="text" class="form-control" name="name" required></div>\n      <div class="mb-3"><label class="form-label">Email</label><input type="email" class="form-control" name="email" required></div>\n      <div class="mb-3"><label class="form-label">Message</label><textarea class="form-control" rows="4"></textarea></div>\n      <button type="submit" class="btn btn-primary w-100">Send Message</button>\n    </form>\n  </div>\n';
             } else if (currentPresetKey === 'social') {
-                p += `  <div class="d-flex gap-3 justify-content-center">\n    <?php foreach ($params->get('links', []) as $link) : ?>\n      <a href="<?php echo $link->url; ?>" target="_blank" class="btn btn-primary btn-lg rounded-circle">\n        <i class="<?php echo $link->icon; ?>"></i>\n      </a>\n    <?php endforeach; ?>\n  </div>\n`;
+                p += '  <div class="d-flex gap-3 justify-content-center">\n    <?php foreach ($params->get(\'links\', []) as $link) : ?>\n      <a href="<?php echo $link->url; ?>" target="_blank" class="btn btn-primary btn-lg rounded-circle">\n        <i class="<?php echo $link->icon; ?>"></i>\n      </a>\n    <?php endforeach; ?>\n  </div>\n';
             } else {
-                p += `  <h1><?php echo $params->get('title', 'Welcome'); ?></h1>\n`;
+                p += '  <h1><?php echo $params->get(\'title\', \'Welcome\'); ?></h1>\n';
             }
-            p += `</div>`; return p;
+            p += '</div>'; return p;
         }
 
         function updatePreview() {
-            const modName = document.getElementById('moduleName').value || 'custom';
+            const modName = document.getElementById('moduleName').value || 'My Custom Module';
             const slug = modName.toLowerCase().replace(/[^a-z0-9]/g, '_');
             
             // XML
-            let xml = `<config>\n  <fields name="params">\n    <fieldset name="basic">\n`;
+            let xml = '<config>\n  <fields name="params">\n    <fieldset name="basic">\n';
             function buildXML(list, ind = '      ') {
                 let s = ''; list.forEach(f => {
-                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n${ind}  <form>\n${buildXML(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
-                    else s += `${ind}<field name="${f.name}" type="${f.type}" label="MOD_${slug.toUpperCase()}_${f.name.toUpperCase()}_LABEL" default="${f.default || ''}" />\n`;
+                    if (f.type === 'subform') s += ind + '<field name="' + f.name + '" type="subform" label="MOD_' + slug.toUpperCase() + '_' + f.name.toUpperCase() + '_LABEL" multiple="true" layout="joomla.form.field.subform.repeatable-grid">\n' + ind + '  <form>\n' + buildXML(f.fields, ind + '    ') + ind + '  </form>\n' + ind + '</field>\n';
+                    else s += ind + '<field name="' + f.name + '" type="' + f.type + '" label="MOD_' + slug.toUpperCase() + '_' + f.name.toUpperCase() + '_LABEL" default="' + (f.default || '') + '" />\n';
                 }); return s;
             }
-            xml += buildXML(fields) + `    </fieldset>\n  </fields>\n</config>`;
+            xml += buildXML(fields) + '    </fieldset>\n  </fields>\n</config>';
             document.getElementById('xmlPreview').textContent = xml;
 
             // Structure
-            const struct = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`;
+            const struct = 'mod_' + slug + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_' + slug + '.xml';
             document.getElementById('folderStructure').textContent = struct;
 
             // PHP
@@ -429,13 +429,13 @@
                   author = document.getElementById('author').value || 'John Doe',
                   authorUrl = document.getElementById('authorUrl').value || '',
                   client = document.getElementById('clientType').value,
-                  prefix = `mod_${slug}`, zip = new JSZip(), root = zip.folder(prefix);
+                  prefix = 'mod_' + slug, zip = new JSZip(), root = zip.folder(prefix);
             
-            const manifest = `<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="${client}" method="upgrade">\n\t<name>${prefix}</name>\n\t<author>${author}</author>\n\t<authorUrl>${authorUrl}</authorUrl>\n\t<namespace path="src">Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}</namespace>\n\t<files><folder module="${prefix}">services</folder><folder>src</folder><folder>tmpl</folder></files>\n\t${document.getElementById('xmlPreview').textContent}\n</extension>`;
-            root.file(`${prefix}.xml`, manifest);
+            const manifest = '<?xml version="1.0" encoding="UTF-8"?>\n<extension type="module" client="' + client + '" method="upgrade">\n\t<name>' + prefix + '</name>\n\t<author>' + author + '</author>\n\t<authorUrl>' + authorUrl + '</authorUrl>\n\t<namespace path="src">Joomla\\Module\\' + ns + '\\' + (client === 'site' ? 'Site' : 'Administrator') + '</namespace>\n\t<files><folder module="' + prefix + '">services</folder><folder>src</folder><folder>tmpl</folder></files>\n\t' + document.getElementById('xmlPreview').textContent + '\n</extension>';
+            root.file(prefix + '.xml', manifest);
             root.folder('tmpl').file('default.php', customPHP);
             const blob = await zip.generateAsync({type: "blob"});
-            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${prefix}.zip`; a.click();
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = prefix + '.zip'; a.click();
             confetti({ particleCount: 200, spread: 70, origin: { y: 0.6 } });
         }
 
