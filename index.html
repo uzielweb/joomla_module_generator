@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joomla Module Generator | Scaffolding Premium</title>
+    <title>Joomla Module Generator | Premium Scaffolding</title>
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,7 +81,7 @@
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.5rem 8%;
+            padding: 1.2rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -93,59 +93,72 @@
 
         .nav-logo {
             font-family: var(--font-title);
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 800;
             text-decoration: none;
             color: var(--br-white);
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
 
         .nav-logo span { color: var(--br-yellow); }
-        .nav-logo i { color: var(--br-green); font-size: 1.8rem; }
+        .nav-logo i { color: var(--br-green); font-size: 1.6rem; }
 
-        .nav-links { display: flex; gap: 3rem; }
+        .nav-right { display: flex; align-items: center; gap: 2.5rem; }
+        .nav-links { display: flex; gap: 2.5rem; }
         .nav-links a {
             text-decoration: none;
             color: var(--br-white);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             font-weight: 600;
             opacity: 0.6;
             transition: 0.3s;
         }
-
         .nav-links a:hover { opacity: 1; color: var(--br-yellow); }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-white);
+        }
+
+        .lang-btn {
+            padding: 6px 12px;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+        }
+
+        .lang-btn.active {
+            background: var(--br-blue);
+            color: var(--br-yellow);
+        }
 
         /* Hero */
         .hero {
-            min-height: 100vh;
+            min-height: 90vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 160px 10% 100px;
-        }
-
-        .hero-tag {
-            background: rgba(0, 156, 59, 0.1);
-            color: var(--accent);
-            padding: 0.6rem 1.4rem;
-            border-radius: 100px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid rgba(0, 230, 118, 0.2);
-            margin-bottom: 2rem;
+            padding: 160px 10% 80px;
         }
 
         .hero h1 {
             font-family: var(--font-title);
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(2.5rem, 9vw, 5.5rem);
             font-weight: 800;
-            line-height: 1;
+            line-height: 1.1;
             margin-bottom: 2rem;
             background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.7));
             -webkit-background-clip: text;
@@ -153,21 +166,19 @@
         }
 
         .hero p {
-            max-width: 700px;
-            font-size: 1.2rem;
+            max-width: 750px;
+            font-size: 1.25rem;
             color: rgba(255,255,255,0.5);
             margin-bottom: 4rem;
         }
 
-        .hero-btns { display: flex; gap: 20px; }
-
         /* Buttons */
         .btn {
-            padding: 1.2rem 3rem;
-            border-radius: 16px;
+            padding: 1.2rem 2.8rem;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-flex;
             align-items: center;
@@ -179,163 +190,99 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--br-green), #00c853);
             color: #fff;
-            box-shadow: 0 10px 40px rgba(0, 156, 59, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 156, 59, 0.2);
         }
-
-        .btn-primary:hover { transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0, 156, 59, 0.5); }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 156, 59, 0.4); }
 
         .btn-outline {
             background: transparent;
             border: 1px solid var(--border-white);
             color: var(--br-white);
         }
-
-        .btn-outline:hover { background: var(--border-white); transform: translateY(-4px); }
+        .btn-outline:hover { background: var(--border-white); transform: translateY(-3px); }
 
         /* Generator Section */
-        .section-title {
-            text-align: center;
-            margin-bottom: 5rem;
-        }
-
-        .section-title h2 {
-            font-family: var(--font-title);
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
+        .section-title { text-align: center; margin-bottom: 5rem; }
+        .section-title h2 { font-family: var(--font-title); font-size: 3rem; margin-bottom: 1rem; }
         .section-title p { color: rgba(255,255,255,0.4); }
 
-        .generator {
-            padding: 100px 5%;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .gen-container {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 40px;
-        }
-
+        .generator { padding: 100px 5%; max-width: 1300px; margin: 0 auto; }
+        .gen-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
         .gen-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
-            border-radius: 40px;
-            padding: 4rem;
+            border-radius: 32px;
+            padding: 3.5rem;
             backdrop-filter: blur(30px);
         }
 
-        .gen-form {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
+        .gen-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
         .input-group label {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             font-weight: 700;
             color: var(--br-yellow);
             text-transform: uppercase;
             letter-spacing: 1px;
-            padding-left: 5px;
         }
-
         .input-group input, .input-group select {
-            background: rgba(255,255,255,0.04);
+            background: rgba(255,255,255,0.03);
             border: 1px solid var(--border-white);
-            padding: 1.2rem;
-            border-radius: 18px;
+            padding: 1.1rem;
+            border-radius: 14px;
             color: #fff;
             font-family: inherit;
-            font-size: 1rem;
+            font-size: 0.95rem;
             transition: 0.3s;
         }
-
-        .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.08); }
-
+        .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.06); }
         .full-col { grid-column: span 2; }
 
         /* Preview Card */
         .preview-card {
-            background: linear-gradient(135deg, rgba(0, 156, 59, 0.05), rgba(0, 39, 118, 0.1));
+            background: rgba(255,255,255,0.02);
             border: 1px solid var(--border-white);
-            border-radius: 40px;
-            padding: 3rem;
+            border-radius: 32px;
+            padding: 2.5rem;
             display: flex;
             flex-direction: column;
-            gap: 30px;
+            gap: 25px;
             position: sticky;
-            top: 120px;
+            top: 110px;
             height: fit-content;
         }
 
-        .preview-item {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border-white);
-            padding-bottom: 15px;
-        }
-
-        .preview-item span:first-child { color: rgba(255,255,255,0.4); font-size: 0.9rem; }
-        .preview-item span:last-child { font-weight: 700; }
+        .preview-item { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-white); padding-bottom: 12px; }
+        .preview-item span:first-child { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+        .preview-item span:last-child { font-weight: 700; font-size: 0.9rem; }
 
         .folder-structure {
-            background: rgba(0,0,0,0.3);
-            border-radius: 20px;
+            background: rgba(0,0,0,0.4);
+            border-radius: 16px;
             padding: 20px;
             font-family: 'Courier New', Courier, monospace;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--accent);
-            line-height: 1.8;
+            line-height: 1.6;
         }
 
         /* Features */
-        .features {
-            padding: 100px 8%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .feat-card {
-            padding: 3rem;
-            background: var(--card-bg);
-            border: 1px solid var(--border-white);
-            border-radius: 30px;
-            transition: 0.3s;
-        }
-
-        .feat-card:hover { border-color: var(--br-green); transform: translateY(-10px); }
-
-        .feat-card i {
-            font-size: 2.5rem;
-            color: var(--br-yellow);
-            margin-bottom: 1.5rem;
-            display: block;
-        }
+        .features { padding: 80px 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feat-card { padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 24px; transition: 0.3s; }
+        .feat-card:hover { border-color: var(--br-green); transform: translateY(-8px); }
+        .feat-card i { font-size: 2rem; color: var(--br-yellow); margin-bottom: 1.2rem; display: block; }
+        .feat-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
+        .feat-card p { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
 
         /* Footer */
-        footer {
-            padding: 80px 5%;
-            text-align: center;
-            border-top: 1px solid var(--border-white);
-            margin-top: 100px;
-        }
-
-        footer p { color: rgba(255,255,255,0.3); font-size: 0.9rem; }
-        footer strong { color: var(--br-green); }
+        footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--border-white); margin-top: 60px; }
+        footer p { color: rgba(255,255,255,0.25); font-size: 0.85rem; }
 
         @media (max-width: 1000px) {
             .gen-container { grid-template-columns: 1fr; }
             .features { grid-template-columns: 1fr; }
             .preview-card { position: static; }
+            .nav-links { display: none; }
         }
     </style>
 </head>
@@ -350,75 +297,78 @@
         <a href="#" class="nav-logo">
             <i class="fa-solid fa-cube"></i> Joomla<span>Generator</span>
         </a>
-        <div class="nav-links">
-            <a href="#generator">Gerador</a>
-            <a href="https://github.com/uzielweb/joomla_module_generator">Github</a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#generator" data-i18n="nav-generator">Gerador</a>
+                <a href="https://github.com/uzielweb/joomla_module_generator">Github</a>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+            </div>
         </div>
     </nav>
 
     <header class="hero">
-        <div class="hero-tag" data-aos="fade-down">🇧🇷 Made in Brasil</div>
-        <h1 data-aos="fade-up">Scaffolding de <br> Próxima Geração</h1>
-        <p data-aos="fade-up" data-aos-delay="100">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
+        <h1 data-aos="fade-up" data-i18n="hero-title">Scaffolding de <br> Próxima Geração</h1>
+        <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero-subtitle">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
         <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
-            <a href="#generator" class="btn btn-primary">Começar Agora <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="https://github.com/uzielweb/joomla_module_generator" class="btn btn-outline">Ver Repositório</a>
+            <a href="#generator" class="btn btn-primary"><span data-i18n="btn-start">Começar Agora</span> <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/uzielweb/joomla_module_generator" class="btn btn-outline" data-i18n="btn-repo">Ver Repositório</a>
         </div>
     </header>
 
     <section id="generator" class="generator">
         <div class="section-title" data-aos="fade-up">
-            <h2>Gerador Inteligente</h2>
-            <p>Preencha os campos abaixo para gerar seu pacote .ZIP</p>
+            <h2 data-i18n="gen-title">Gerador Inteligente</h2>
+            <p data-i18n="gen-subtitle">Preencha os campos abaixo para gerar seu pacote .ZIP</p>
         </div>
 
         <div class="gen-container">
-            <!-- Form Card -->
             <div class="gen-card" data-aos="fade-right">
                 <form id="moduleForm" class="gen-form">
                     <div class="input-group full-col">
-                        <label>Nome do Módulo</label>
+                        <label data-i18n="lbl-mod-name">Nome do Módulo</label>
                         <input type="text" id="moduleName" placeholder="Ex: Meu Banner Premium" required>
                     </div>
                     <div class="input-group">
-                        <label>Tipo de Cliente</label>
+                        <label data-i18n="lbl-client">Tipo de Cliente</label>
                         <select id="clientType">
-                            <option value="site">Site (Frontend)</option>
-                            <option value="administrator">Admin (Backend)</option>
+                            <option value="site" data-i18n="opt-site">Site (Frontend)</option>
+                            <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
                         </select>
                     </div>
                     <div class="input-group">
-                        <label>Idioma Principal</label>
+                        <label data-i18n="lbl-lang">Idioma Principal</label>
                         <input type="text" id="newLang" value="pt-BR">
                     </div>
                     <div class="input-group">
-                        <label>Autor</label>
-                        <input type="text" id="author" placeholder="Seu Nome" required>
+                        <label data-i18n="lbl-author">Autor</label>
+                        <input type="text" id="author" placeholder="John Doe" required>
                     </div>
                     <div class="input-group">
-                        <label>Email do Autor</label>
-                        <input type="email" id="authorEmail" placeholder="seu@email.com" required>
+                        <label data-i18n="lbl-email">Email do Autor</label>
+                        <input type="email" id="authorEmail" placeholder="email@example.com" required>
                     </div>
                     <div class="input-group full-col">
-                        <label>Website do Autor</label>
+                        <label data-i18n="lbl-website">Website do Autor</label>
                         <input type="url" id="authorUrl" placeholder="https://">
                     </div>
                     
                     <button type="submit" class="btn btn-primary full-col" style="margin-top: 20px;">
-                        Gerar Pacote .ZIP <i class="fa-solid fa-download"></i>
+                        <span data-i18n="btn-zip">Gerar Pacote .ZIP</span> <i class="fa-solid fa-download"></i>
                     </button>
                 </form>
             </div>
 
-            <!-- Preview Card -->
             <div class="preview-card" data-aos="fade-left">
-                <h3 style="color: var(--br-yellow)">Resumo do Pacote</h3>
+                <h3 style="color: var(--br-yellow)" data-i18n="preview-title">Resumo do Pacote</h3>
                 <div class="preview-item">
                     <span>Namespace</span>
                     <span id="previewNamespace">Joomla\Module\Hello</span>
                 </div>
                 <div class="preview-item">
-                    <span>Nome Pasta</span>
+                    <span data-i18n="preview-folder">Nome Pasta</span>
                     <span id="previewFolder">mod_hello</span>
                 </div>
                 
@@ -437,28 +387,95 @@
     <section class="features">
         <div class="feat-card" data-aos="zoom-in">
             <i class="fa-solid fa-bolt-lightning"></i>
-            <h3>Performance</h3>
-            <p>Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
+            <h3 data-i18n="feat1-title">Performance</h3>
+            <p data-i18n="feat1-desc">Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
         </div>
         <div class="feat-card" data-aos="zoom-in" data-aos-delay="100">
             <i class="fa-solid fa-shield-halved"></i>
-            <h3>Padrão Core</h3>
-            <p>Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
+            <h3 data-i18n="feat2-title">Padrão Core</h3>
+            <p data-i18n="feat2-desc">Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
         </div>
         <div class="feat-card" data-aos="zoom-in" data-aos-delay="200">
             <i class="fa-solid fa-code-branch"></i>
-            <h3>Moderno</h3>
-            <p>Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
+            <h3 data-i18n="feat3-title">Moderno</h3>
+            <p data-i18n="feat3-desc">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2024 Joomla Module Generator. Made with 🚀 in <strong>Brasil</strong></p>
+        <p data-i18n="footer-text">&copy; 2024 Joomla Module Generator. Developed for the global developer community.</p>
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 1000, once: true });
+
+        const i18n = {
+            pt: {
+                "nav-generator": "Gerador",
+                "hero-title": "Scaffolding de <br> Próxima Geração",
+                "hero-subtitle": "Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.",
+                "btn-start": "Começar Agora",
+                "btn-repo": "Ver Repositório",
+                "gen-title": "Gerador Inteligente",
+                "gen-subtitle": "Preencha os campos abaixo para gerar seu pacote .ZIP",
+                "lbl-mod-name": "Nome do Módulo",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor",
+                "lbl-email": "Email do Autor",
+                "lbl-website": "Website do Autor",
+                "btn-zip": "Gerar Pacote .ZIP",
+                "preview-title": "Resumo do Pacote",
+                "preview-folder": "Nome Pasta",
+                "feat1-title": "Performance",
+                "feat1-desc": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
+                "feat2-title": "Padrão Core",
+                "feat2-desc": "Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.",
+                "feat3-title": "Moderno",
+                "feat3-desc": "Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores."
+            },
+            en: {
+                "nav-generator": "Generator",
+                "hero-title": "Next-Gen <br> Scaffolding",
+                "hero-subtitle": "Generate robust modules for Joomla 4, 5, and 6 in seconds. PSR standards, Namespaces, and Dispatchers automatically configured.",
+                "btn-start": "Start Now",
+                "btn-repo": "View Repository",
+                "gen-title": "Smart Generator",
+                "gen-subtitle": "Fill in the fields below to generate your .ZIP package",
+                "lbl-mod-name": "Module Name",
+                "lbl-client": "Client Type",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Default Language",
+                "lbl-author": "Author",
+                "lbl-email": "Author Email",
+                "lbl-website": "Author Website",
+                "btn-zip": "Generate .ZIP Package",
+                "preview-title": "Package Summary",
+                "preview-folder": "Folder Name",
+                "feat1-title": "Performance",
+                "feat1-desc": "Instant client-side generation. No server wait times or unnecessary uploads.",
+                "feat2-title": "Core Standards",
+                "feat2-desc": "Code generated strictly following the native Joomla 4, 5, and 6 architecture.",
+                "feat3-title": "Modern Tech",
+                "feat3-desc": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Developed for the global developer community."
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                el.innerHTML = i18n[lang][key];
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : 'en';
+        }
 
         // Base Data (Same as before)
         const baseFiles = {
@@ -474,40 +491,29 @@
 "tmpl/default.php": {"content": "<?php\r\n\r\n\/**\r\n * @package     Joomla.Site\r\n * @subpackage  mod_hello\r\n *\r\n * @copyright   (C) 2006 Open Source Matters, Inc. <https:\/\/www.joomla.org>\r\n * @license     GNU General Public License version 2 or later; see LICENSE.txt\r\n *\/\r\n\r\ndefined('_JEXEC') or die;\r\nuse Joomla\\CMS\\Factory;\r\nuse Joomla\\CMS\\Router\\Route;\r\nuse Joomla\\CMS\\HTML\\HTMLHelper;\r\nuse Joomla\\CMS\\Language\\Text;\r\n\/** @var Joomla\\CMS\\WebAsset\\WebAssetManager $wa *\/\r\n$wa = $app->getDocument()->getWebAssetManager();\r\n$wa->registerAndUseStyle('mod_hello_css', 'media\/mod_hello\/css\/style.css');\r\n$wa->registerAndUseScript('mod_hello_script', 'media\/mod_hello\/js\/script.js');\r\nif (!$list) {\r\n    return;\r\n}\r\n\r\n?>\r\n<div class=\"hello\">\r\n    <h3>\r\n        <?php echo $params->get('greeting'); ?>\r\n    <\/h3>\r\n    <ul>\r\n        <?php foreach ($list as $item) : ?>\r\n            <li>\r\n                <?php echo $item->title; ?>\r\n            <\/li>\r\n        <?php endforeach; ?>\r\n    <\/ul>\r\n<\/div>\r\n\r\n", "base64": false}
         };
 
-        // Live Preview Logic
         const nameInput = document.getElementById('moduleName');
         const previewNamespace = document.getElementById('previewNamespace');
         const previewFolder = document.getElementById('previewFolder');
         const structureList = document.getElementById('structureList');
 
         nameInput.addEventListener('input', (e) => {
-            const val = e.target.value || "Meu Modulo";
+            const val = e.target.value || "My Module";
             const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
             const slug = clean.toLowerCase();
             const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
-            
             previewNamespace.innerText = `Joomla\\Module\\${cap}`;
             previewFolder.innerText = `mod_${slug}`;
-            structureList.innerHTML = `
-                mod_${slug}/<br>
-                ├── services/provider.php<br>
-                ├── src/Dispatcher/Dispatcher.php<br>
-                ├── src/Helper/${cap}Helper.php<br>
-                ├── tmpl/default.php<br>
-                └── mod_${slug}.xml
-            `;
+            structureList.innerHTML = `mod_${slug}/<br>├── services/provider.php<br>├── src/Dispatcher/Dispatcher.php<br>├── src/Helper/${cap}Helper.php<br>├── tmpl/default.php<br>└── mod_${slug}.xml`;
         });
 
-        // Form Logic
         document.getElementById('moduleForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const moduleName = document.getElementById('moduleName').value;
             const author = document.getElementById('author').value;
             const authorEmail = document.getElementById('authorEmail').value;
             const authorUrl = document.getElementById('authorUrl').value || "https://github.com/uzielweb";
             const clientType = document.getElementById('clientType').value;
-            const newLang = document.getElementById('newLang').value || "pt-BR";
+            const newLang = document.getElementById('newLang').value || "en-GB";
 
             const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
             const newWord = clean.toLowerCase();
@@ -534,22 +540,18 @@
                         content = content.replace(/<authorEmail>.*?<\/authorEmail>/, `<authorEmail>${authorEmail}</authorEmail>`);
                         content = content.replace(/<authorUrl>.*?<\/authorUrl>/, `<authorUrl>${authorUrl}</authorUrl>`);
                         content = content.replace(/client="site"/, `client="${clientType}"`);
-                        
                         const langEntry = `\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\n`;
                         content = content.replace(/(<languages>)/, `$1\n\t${langEntry}`);
                     }
-
                     if (path.endsWith('.php')) {
                         if (clientType === 'administrator') {
                             content = content.replace(/\\Site/g, '\\Administrator');
                         }
                     }
                 }
-
                 if (path.includes('language/en-GB')) {
                     finalPath = finalPath.replace('language/en-GB', `language/${newLang}`);
                 }
-
                 if (data.base64) {
                     root.file(finalPath, content, {base64: true});
                 } else {
@@ -558,8 +560,6 @@
             }
 
             const blob = await zip.generateAsync({type: "blob"});
-            
-            // Celebration
             confetti({
                 particleCount: 150,
                 spread: 70,
@@ -576,6 +576,10 @@
             document.body.removeChild(a);
             URL.revokeObjectURL(url);
         });
+
+        // Initialize with default browser language if possible
+        const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
+        setLang(userLang);
     </script>
 </body>
 </html>
