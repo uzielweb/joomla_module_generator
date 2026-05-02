@@ -127,7 +127,7 @@
         .preset-btn:hover { background: rgba(255,255,255,0.1); border-color: var(--br-green); }
         .preset-btn i { font-size: 1rem; color: var(--br-yellow); }
 
-        /* Code Blocks - VISIBILITY FIX */
+        /* Code Blocks */
         .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.8rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; border-bottom: 1px solid var(--border-white); padding-bottom: 5px; }
         
         .code-preview {
@@ -137,7 +137,7 @@
             font-family: 'Courier New', Courier, monospace !important;
             font-size: 0.7rem !important;
             border: 1px solid var(--border-white) !important;
-            color: #ffffff !important; /* FORCED WHITE */
+            color: #ffffff !important;
             white-space: pre-wrap !important;
             overflow: auto;
             margin-bottom: 1.5rem !important;
@@ -149,7 +149,7 @@
             width: 100%;
             height: 350px;
             background: #000;
-            color: #00ff00; /* FORCED GREEN */
+            color: #00ff00;
             font-family: 'Courier New', Courier, monospace;
             font-size: 0.75rem;
             padding: 1rem;
@@ -246,16 +246,16 @@
         };
 
         const presets = {
-            carousel: { name: 'mod_carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }] }] },
-            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title' }] },
-            pricing: { name: 'mod_pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }] }] },
-            faq: { name: 'mod_faq', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }] }] },
-            testimonials: { name: 'mod_testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }] }] },
-            features: { name: 'mod_features', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }]}] },
-            map: { name: 'mod_map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }] },
-            video: { name: 'mod_video', fields: [{ id: 1, type: 'url', name: 'url', label: 'Video' }] },
-            contact: { name: 'mod_contact', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }] },
-            social: { name: 'mod_social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }] }] }
+            carousel: { name: 'My Carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }] }] },
+            hero: { name: 'My Hero Section', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title' }] },
+            pricing: { name: 'My Pricing Plans', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }] }] },
+            faq: { name: 'My FAQ Accordion', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }] }] },
+            testimonials: { name: 'My Testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }] }] },
+            features: { name: 'My Features Grid', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }]}] },
+            map: { name: 'My Google Map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }] },
+            video: { name: 'My Video Hero', fields: [{ id: 1, type: 'url', name: 'url', label: 'Video' }] },
+            contact: { name: 'My Contact Form', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }] },
+            social: { name: 'My Social Links', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }] }] }
         };
 
         let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
@@ -271,7 +271,7 @@
         function loadPreset(key) {
             if (fields.length > 0 && !confirm(i18n[currentLang]['confirm-preset'])) return;
             currentPresetKey = key; phpTouched = false; const p = presets[key];
-            document.getElementById('moduleName').value = p.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('moduleName').value = p.name;
             fields = JSON.parse(JSON.stringify(p.fields));
             const val = document.getElementById('moduleName').value;
             document.getElementById('namespace').value = val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').charAt(0).toUpperCase() + val.normalize("NFD").replace(/[^A-Za-z0-9]/g, '').slice(1);
