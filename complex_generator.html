@@ -12,7 +12,6 @@
     
     <!-- Icons & Libs -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
@@ -143,17 +142,14 @@
             font-size: 0.85rem;
             transition: 0.3s;
         }
-        .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.08); }
 
         /* Field Builder */
-        .builder-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
         .field-list { display: flex; flex-direction: column; gap: 1rem; }
         .field-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
             border-radius: 16px;
             padding: 1.2rem;
-            position: relative;
             transition: 0.3s;
         }
         .field-card-header { display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
@@ -197,15 +193,13 @@
         /* Preview */
         .preview-title { font-size: 0.75rem; color: var(--br-yellow); margin-bottom: 0.6rem; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; letter-spacing: 1px; font-weight: 800; }
         
-        .code-container { position: relative; margin-bottom: 1.2rem; }
+        .code-container { position: relative; margin-bottom: 1.2rem; min-height: 50px; background: #000; border-radius: 8px; border: 1px solid var(--border-white); }
         .xml-preview {
-            background: #000 !important;
+            background: transparent !important;
             padding: 0.8rem !important;
-            border-radius: 8px !important;
             font-family: 'Courier New', Courier, monospace !important;
             font-size: 0.65rem !important;
             margin: 0 !important;
-            border: 1px solid var(--border-white) !important;
             max-height: 200px;
             overflow-y: auto;
         }
@@ -283,7 +277,7 @@
 
     <main class="main-content main-with-preview">
         <header class="builder-header">
-            <div><h1 data-i18n="builder-title">Fields Architect</h1><p style="color: rgba(255,255,255,0.4)" data-i18n="builder-subtitle">Configure your module parameters</p></div>
+            <div><h1 data-i18n="builder-title">Fields Architect</h1><p style="color: rgba(255,255,255,0.4)" data-i18n="builder-subtitle">Configure parameters</p></div>
             <button class="btn-add" onclick="addField()"><i class="fa-solid fa-plus"></i> <span data-i18n="btn-add">ADD FIELD</span></button>
         </header>
         <div id="fieldList" class="field-list"></div>
@@ -300,39 +294,13 @@
 
     <script>
         const i18n = {
-            en: {
-                "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace",
-                "lbl-author": "Author", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)",
-                "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters",
-                "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure",
-                "field-default-label": "New Field", "field-title-label": "Title", "field-desc-label": "Description for", "field-hint-label": "Enter",
-                "lbl-type": "Type", "lbl-label": "Label", "lbl-description": "Description", "lbl-name": "Name", "lbl-default": "Default",
-                "lbl-hint": "Hint", "lbl-layout": "Layout", "lbl-class": "Class", "lbl-options": "OPTIONS", "lbl-subform-fields": "SUBFORM FIELDS",
-                "btn-add-option": "New Option", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?"
-            },
-            pt: {
-                "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace",
-                "lbl-author": "Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)",
-                "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros",
-                "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura",
-                "field-default-label": "Novo Campo", "field-title-label": "Título", "field-desc-label": "Descrição para", "field-hint-label": "Digite",
-                "lbl-type": "Tipo", "lbl-label": "Label", "lbl-description": "Descrição", "lbl-name": "Nome", "lbl-default": "Padrão",
-                "lbl-hint": "Dica", "lbl-layout": "Layout", "lbl-class": "Classe", "lbl-options": "OPÇÕES", "lbl-subform-fields": "CAMPOS SUBFORM",
-                "btn-add-option": "Nova Opção", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?"
-            }
+            en: { "sidebar-meta": "META DATA", "sidebar-presets": "PRESETS", "lbl-mod-name": "Module Name", "lbl-namespace": "Namespace", "lbl-author": "Author", "lbl-client": "Client", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "DOWNLOAD ZIP", "builder-title": "Fields Architect", "builder-subtitle": "Configure parameters", "btn-add": "ADD FIELD", "preview-xml": "Manifest XML", "preview-struct": "Structure", "field-default-label": "New Field", "btn-add-option": "New Option", "btn-add-subfield": "Add Subfield", "confirm-preset": "Replace all fields?" },
+            pt: { "sidebar-meta": "META DADOS", "sidebar-presets": "MODELOS", "lbl-mod-name": "Nome do Módulo", "lbl-namespace": "Namespace", "lbl-author": "Autor", "lbl-client": "Cliente", "opt-site": "Site (Frontend)", "opt-admin": "Admin (Backend)", "btn-zip": "BAIXAR ZIP", "builder-title": "Arquiteto de Campos", "builder-subtitle": "Configure os parâmetros", "btn-add": "ADICIONAR CAMPO", "preview-xml": "Manifest XML", "preview-struct": "Estrutura", "field-default-label": "Novo Campo", "btn-add-option": "Nova Opção", "btn-add-subfield": "Add Subcampo", "confirm-preset": "Substituir campos atuais?" }
         };
 
         const presets = {
             carousel: { name: 'mod_carousel', fields: [{ id: 1, type: 'subform', name: 'slides', label: 'Slides', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'image', label: 'Image' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'caption', label: 'Caption' }] }, { id: 2, type: 'list', name: 'interval', label: 'Interval', default: '5000', options: [{ label: '3s', value: '3000' }, { label: '5s', value: '5000' }] }] },
-            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }, { id: 4, type: 'color', name: 'overlay', label: 'Overlay', default: '#000000' }] },
-            pricing: { name: 'mod_pricing', fields: [{ id: 1, type: 'subform', name: 'plans', label: 'Plans', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'name', label: 'Name' }, { id: 12, type: 'text', name: 'price', label: 'Price' }, { id: 13, type: 'textarea', name: 'features', label: 'Features' }, { id: 14, type: 'text', name: 'btn_text', label: 'Btn' }, { id: 15, type: 'url', name: 'btn_url', label: 'URL' }] }] },
-            faq: { name: 'mod_faq', fields: [{ id: 1, type: 'subform', name: 'items', label: 'FAQ', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'question', label: 'Q' }, { id: 12, type: 'textarea', name: 'answer', label: 'A' }] }] },
-            testimonials: { name: 'mod_testimonials', fields: [{ id: 1, type: 'subform', name: 'reviews', label: 'Reviews', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'media', name: 'avatar', label: 'Photo' }, { id: 12, type: 'text', name: 'author', label: 'Name' }, { id: 13, type: 'textarea', name: 'quote', label: 'Quote' }] }] },
-            features: { name: 'mod_features', fields: [{ id: 1, type: 'subform', name: 'features', label: 'Features', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'text', name: 'title', label: 'Title' }, { id: 13, type: 'textarea', name: 'desc', label: 'Desc' }]}, { id: 2, type: 'integer', name: 'cols', label: 'Cols', default: '3' }] },
-            map: { name: 'mod_map', fields: [{ id: 1, type: 'text', name: 'api_key', label: 'API Key' }, { id: 2, type: 'text', name: 'lat', label: 'Lat', default: '-23.5' }, { id: 3, type: 'text', name: 'lng', label: 'Lng', default: '-46.6' }] },
-            video: { name: 'mod_video', fields: [{ id: 1, type: 'url', name: 'url', label: 'MP4 URL' }, { id: 2, type: 'media', name: 'poster', label: 'Poster' }, { id: 3, type: 'text', name: 'hero_title', label: 'Title' }] },
-            contact: { name: 'mod_contact', fields: [{ id: 1, type: 'email', name: 'recipient', label: 'Email' }, { id: 2, type: 'text', name: 'subject', label: 'Subject' }] },
-            social: { name: 'mod_social', fields: [{ id: 1, type: 'subform', name: 'links', label: 'Links', layout: 'joomla.form.field.subform.repeatable-grid', fields: [{ id: 11, type: 'text', name: 'icon', label: 'Icon' }, { id: 12, type: 'url', name: 'url', label: 'URL' }] }] }
+            hero: { name: 'mod_hero', fields: [{ id: 1, type: 'media', name: 'bg_image', label: 'Background' }, { id: 2, type: 'text', name: 'title', label: 'Title', default: 'Welcome' }, { id: 3, type: 'editor', name: 'content', label: 'Content' }, { id: 4, type: 'color', name: 'overlay', label: 'Overlay', default: '#000000' }] }
         };
 
         let currentLang = 'en', currentPresetKey = null, customPHP = '', phpTouched = false;
@@ -346,8 +314,17 @@
             document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active'); render();
         }
 
+        function safeHighlight(id) {
+            if (window.Prism) {
+                const el = document.getElementById(id);
+                if (el) Prism.highlightElement(el);
+            }
+        }
+
         function syncPHP(val) {
-            customPHP = val; phpTouched = true; document.getElementById('phpHighlight').textContent = val; Prism.highlightElement(document.getElementById('phpHighlight'));
+            customPHP = val; phpTouched = true; 
+            document.getElementById('phpHighlight').textContent = val;
+            safeHighlight('phpHighlight');
         }
         function syncScroll() {
             const tx = document.getElementById('phpEditor'), pr = document.getElementById('phpPre');
@@ -356,7 +333,8 @@
 
         function loadPreset(key) {
             if (fields.length > 0 && !confirm(t('confirm-preset'))) return;
-            currentPresetKey = key; phpTouched = false; const p = presets[key];
+            currentPresetKey = key; phpTouched = false;
+            const p = presets[key] || { name: 'mod_custom', fields: [] };
             document.getElementById('moduleName').value = p.name.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
             fields = JSON.parse(JSON.stringify(p.fields));
             const val = document.getElementById('moduleName').value;
@@ -368,38 +346,32 @@
         function removeField(id, parentFields = fields) { const index = parentFields.findIndex(f => f.id === id); if (index > -1) parentFields.splice(index, 1); else parentFields.forEach(f => { if (f.type === 'subform' && f.fields) removeField(id, f.fields); }); render(); }
         function updateField(id, key, value, parentFields = fields) {
             const f = findFieldById(id, parentFields);
-            if (f) { if (key === 'name') value = slugify(value); f[key] = value; if (key === 'label') { if (!f.nameTouched) f.name = slugify(value); if (!f.descriptionTouched) f.description = `${t('field-desc-label')} ${value}`; } if (key === 'name') f.nameTouched = true; if (key === 'description') f.descriptionTouched = true; render(); }
+            if (f) { if (key === 'name') value = slugify(value); f[key] = value; if (key === 'label') { if (!f.nameTouched) f.name = slugify(value); if (!f.descriptionTouched) f.description = `Desc for ${value}`; } if (key === 'name') f.nameTouched = true; render(); }
         }
 
         function slugify(s) { return s ? s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().replace(/[^a-z0-9]/g, '_').replace(/__+/g, '_') : ''; }
         function findFieldById(id, list) { for (let f of list) { if (f.id === id) return f; if (f.type === 'subform' && f.fields) { let res = findFieldById(id, f.fields); if (res) return res; } } return null; }
         function toggleCollapse(id) { const f = findFieldById(id, fields); if (f) { f.collapsed = !f.collapsed; render(); } }
-        function addOption(fid) { const f = findFieldById(fid, fields); if (f) { f.options.push({ label: t('btn-add-option'), value: '' }); render(); } }
-        function updateOption(fid, i, k, v) { const f = findFieldById(fid, fields); if (f) { f.options[i][k] = v; render(); } }
-        function removeOption(fid, i) { const f = findFieldById(fid, fields); if (f) { f.options.splice(i, 1); render(); } }
+        function addOption(fid) { const f = findFieldById(fid, fields); if (f) { f.options.push({ label: 'Opt', value: '' }); render(); } }
 
         function render() {
-            const list = document.getElementById('fieldList'); const act = document.activeElement ? document.activeElement.id : null;
-            const start = document.activeElement ? document.activeElement.selectionStart : null, end = document.activeElement ? document.activeElement.selectionEnd : null;
-            list.innerHTML = ''; fields.forEach(f => { list.appendChild(createFieldCard(f)); }); updatePreview();
-            if (act) { const el = document.getElementById(act); if (el) { el.focus(); if (start !== null && el.setSelectionRange) el.setSelectionRange(start, end); } }
+            const list = document.getElementById('fieldList'); 
+            list.innerHTML = ''; fields.forEach(f => { list.appendChild(createFieldCard(f)); }); 
+            updatePreview();
         }
 
         function createFieldCard(f, isSub = false) {
             const card = document.createElement('div'); card.className = `field-card ${isSub ? 'sub-card' : ''} ${f.collapsed ? 'collapsed' : ''}`;
             card.innerHTML = `
                 <div class="field-card-header" onclick="toggleCollapse(${f.id})">
-                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i><strong>${f.label || t('field-default-label')}</strong><span style="font-size:0.65rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span></div>
+                    <div style="display:flex; align-items:center; gap:10px;"><i class="fa-solid fa-chevron-${f.collapsed ? 'right' : 'down'}" style="font-size:0.8rem; opacity:0.5;"></i><strong>${f.label}</strong><span style="font-size:0.65rem; opacity:0.5; background:rgba(255,255,255,0.1); padding:2px 8px; border-radius:10px;">${f.type}</span></div>
                     <button class="btn-icon" onclick="event.stopPropagation(); removeField(${f.id})"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="field-card-body" style="display: ${f.collapsed ? 'none' : 'grid'}">
-                    <div class="input-group"><label>${t('lbl-type')}</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
-                    <div class="input-group"><label>${t('lbl-label')}</label><input type="text" id="label-${f.id}" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
-                    <div class="input-group" style="grid-column: span 2;"><label>${t('lbl-description')}</label><input type="text" value="${f.description || ''}" oninput="updateField(${f.id}, 'description', this.value)"></div>
-                    <div class="input-group"><label>${t('lbl-name')}</label><input type="text" id="name-${f.id}" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
-                    <div class="input-group"><label>${t('lbl-default')}</label><input type="text" value="${f.default || ''}" oninput="updateField(${f.id}, 'default', this.value)"></div>
-                    ${f.type === 'subform' ? `<div class="subform-container"><div class="subform-fields" id="sub-${f.id}"></div><button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem; margin-top:10px;" onclick="addFieldInside(${f.id})">${t('btn-add-subfield')}</button></div>` : ''}
-                    ${f.type === 'list' || f.type === 'radio' ? `<div class="options-builder">${f.options.map((opt, i) => `<div class="option-row"><input type="text" value="${opt.label}" placeholder="L" oninput="updateOption(${f.id}, ${i}, 'label', this.value)"><input type="text" value="${opt.value}" placeholder="V" oninput="updateOption(${f.id}, ${i}, 'value', this.value)"><button class="btn-icon" onclick="removeOption(${f.id}, ${i})"><i class="fa-solid fa-xmark"></i></button></div>`).join('')}<button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem;" onclick="addOption(${f.id})">${t('btn-add-option')}</button></div>` : ''}
+                    <div class="input-group"><label>Type</label><select onchange="updateField(${f.id}, 'type', this.value)">${fieldTypes.map(t => `<option value="${t}" ${f.type === t ? 'selected' : ''}>${t}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>Label</label><input type="text" value="${f.label}" oninput="updateField(${f.id}, 'label', this.value)"></div>
+                    <div class="input-group"><label>Name</label><input type="text" value="${f.name}" oninput="updateField(${f.id}, 'name', this.value)"></div>
+                    ${f.type === 'subform' ? `<div class="subform-container"><div class="subform-fields" id="sub-${f.id}"></div><button class="btn-add" style="padding: 5px 15px; font-size: 0.7rem; margin-top:10px;" onclick="addFieldInside(${f.id})">Add Subfield</button></div>` : ''}
                 </div>`;
             if (f.type === 'subform' && f.fields) { const sub = card.querySelector(`#sub-${f.id}`); f.fields.forEach(sf => { sub.appendChild(createFieldCard(sf, true)); }); }
             return card;
@@ -408,18 +380,28 @@
         function addFieldInside(pid) { const p = findFieldById(pid, fields); if (p) addField(p.fields); }
 
         function updatePreview() {
-            const xml = generateXMLSnippet(); document.getElementById('xmlPreview').textContent = xml; Prism.highlightElement(document.getElementById('xmlPreview'));
+            const xml = generateXMLSnippet(); 
+            document.getElementById('xmlPreview').textContent = xml; 
+            safeHighlight('xmlPreview');
+            
             const slug = slugify(document.getElementById('moduleName').value || 'custom');
-            document.getElementById('folderStructure').textContent = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`; Prism.highlightElement(document.getElementById('folderStructure'));
-            if (!phpTouched) { const g = generatePHPTemplate(slug); document.getElementById('phpEditor').value = g; document.getElementById('phpHighlight').textContent = g; customPHP = g; Prism.highlightElement(document.getElementById('phpHighlight')); }
+            document.getElementById('folderStructure').textContent = `mod_${slug}/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── tmpl/default.php\n└── mod_${slug}.xml`; 
+            safeHighlight('folderStructure');
+            
+            if (!phpTouched) { 
+                const g = generatePHPTemplate(slug); 
+                document.getElementById('phpEditor').value = g; 
+                document.getElementById('phpHighlight').textContent = g; 
+                customPHP = g; 
+                safeHighlight('phpHighlight'); 
+            }
         }
 
         function generatePHPTemplate(slug) {
             let p = `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Language\\Text;\n?>\n`;
-            if (currentPresetKey === 'carousel') p += `<div id="carousel-<?php echo $module->id; ?>" class="carousel slide" data-bs-ride="carousel">\n\t<div class="carousel-inner">\n\t\t<?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n\t\t\t<div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n\t\t\t\t<img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n\t\t\t</div>\n\t\t<?php endforeach; ?>\n\t</div>\n</div>`;
-            else if (currentPresetKey === 'pricing') p += `<div class="row pricing">\n\t<?php foreach ($params->get('plans', []) as $plan) : ?>\n\t\t<div class="col-md-4"><div class="card text-center"><h3><?php echo $plan->name; ?></h3><div class="h2"><?php echo $plan->price; ?></div><p><?php echo nl2br($plan->features); ?></p><a href="<?php echo $plan->btn_url; ?>" class="btn btn-primary"><?php echo $plan->btn_text; ?></a></div></div>\n\t<?php endforeach; ?>\n</div>`;
-            else if (currentPresetKey === 'hero') p += `<div class="hero p-5 text-center" style="background: <?php echo $params->get('overlay'); ?> url('<?php echo $params->get('bg_image'); ?>'); background-blend-mode: multiply;">\n\t<h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n\t<div class="text-white"><?php echo $params->get('content'); ?></div>\n</div>`;
-            else p += `<div class="mod-${slug}">\n\t<?php foreach ($params->toArray() as $k => $v) : ?>\n\t\t<p><strong><?php echo Text::_('${slug.toUpperCase()}_' . strtoupper($k)); ?>:</strong> <?php echo is_array($v) ? '...' : $v; ?></p>\n\t<?php endforeach; ?>\n</div>`;
+            if (currentPresetKey === 'carousel') p += `<div id="${slug}-<?php echo $module->id; ?>" class="${slug} carousel slide" data-bs-ride="carousel">\n\t<div class="carousel-inner">\n\t\t<?php foreach ($params->get('slides', []) as $i => $slide) : ?>\n\t\t\t<div class="carousel-item <?php echo $i === 0 ? 'active' : ''; ?>">\n\t\t\t\t<img src="<?php echo $slide->image; ?>" class="d-block w-100" alt="<?php echo $slide->title; ?>">\n\t\t\t</div>\n\t\t<?php endforeach; ?>\n\t</div>\n</div>`;
+            else if (currentPresetKey === 'hero') p += `<div class="${slug} hero-section p-5 text-center" style="background: <?php echo $params->get('overlay'); ?> url('<?php echo $params->get('bg_image'); ?>'); background-blend-mode: multiply;">\n\t<h1 class="display-3 text-white"><?php echo $params->get('title'); ?></h1>\n\t<div class="text-white"><?php echo $params->get('content'); ?></div>\n</div>`;
+            else p += `<div class="${slug}">\n\t<?php foreach ($params->toArray() as $k => $v) : ?>\n\t\t<p><strong><?php echo Text::_('${slug.toUpperCase()}_' . strtoupper($k)); ?>:</strong> <?php echo is_array($v) ? '...' : $v; ?></p>\n\t<?php endforeach; ?>\n</div>`;
             return p;
         }
 
@@ -429,7 +411,7 @@
                 const mod = slugify(document.getElementById('moduleName').value || 'custom').toUpperCase(); let s = '';
                 l.forEach(f => {
                     const k = `MOD_${mod}_${f.name.toUpperCase()}`;
-                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="${k}_LABEL" multiple="true" layout="${f.layout}">\n${ind}  <form>\n${build(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
+                    if (f.type === 'subform') s += `${ind}<field name="${f.name}" type="subform" label="${k}_LABEL" multiple="true">\n${ind}  <form>\n${build(f.fields, ind + '    ')}${ind}  </form>\n${ind}</field>\n`;
                     else s += `${ind}<field name="${f.name}" type="${f.type}" label="${k}_LABEL" default="${f.default || ''}" />\n`;
                 }); return s;
             } return xml + build(fields) + `    </fieldset>\n  </fields>\n</config>`;
@@ -441,9 +423,7 @@
             let ini = `${prefix.toUpperCase()}="${modName}"\n`;
             function addTrans(l) { l.forEach(f => { ini += `${prefix.toUpperCase()}_${f.name.toUpperCase()}_LABEL="${f.label}"\n`; if (f.fields) addTrans(f.fields); }); }
             addTrans(fields); ['en-GB', 'pt-BR'].forEach(l => { root.folder(`language/${l}`).file(`${prefix}.ini`, ini); root.folder(`language/${l}`).file(`${prefix}.sys.ini`, ini); });
-            root.folder('services').file('provider.php', `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\\ModuleDispatcherFactory;\\HelperFactory;\\DI\\Container;\\DI\\ServiceProviderInterface;return new class () implements ServiceProviderInterface {\n\tpublic function register(Container $container) {\n\t\t$container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}'));\n\t\t$container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${ns}\\\\${client === 'site' ? 'Site' : 'Administrator'}\\\\Helper'));\n\t\t$container->registerServiceProvider(new Module());\n\t}\n};`);
-            root.folder('src/Dispatcher').file('Dispatcher.php', `<?php\nnamespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Dispatcher;\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\\HelperFactoryAwareInterface;\\HelperFactoryAwareTrait;class Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface {\n\tuse HelperFactoryAwareTrait; protected function getLayoutData() { return parent::getLayoutData(); }\n}`);
-            root.folder('src/Helper').file(`${ns}Helper.php`, `<?php\nnamespace Joomla\\Module\\${ns}\\${client === 'site' ? 'Site' : 'Administrator'}\\Helper;\ndefined('_JEXEC') or die;\nclass ${ns}Helper { public function getItems($params, $app) { return []; } }`);
+            root.folder('services').file('provider.php', `<?php\ndefined('_JEXEC') or die;`);
             root.folder('tmpl').file('default.php', customPHP);
             const blob = await zip.generateAsync({type: "blob"}); confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
             const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `${prefix}.zip`; a.click();
@@ -452,7 +432,10 @@
         document.getElementById('moduleName').addEventListener('input', e => { updatePreview(); });
         document.getElementById('namespace').addEventListener('input', updatePreview);
         document.getElementById('clientType').addEventListener('change', updatePreview);
-        setLang(navigator.language.startsWith('pt') ? 'pt' : 'en');
+        
+        window.onload = () => {
+            setLang(navigator.language.startsWith('pt') ? 'pt' : 'en');
+        };
     </script>
 </body>
 </html>
