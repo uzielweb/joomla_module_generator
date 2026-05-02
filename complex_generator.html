@@ -117,15 +117,15 @@
             contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to', l: 'To' }] }
         };
 
-        let list = [], customPHP = '', cur = 'features';
+        let list = [], customPHP = '';
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user'];
 
         function preset(k) {
-            cur = k; const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n;
+            const p = presets[k]; document.getElementById('modName').value = 'My ' + p.n;
             document.getElementById('ns').value = 'My' + p.n; list = JSON.parse(JSON.stringify(p.f)); render();
         }
 
-        function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'f_' + Date.now().toString().slice(-3), l: 'New Field', f: [] }); render(); }
+        function add(p = list) { p.push({ id: Date.now(), t: 'text', n: 'field_' + Date.now().toString().slice(-3), l: 'New Field', f: [] }); render(); }
         function rem(id, p = list) { const i = p.findIndex(x => x.id === id); if (i > -1) p.splice(i, 1); else p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
         function upd(id, k, v, p = list) { const x = find(id, p); if (x) { x[k] = v; if (k === 'l') x.n = v.toLowerCase().replace(/[^a-z0-9]/g, '_'); render(); } }
         function find(id, l) { for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } } return null; }
@@ -141,6 +141,7 @@
             <div class="field-card-body">
                 <div class="input-group"><label>Type</label><select onchange="upd(${x.id},'t',this.value)">${types.map(t=>`<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
                 <div class="input-group"><label>Label</label><input type="text" value="${x.l}" oninput="upd(${x.id},'l',this.value)"></div>
+                <div class="input-group"><label>Name</label><input type="text" value="${x.n}" oninput="upd(${x.id},'n',this.value)"></div>
                 ${x.t==='subform'?`<div class="subform-container"><div id="s-${x.id}"></div><button class="btn-add" style="font-size:0.7rem;padding:4px;" onclick="addIn(${x.id})">+ Sub</button></div>`:''}
             </div>`;
             if (x.t==='subform') { const s = d.querySelector(`#s-${x.id}`); (x.f||[]).forEach(sf=>s.appendChild(card(sf))); }
@@ -148,14 +149,25 @@
         }
         function addIn(pid) { const p = find(pid, list); if (p) { if (!p.f) p.f = []; add(p.f); } }
 
-        function genPHP(s) {
-            let p = '\x3C?php\ndefined(\'_JEXEC\') or die;\n?\x3E\n\x3Cdiv class="mod-' + s + '"\x3E\n';
-            if (cur === 'features') p += '  \x3Cdiv class="row"\x3E\n    \x3C?php foreach ($params-\x3Eget(\'feats\', []) as $f) : ?\x3E\n      \x3Cdiv class="col-md-4"\x3E\x3Ci class="\x3C?php echo $f-\x3Ei; ?\x3E"\x3E\x3C/i\x3E\x3Ch3\x3E\x3C?php echo $f-\x3Et; ?\x3E\x3C/h3\x3E\x3C/div\x3E\n    \x3C?php endforeach; ?\x3E\n  \x3C/div\x3E\n';
-            else if (cur === 'faq') p += '  \x3Cdiv class="accordion"\x3E\n    \x3C?php foreach ($params-\x3Eget(\'items\', []) as $i =\x3E $x) : ?\x3E\n      \x3Cbutton data-bs-target="#a-\x3C?php echo $i; ?\x3E"\x3E\x3C?php echo $x-\x3Eq; ?\x3E\x3C/button\x3E\n      \x3Cdiv id="a-\x3C?php echo $i; ?\x3E"\x3E\x3C?php echo $x-\x3Ea; ?\x3E\x3C/div\x3E\n    \x3C?php endforeach; ?\x3E\n  \x3C/div\x3E\n';
-            else if (cur === 'contact') p += '  \x3Cform method="post"\x3E\x3Cbutton type="submit"\x3ESend to \x3C?php echo $params-\x3Eget(\'to\'); ?\x3E\x3C/button\x3E\x3C/form\x3E\n';
-            else if (cur === 'video') p += '  \x3Cvideo controls poster="\x3C?php echo $params-\x3Eget(\'p\'); ?\x3E"\x3E\x3Csource src="\x3C?php echo $params-\x3Eget(\'u\'); ?\x3E" type="video/mp4"\x3E\x3C/video\x3E\n';
-            else p += '  \x3Ch1\x3E\x3C?php echo $params-\x3Eget(\'h1\', \'Hello\'); ?\x3E\x3C/h1\x3E\n';
-            return p + '\x3C/div\x3E';
+        function genPHP(fields, slug) {
+            let res = '\x3C?php\ndefined(\'_JEXEC\') or die;\n?\x3E\n\x3Cdiv class="mod-' + slug + '"\x3E\n';
+            function build(l, ind) {
+                let s = ''; l.forEach(x => {
+                    if (x.t === 'subform') {
+                        s += ind + '  \x3Cdiv class="' + x.n + '-container"\x3E\n';
+                        s += ind + '    \x3C?php foreach ($params-\x3Eget(\'' + x.n + '\', []) as $item) : ?\x3E\n';
+                        s += ind + '      \x3Cdiv class="item"\x3E\n' + build(x.f || [], ind + '        ') + ind + '      \x3C/div\x3E\n';
+                        s += ind + '    \x3C?php endforeach; ?\x3E\n';
+                        s += ind + '  \x3C/div\x3E\n';
+                    } else if (x.t === 'media') {
+                        s += ind + '  \x3Cimg src="\x3C?php echo $params-\x3Eget(\'' + x.n + '\'); ?\x3E" alt="' + x.l + '" /\x3E\n';
+                    } else {
+                        s += ind + '  \x3Cp\x3E\x3Cstrong\x3E' + x.l + ':\x3C/strong\x3E \x3C?php echo $params-\x3Eget(\'' + x.n + '\'); ?\x3E\x3C/p\x3E\n';
+                    }
+                }); return s;
+            }
+            res += build(fields, '  ');
+            return res + '\x3C/div\x3E';
         }
 
         function update() {
@@ -171,7 +183,7 @@
             xml += b(list, '      ') + '    \x3C/fieldset\x3E\n  \x3C/fields\x3E\n\x3C/config\x3E';
             document.getElementById('xml').textContent = xml;
             document.getElementById('struct').textContent = 'mod_' + s + '/\n├── tmpl/default.php\n└── mod_' + s + '.xml';
-            customPHP = genPHP(s); document.getElementById('php').value = customPHP;
+            customPHP = genPHP(list, s); document.getElementById('php').value = customPHP;
             if (window.Prism) Prism.highlightAll();
         }
 
