@@ -5,17 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Joomla Module Generator | Premium Scaffolding</title>
     
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Icons & Libs -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
+    
     <style>
         :root {
             --br-green: #009c3b;
@@ -26,16 +20,13 @@
             --card-bg: rgba(255, 255, 255, 0.03);
             --border-white: rgba(255, 255, 255, 0.08);
             --accent: #00e676;
+            --danger: #ff5252;
             --font-main: 'Plus Jakarta Sans', sans-serif;
             --font-title: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            outline: none;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         html { scroll-behavior: smooth; }
 
@@ -47,7 +38,6 @@
             line-height: 1.6;
         }
 
-        /* Ambient Background */
         .ambient-bg {
             position: fixed;
             top: 0;
@@ -60,40 +50,46 @@
 
         .glow {
             position: absolute;
-            width: 80vw;
-            height: 80vw;
             border-radius: 50%;
             filter: blur(120px);
-            opacity: 0.12;
+            opacity: 0.08;
             pointer-events: none;
         }
 
-        .glow-green { background: var(--br-green); top: -20%; left: -20%; animation: float 15s infinite alternate; }
-        .glow-blue { background: var(--br-blue); bottom: -20%; right: -20%; animation: float 20s infinite alternate-reverse; }
+        .glow-green { background: var(--br-green); width: 70vw; height: 70vw; top: -10%; left: -10%; animation: floatGreen 20s infinite alternate; }
+        .glow-blue { background: var(--br-blue); width: 60vw; height: 60vw; bottom: -10%; right: -10%; animation: floatBlue 25s infinite alternate-reverse; }
+        .glow-yellow { background: var(--br-yellow); width: 50vw; height: 50vw; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: floatYellow 18s infinite alternate; }
 
-        @keyframes float {
+        @keyframes floatGreen {
             0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(100px, 50px) scale(1.1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+        @keyframes floatBlue {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-80px, -40px) scale(1.1); }
+        }
+        @keyframes floatYellow {
+            0% { transform: translate(-50%, -50%) scale(0.8); }
+            100% { transform: translate(-40%, -60%) scale(1); }
         }
 
-        /* Navbar */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 1.2rem 8%;
+            padding: 1rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-white);
-            background: rgba(5, 7, 10, 0.6);
+            background: rgba(5, 7, 10, 0.7);
         }
 
         .nav-logo {
             font-family: var(--font-title);
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
             text-decoration: none;
             color: var(--br-white);
@@ -103,10 +99,15 @@
         }
 
         .nav-logo span { color: var(--br-yellow); }
-        .nav-logo i { color: var(--br-green); font-size: 1.6rem; }
+        .nav-logo i { color: var(--br-green); font-size: 1.6rem; animation: pulse 2s infinite; }
 
-        .nav-right { display: flex; align-items: center; gap: 2.5rem; }
-        .nav-links { display: flex; gap: 2.5rem; }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 2rem; }
         .nav-links a {
             text-decoration: none;
             color: var(--br-white);
@@ -126,7 +127,7 @@
         }
 
         .lang-btn {
-            padding: 6px 12px;
+            padding: 6px 14px;
             border-radius: 7px;
             font-size: 0.75rem;
             font-weight: 700;
@@ -138,12 +139,8 @@
             text-transform: uppercase;
         }
 
-        .lang-btn.active {
-            background: var(--br-blue);
-            color: var(--br-yellow);
-        }
+        .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); }
 
-        /* Hero */
         .hero {
             min-height: 90vh;
             display: flex;
@@ -172,7 +169,6 @@
             margin-bottom: 4rem;
         }
 
-        /* Buttons */
         .btn {
             padding: 1.2rem 2.8rem;
             border-radius: 14px;
@@ -201,25 +197,24 @@
         }
         .btn-outline:hover { background: var(--border-white); transform: translateY(-3px); }
 
-        /* Generator Section */
-        .section-title { text-align: center; margin-bottom: 5rem; }
+        .section-title { text-align: center; margin-bottom: 4rem; }
         .section-title h2 { font-family: var(--font-title); font-size: 3rem; margin-bottom: 1rem; }
         .section-title p { color: rgba(255,255,255,0.4); }
 
-        .generator { padding: 100px 5%; max-width: 1300px; margin: 0 auto; }
+        .generator { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
         .gen-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
         .gen-card {
             background: var(--card-bg);
             border: 1px solid var(--border-white);
             border-radius: 32px;
-            padding: 3.5rem;
+            padding: 3rem;
             backdrop-filter: blur(30px);
         }
 
-        .gen-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; }
+        .gen-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .input-group { display: flex; flex-direction: column; gap: 8px; }
         .input-group label {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--br-yellow);
             text-transform: uppercase;
@@ -228,45 +223,49 @@
         .input-group input, .input-group select {
             background: rgba(255,255,255,0.03);
             border: 1px solid var(--border-white);
-            padding: 1.1rem;
+            padding: 1rem;
             border-radius: 14px;
             color: #fff;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: 0.3s;
         }
-        .input-group input:focus { border-color: var(--br-green); background: rgba(255,255,255,0.06); }
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--br-green);
+            background: rgba(255,255,255,0.06);
+        }
+        .input-group select option { background: #1a1a2e; color: #fff; }
         .full-col { grid-column: span 2; }
 
-        /* Preview Card */
         .preview-card {
-            background: rgba(255,255,255,0.02);
+            background: rgba(0,0,0,0.3);
             border: 1px solid var(--border-white);
             border-radius: 32px;
             padding: 2.5rem;
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             position: sticky;
             top: 110px;
             height: fit-content;
+            backdrop-filter: blur(30px);
         }
 
         .preview-item { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-white); padding-bottom: 12px; }
         .preview-item span:first-child { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
-        .preview-item span:last-child { font-weight: 700; font-size: 0.9rem; }
+        .preview-item span:last-child { font-weight: 700; font-size: 0.9rem; color: var(--accent); }
 
         .folder-structure {
-            background: rgba(0,0,0,0.4);
+            background: rgba(0,0,0,0.5);
             border-radius: 16px;
             padding: 20px;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 0.8rem;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
             color: var(--accent);
-            line-height: 1.6;
+            line-height: 1.8;
+            border: 1px solid var(--border-white);
         }
 
-        /* Features */
         .features { padding: 80px 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
         .feat-card { padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 24px; transition: 0.3s; }
         .feat-card:hover { border-color: var(--br-green); transform: translateY(-8px); }
@@ -274,9 +273,28 @@
         .feat-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
         .feat-card p { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
 
-        /* Footer */
         footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--border-white); margin-top: 60px; }
         footer p { color: rgba(255,255,255,0.25); font-size: 0.85rem; }
+
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid var(--br-green);
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            color: #fff;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+            backdrop-filter: blur(20px);
+            font-weight: 600;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
 
         @media (max-width: 1000px) {
             .gen-container { grid-template-columns: 1fr; }
@@ -287,10 +305,10 @@
     </style>
 </head>
 <body>
-
     <div class="ambient-bg">
         <div class="glow glow-green"></div>
         <div class="glow glow-blue"></div>
+        <div class="glow glow-yellow"></div>
     </div>
 
     <nav>
@@ -300,8 +318,9 @@
         <div class="nav-right">
             <div class="nav-links">
                 <a href="#generator" data-i18n="nav-generator">Gerador</a>
-                <a href="complex_generator.html" data-i18n="nav-advanced" style="color: var(--br-yellow); font-weight: 800;">Gerador Avançado</a>
-                <a href="https://github.com/uzielweb/joomla_module_generator">Github</a>
+                <a href="#pro-generator" data-i18n="nav-pro" style="color: var(--accent); font-weight: 800;">⚡ Module Generator Pro</a>
+                <a href="#advanced-generator" data-i18n="nav-advanced" style="color: var(--br-yellow); font-weight: 800;">Gerador Avançado</a>
+                <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank">GitHub</a>
             </div>
             <div class="lang-switch">
                 <button class="lang-btn" onclick="setLang('en')">EN</button>
@@ -311,25 +330,25 @@
     </nav>
 
     <header class="hero">
-        <h1 data-aos="fade-up" data-i18n="hero-title">Scaffolding de <br> Próxima Geração</h1>
-        <p data-aos="fade-up" data-aos-delay="100" data-i18n="hero-subtitle">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
-        <div class="hero-btns" data-aos="fade-up" data-aos-delay="200">
+        <h1 data-i18n="hero-title">Scaffolding de <br> Próxima Geração</h1>
+        <p data-i18n="hero-subtitle">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
+        <div>
             <a href="#generator" class="btn btn-primary"><span data-i18n="btn-start">Começar Agora</span> <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="https://github.com/uzielweb/joomla_module_generator" class="btn btn-outline" data-i18n="btn-repo">Ver Repositório</a>
+            <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank" class="btn btn-outline" style="margin-left: 1rem;" data-i18n="btn-repo">Ver Repositório</a>
         </div>
     </header>
 
     <section id="generator" class="generator">
-        <div class="section-title" data-aos="fade-up">
+        <div class="section-title">
             <h2 data-i18n="gen-title">Gerador Inteligente</h2>
             <p data-i18n="gen-subtitle">Preencha os campos abaixo para gerar seu pacote .ZIP</p>
         </div>
 
         <div class="gen-container">
-            <div class="gen-card" data-aos="fade-right">
-                <form id="moduleForm" class="gen-form">
+            <div class="gen-card">
+                <form id="moduleForm" class="gen-form" autocomplete="off">
                     <div class="input-group full-col">
-                        <label data-i18n="lbl-mod-name">Nome do Módulo</label>
+                        <label data-i18n="lbl-mod-name">Nome do Módulo *</label>
                         <input type="text" id="moduleName" placeholder="Ex: Meu Banner Premium" required>
                     </div>
                     <div class="input-group">
@@ -341,29 +360,35 @@
                     </div>
                     <div class="input-group">
                         <label data-i18n="lbl-lang">Idioma Principal</label>
-                        <input type="text" id="newLang" value="pt-BR">
+                        <select id="newLang">
+                            <option value="pt-BR">Português (Brasil)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="es-ES">Español</option>
+                            <option value="fr-FR">Français</option>
+                            <option value="de-DE">Deutsch</option>
+                        </select>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="lbl-author">Autor</label>
+                        <label data-i18n="lbl-author">Autor *</label>
                         <input type="text" id="author" placeholder="John Doe" required>
                     </div>
                     <div class="input-group">
-                        <label data-i18n="lbl-email">Email do Autor</label>
-                        <input type="email" id="authorEmail" placeholder="email@example.com" required>
+                        <label data-i18n="lbl-email">Email do Autor *</label>
+                        <input type="email" id="authorEmail" placeholder="email@exemplo.com" required>
                     </div>
-                    <div class="input-group full-col">
+                    <div class="input-group">
                         <label data-i18n="lbl-website">Website do Autor</label>
-                        <input type="url" id="authorUrl" placeholder="https://">
+                        <input type="url" id="authorUrl" placeholder="https://seusite.com">
                     </div>
                     
-                    <button type="submit" class="btn btn-primary full-col" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary full-col" style="margin-top: 10px;" id="generateBtn">
                         <span data-i18n="btn-zip">Gerar Pacote .ZIP</span> <i class="fa-solid fa-download"></i>
                     </button>
                 </form>
             </div>
 
-            <div class="preview-card" data-aos="fade-left">
-                <h3 style="color: var(--br-yellow)" data-i18n="preview-title">Resumo do Pacote</h3>
+            <div class="preview-card">
+                <h3 style="color: var(--br-yellow)"><i class="fa-solid fa-eye"></i> <span data-i18n="preview-title">Resumo do Pacote</span></h3>
                 <div class="preview-item">
                     <span>Namespace</span>
                     <span id="previewNamespace">Joomla\Module\Hello</span>
@@ -372,6 +397,14 @@
                     <span data-i18n="preview-folder">Nome Pasta</span>
                     <span id="previewFolder">mod_hello</span>
                 </div>
+                <div class="preview-item">
+                    <span>Cliente</span>
+                    <span id="previewClient">site</span>
+                </div>
+                <div class="preview-item">
+                    <span>Idioma</span>
+                    <span id="previewLang">pt-BR</span>
+                </div>
                 
                 <div class="folder-structure" id="structureList">
                     mod_hello/<br>
@@ -379,24 +412,66 @@
                     ├── src/Dispatcher/Dispatcher.php<br>
                     ├── src/Helper/HelloHelper.php<br>
                     ├── tmpl/default.php<br>
+                    ├── language/pt-BR/mod_hello.ini<br>
                     └── mod_hello.xml
                 </div>
             </div>
         </div>
     </section>
 
+    <section id="pro-generator" class="generator" style="padding-top: 50px;">
+        <div class="section-title">
+            <h2 data-i18n="pro-title">⚡ Module Generator <span style="color:var(--accent)">Pro</span></h2>
+            <p data-i18n="pro-subtitle">Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real</p>
+        </div>
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
+            <a href="joomla-module-generator-pro.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #5c6fff, #8b5cf6); box-shadow: 0 10px 30px rgba(92,111,255,0.3);">
+                <span data-i18n="btn-pro">⚡ Abrir Module Generator Pro</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:3rem auto 0;">
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat1">~75 Tipos de Campo</h3>
+                <p data-i18n="pro-feat1d">text, sql, subform, calendar, media e muito mais com atributos completos</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-cubes" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat2">Subforms Visuais</h3>
+                <p data-i18n="pro-feat2d">Crie subforms repeatable-grid com campos filhos via interface gráfica</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-download" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat3">ZIP Completo</h3>
+                <p data-i18n="pro-feat3d">Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="advanced-generator" class="generator" style="padding-top: 50px;">
+        <div class="section-title">
+            <h2>Gerador Avançado</h2>
+            <p>Crie módulos complexos com campos personalizados, subforms e muito mais</p>
+        </div>
+        <div style="text-align: center;">
+            <a href="complex_generator.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem;">
+                Abrir Gerador Avançado <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </section>
+
     <section class="features">
-        <div class="feat-card" data-aos="zoom-in">
+        <div class="feat-card">
             <i class="fa-solid fa-bolt-lightning"></i>
             <h3 data-i18n="feat1-title">Performance</h3>
             <p data-i18n="feat1-desc">Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
         </div>
-        <div class="feat-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="feat-card">
             <i class="fa-solid fa-shield-halved"></i>
             <h3 data-i18n="feat2-title">Padrão Core</h3>
             <p data-i18n="feat2-desc">Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
         </div>
-        <div class="feat-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="feat-card">
             <i class="fa-solid fa-code-branch"></i>
             <h3 data-i18n="feat3-title">Moderno</h3>
             <p data-i18n="feat3-desc">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
@@ -404,16 +479,18 @@
     </section>
 
     <footer>
-        <p data-i18n="footer-text">&copy; 2024 Joomla Module Generator. Developed for the global developer community.</p>
+        <p data-i18n="footer-text">&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores.</p>
     </footer>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
+    </script>
     <script>
-        AOS.init({ duration: 1000, once: true });
-
         const i18n = {
             pt: {
                 "nav-generator": "Gerador",
+                "nav-pro": "⚡ Module Generator Pro",
                 "nav-advanced": "Gerador Avançado",
                 "hero-title": "Scaffolding de <br> Próxima Geração",
                 "hero-subtitle": "Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.",
@@ -421,17 +498,26 @@
                 "btn-repo": "Ver Repositório",
                 "gen-title": "Gerador Inteligente",
                 "gen-subtitle": "Preencha os campos abaixo para gerar seu pacote .ZIP",
-                "lbl-mod-name": "Nome do Módulo",
+                "lbl-mod-name": "Nome do Módulo *",
                 "lbl-client": "Tipo de Cliente",
                 "opt-site": "Site (Frontend)",
                 "opt-admin": "Admin (Backend)",
                 "lbl-lang": "Idioma Principal",
-                "lbl-author": "Autor",
-                "lbl-email": "Email do Autor",
+                "lbl-author": "Autor *",
+                "lbl-email": "Email do Autor *",
                 "lbl-website": "Website do Autor",
                 "btn-zip": "Gerar Pacote .ZIP",
                 "preview-title": "Resumo do Pacote",
                 "preview-folder": "Nome Pasta",
+                "pro-title": "⚡ Module Generator Pro",
+                "pro-subtitle": "Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real",
+                "btn-pro": "⚡ Abrir Module Generator Pro",
+                "pro-feat1": "~75 Tipos de Campo",
+                "pro-feat1d": "text, sql, subform, calendar, media e muito mais com atributos completos",
+                "pro-feat2": "Subforms Visuais",
+                "pro-feat2d": "Crie subforms repeatable-grid com campos filhos via interface gráfica",
+                "pro-feat3": "ZIP Completo",
+                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente",
                 "feat1-title": "Performance",
                 "feat1-desc": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
                 "feat2-title": "Padrão Core",
@@ -442,6 +528,7 @@
             },
             en: {
                 "nav-generator": "Generator",
+                "nav-pro": "⚡ Module Generator Pro",
                 "nav-advanced": "Advanced Generator",
                 "hero-title": "Next-Gen <br> Scaffolding",
                 "hero-subtitle": "Generate robust modules for Joomla 4, 5, and 6 in seconds. PSR standards, Namespaces, and Dispatchers automatically configured.",
@@ -449,22 +536,31 @@
                 "btn-repo": "View Repository",
                 "gen-title": "Smart Generator",
                 "gen-subtitle": "Fill in the fields below to generate your .ZIP package",
-                "lbl-mod-name": "Module Name",
+                "lbl-mod-name": "Module Name *",
                 "lbl-client": "Client Type",
                 "opt-site": "Site (Frontend)",
                 "opt-admin": "Admin (Backend)",
                 "lbl-lang": "Default Language",
-                "lbl-author": "Author",
-                "lbl-email": "Author Email",
+                "lbl-author": "Author *",
+                "lbl-email": "Author Email *",
                 "lbl-website": "Author Website",
                 "btn-zip": "Generate .ZIP Package",
                 "preview-title": "Package Summary",
                 "preview-folder": "Folder Name",
+                "pro-title": "⚡ Module Generator Pro",
+                "pro-subtitle": "Full scaffolding with ~75 field types, subforms, universal attributes and real-time ZIP generation",
+                "btn-pro": "⚡ Open Module Generator Pro",
+                "pro-feat1": "~75 Field Types",
+                "pro-feat1d": "text, sql, subform, calendar, media and more with full attributes",
+                "pro-feat2": "Visual Subforms",
+                "pro-feat2d": "Build repeatable-grid subforms with child fields via a visual interface",
+                "pro-feat3": "Complete ZIP",
+                "pro-feat3d": "XML Manifest, Dispatcher, Helper, tmpl/, services/, language/ generated automatically",
                 "feat1-title": "Performance",
                 "feat1-desc": "Instant client-side generation. No server wait times or unnecessary uploads.",
                 "feat2-title": "Core Standards",
                 "feat2-desc": "Code generated strictly following the native Joomla 4, 5, and 6 architecture.",
-                "feat3-title": "Modern Tech",
+                "feat3-title": "Modern",
                 "feat3-desc": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
                 "footer-text": "&copy; 2024 Joomla Module Generator. Developed for the global developer community."
             }
@@ -473,116 +569,172 @@
         function setLang(lang) {
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
-                el.innerHTML = i18n[lang][key];
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
             });
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.lang-btn[onclick*="${lang}"]`).classList.add('active');
+            const activeBtn = document.querySelector(`.lang-btn[onclick*="${lang}"]`);
+            if (activeBtn) activeBtn.classList.add('active');
             document.documentElement.lang = lang === 'pt' ? 'pt-br' : 'en';
         }
 
-        // Base Data (Same as before)
-        const baseFiles = {
-"language/en-GB/mod_hello.ini": {"content": "MOD_HELLO=\"Hello\"\r\nMOD_HELLO_XML_DESCRIPTION=\"This is a simple module that displays 'Hello'\"\r\nMOD_HELLO_GREETING_LABEL=\"Greeting\"\r\nMOD_HELLO_GREETING_DESC=\"Enter a greeting to display\"", "base64": false},
-"language/en-GB/mod_hello.sys.ini": {"content": "MOD_HELLO=\"Hello\"\r\nMOD_HELLO_XML_DESCRIPTION=\"This is a simple module that displays 'Hello'\"", "base64": false},
-"media/css/style.css": {"content": "\r\n", "base64": false},
-"media/images/camera-photo.svg": {"content": "PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj4NCiAgICA8cGF0aA0KICAgICAgICBkPSJNNDgwIDEyOGgtOTZsLTMyLTY0aC0xNjBsLTMyIDY0aC05NmMtMjYuNTEgMC00OCAyMS40OS00OCA0OHYyNTZjMCAyNi41MSAyMS40OSA0OCA0OCA0OGgzODRjMjYuNTEgMCA0OC0yMS40OSA0OC00OHYtMjU2YzAtMjYuNTEtMjEuNDktNDgtNDgtNDh6bS0yNDAgMjg4Yy03OS41MjkgMC0xNDQtNjQuNDcxLTE0NC0xNDRzNjQuNDcxLTE0NCAxNDQtMTQ0IDE0NCA2NC40NzEgMTQ0IDE0NC02NC40NzEgMTQ0LTE0NCAxNDR6bTAtMjQwYy01My4wMTkgMC05NiA0Mi45ODEtOTYgOTZzNDIuOTgxIDk2IDk2IDk2IDk2LTQyLjk4MSA5Ni05Ni00Mi45ODEtOTYtOTYtOTZ6bTE5MiAxOTJoLTMydi0zMmgzMnYzMnptMC02NGgtMzJ2LTk2aDMydjk2eiIgLz4NCjwvc3ZnPg==", "base64": true},
-"media/js/script.js": {"content": "", "base64": false},
-"mod_hello.xml": {"content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<extension type=\"module\" client=\"site\" method=\"upgrade\">\r\n\t<name>mod_hello<\/name>\r\n\t<author>Ponto Mega<\/author>\r\n\t<creationDate>2024-04-01<\/creationDate>\r\n\t<copyright>(C) 2024 Ponto Mega<\/copyright>\r\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt<\/license>\r\n\t<authorEmail>contato@pontomega.com.br<\/authorEmail>\r\n\t<authorUrl>https:\/\/www.pontomega.com.br<\/authorUrl>\r\n\t<version>1.0.0<\/version>\r\n\t<description>MOD_HELLO_XML_DESCRIPTION<\/description>\r\n\t<namespace path=\"src\">Joomla\\Module\\Hello<\/namespace>\r\n\t<files>\r\n\t\t<folder module=\"mod_hello\">services<\/folder>\r\n\t\t<folder>src<\/folder>\r\n\t\t<folder>tmpl<\/folder>\r\n\t<\/files>\r\n\t<languages>\r\n\t\t<language tag=\"en-GB\">language\/en-GB\/mod_hello.ini<\/language>\r\n\t\t<language tag=\"en-GB\">language\/en-GB\/mod_hello.sys.ini<\/language>\r\n\t<\/languages>\r\n\t<media destination=\"mod_hello\" folder=\"media\">\r\n\t\t<folder>images<\/folder>\r\n\t\t<folder>css<\/folder>\r\n\t\t<folder>js<\/folder>\r\n\t<\/media>\r\n\t<help key=\"Site_Modules:_Hello\" \/>\r\n\t<config>\r\n\t\t<fields name=\"params\" addfieldprefix=\"Joomla\\Component\\Content\\Administrator\\Field\">\r\n\t\t\t<fieldset name=\"basic\">\r\n\t\t\t\t<field name=\"greeting\" type=\"text\" label=\"MOD_HELLO_GREETING_LABEL\" description=\"MOD_HELLO_GREETING_DESC\" default=\"Hello, World!\" \/>\r\n\t\t\t<\/fieldset>\r\n\r\n\t\t\t<fieldset name=\"advanced\">\r\n\t\t\t\t<field name=\"layout\" type=\"modulelayout\" label=\"JFIELD_ALT_LAYOUT_LABEL\" class=\"form-select\" validate=\"moduleLayout\" \/>\r\n\r\n\t\t\t\t<field name=\"moduleclass_sfx\" type=\"textarea\" label=\"COM_MODULES_FIELD_MODULECLASS_SFX_LABEL\" rows=\"3\" validate=\"CssIdentifier\" \/>\r\n\r\n\t\t\t\t<field name=\"cache\" type=\"list\" label=\"COM_MODULES_FIELD_CACHING_LABEL\" default=\"1\" filter=\"integer\" validate=\"options\">\r\n\t\t\t\t\t<option value=\"1\">JGLOBAL_USE_GLOBAL<\/option>\r\n\t\t\t\t\t<option value=\"0\">COM_MODULES_FIELD_VALUE_NOCACHING<\/option>\r\n\t\t\t\t<\/field>\r\n\r\n\t\t\t\t<field name=\"cache_time\" type=\"number\" label=\"COM_MODULES_FIELD_CACHE_TIME_LABEL\" default=\"900\" filter=\"integer\" \/>\r\n\r\n\t\t\t\t<field name=\"cachemode\" type=\"hidden\" default=\"static\">\r\n\t\t\t\t\t<option value=\"static\"><\/option>\r\n\t\t\t\t<\/field>\r\n\t\t\t<\/fieldset>\r\n\t\t<\/fields>\r\n\t<\/config>\r\n<\/extension>\r\n", "base64": false},
-"services/provider.php": {"content": "<?php\r\n\r\n\/**\r\n * @package     Joomla.Site\r\n * @subpackage  mod_hello\r\n *\r\n * @copyright   (C) 2022 Open Source Matters, Inc. <https:\/\/www.joomla.org>\r\n * @license     GNU General Public License version 2 or later; see LICENSE.txt\r\n *\/\r\n\r\n\\defined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;\r\nuse Joomla\\DI\\Container;\r\nuse Joomla\\DI\\ServiceProviderInterface;\r\n\r\n\/**\r\n * The article latest module service provider.\r\n *\r\n * @since  4.2.0\r\n *\/\r\nreturn new class () implements ServiceProviderInterface {\r\n    \/**\r\n     * Registers the service provider with a DI container.\r\n     *\r\n     * @param   Container  $container  The DI container.\r\n     *\r\n     * @return  void\r\n     *\r\n     * @since   4.2.0\r\n     *\/\r\n    public function register(Container $container)\r\n    {\r\n        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\Hello'));\r\n        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\Hello\\\\Site\\\\Helper'));\r\n\r\n        $container->registerServiceProvider(new Module());\r\n    }\r\n};\r\n", "base64": false},
-"src/Dispatcher/Dispatcher.php": {"content": "<?php\r\n\r\n\/**\r\n * @package     Joomla.Site\r\n * @subpackage  mod_hello\r\n *\r\n * @copyright   (C) 2022 Open Source Matters, Inc. <https:\/\/www.joomla.org>\r\n * @license     GNU General Public License version 2 or later; see LICENSE.txt\r\n *\/\r\n\r\nnamespace Joomla\\Module\\Hello\\Site\\Dispatcher;\r\n\r\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;\r\n\r\n\/\/ phpcs:disable PSR1.Files.SideEffects\r\n\\defined('_JEXEC') or die;\r\n\/\/ phpcs:enable PSR1.Files.SideEffects\r\n\r\n\/**\r\n * Dispatcher class for mod_hello\r\n *\r\n * @since  4.2.0\r\n *\/\r\nclass Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface\r\n{\r\n    use HelperFactoryAwareTrait;\r\n\r\n    \/**\r\n     * Returns the layout data.\r\n     *\r\n     * @return  array\r\n     *\r\n     * @since   4.2.0\r\n     *\/\r\n    protected function getLayoutData()\r\n    {\r\n        $data = parent::getLayoutData();\r\n\r\n        $data['list'] = $this->getHelperFactory()->getHelper('HelloHelper')->getItems($data['params'], $this->getApplication());\r\n\r\n        return $data;\r\n    }\r\n}\r\n", "base64": false},
-"src/Helper/HelloHelper.php": {"content": "<?php\r\n\/**\r\n * @package     Joomla.Site\r\n * @subpackage  mod_hello\r\n *\r\n * @copyright   (C) 2006 Open Source Matters, Inc. <https:\/\/www.joomla.org>\r\n * @license     GNU General Public License version 2 or later; see LICENSE.txt\r\n *\/\r\nnamespace Joomla\\Module\\Hello\\Site\\Helper;\r\nuse Joomla\\CMS\\Access\\Access;\r\nuse Joomla\\CMS\\Application\\SiteApplication;\r\nuse Joomla\\CMS\\Component\\ComponentHelper;\r\nuse Joomla\\CMS\\Factory;\r\nuse Joomla\\CMS\\Router\\Route;\r\nuse Joomla\\Component\\Content\\Site\\Helper\\RouteHelper;\r\nuse Joomla\\Component\\Content\\Site\\Model\\ArticlesModel;\r\nuse Joomla\\Database\\DatabaseAwareInterface;\r\nuse Joomla\\Database\\DatabaseAwareTrait;\r\nuse Joomla\\Registry\\Registry;\r\nuse Joomla\\Utilities\\ArrayHelper;\r\n\/\/ phpcs:disable PSR1.Files.SideEffects\r\n\\defined('_JEXEC') or die;\r\n\/\/ phpcs:enable PSR1.Files.SideEffects\r\n\/**\r\n * Helper for mod_hello\r\n *\r\n * @since  1.6\r\n *\/\r\nclass HelloHelper implements DatabaseAwareInterface\r\n{\r\n    use DatabaseAwareTrait;\r\n    \/**\r\n     * Retrieve a list of article\r\n     *\r\n     * @param   Registry       $params  The module parameters.\r\n     * @param   ArticlesModel  $model   The model.\r\n     *\r\n     * @return  mixed\r\n     *\r\n     * @since   4.2.0\r\n     *\/\r\n    public function getItems(Registry $params, SiteApplication $app)\r\n    {\r\n        $db   = $this->getDatabase();\r\n        $user = $app->getIdentity();\r\n        $query = $db->getQuery(true)\r\n            ->select('a.id, a.title')\r\n            ->from('#__modules AS a')\r\n            ->order('a.title ASC')\r\n            ->setLimit($params->get('count', 5));\r\n        $db->setQuery($query);\r\n        $items = $db->loadObjectList();\r\n        return $items;\r\n    }\r\n    public static function getList(Registry $params)\r\n    {\r\n        return (new self())->getItems($params, Factory::getApplication());\r\n    }\r\n}\r\n", "base64": false},
-"tmpl/default.php": {"content": "<?php\r\n\r\n\/**\r\n * @package     Joomla.Site\r\n * @subpackage  mod_hello\r\n *\r\n * @copyright   (C) 2006 Open Source Matters, Inc. <https:\/\/www.joomla.org>\r\n * @license     GNU General Public License version 2 or later; see LICENSE.txt\r\n *\/\r\n\r\ndefined('_JEXEC') or die;\r\nuse Joomla\\CMS\\Factory;\r\nuse Joomla\\CMS\\Router\\Route;\r\nuse Joomla\\CMS\\HTML\\HTMLHelper;\r\nuse Joomla\\CMS\\Language\\Text;\r\n\/** @var Joomla\\CMS\\WebAsset\\WebAssetManager $wa *\/\r\n$wa = $app->getDocument()->getWebAssetManager();\r\n$wa->registerAndUseStyle('mod_hello_css', 'media\/mod_hello\/css\/style.css');\r\n$wa->registerAndUseScript('mod_hello_script', 'media\/mod_hello\/js\/script.js');\r\nif (!$list) {\r\n    return;\r\n}\r\n\r\n?>\r\n<div class=\"hello\">\r\n    <h3>\r\n        <?php echo $params->get('greeting'); ?>\r\n    <\/h3>\r\n    <ul>\r\n        <?php foreach ($list as $item) : ?>\r\n            <li>\r\n                <?php echo $item->title; ?>\r\n            <\/li>\r\n        <?php endforeach; ?>\r\n    <\/ul>\r\n<\/div>\r\n\r\n", "base64": false}
-        };
+        // Base templates
+        function getBaseTemplates(newWord, capitalizedWord, modulePrefix, clientType, author, authorEmail, authorUrl, newLang, version) {
+            const clientPath = clientType === 'administrator' ? 'Administrator' : 'Site';
+            const upClientPath = clientType === 'administrator' ? 'Administrator' : 'Site';
+            
+            return {
+                [`language/${newLang}/${modulePrefix}.ini`]: `MOD_${newWord.toUpperCase()}="${capitalizedWord}"\r\nMOD_${newWord.toUpperCase()}_XML_DESCRIPTION="This is a simple module that displays '${capitalizedWord}'"\r\nMOD_${newWord.toUpperCase()}_GREETING_LABEL="Greeting"\r\nMOD_${newWord.toUpperCase()}_GREETING_DESC="Enter a greeting to display"`,
+                
+                [`language/${newLang}/${modulePrefix}.sys.ini`]: `MOD_${newWord.toUpperCase()}="${capitalizedWord}"\r\nMOD_${newWord.toUpperCase()}_XML_DESCRIPTION="This is a simple module that displays '${capitalizedWord}'"`,
+                
+                [`${modulePrefix}.xml`]: `<?xml version="1.0" encoding="UTF-8"?>\r\n<extension type="module" client="${clientType}" method="upgrade">\r\n\t<name>${modulePrefix}</name>\r\n\t<author>${author}</author>\r\n\t<creationDate>${new Date().toISOString().split('T')[0]}</creationDate>\r\n\t<copyright>(C) ${new Date().getFullYear()} ${author}</copyright>\r\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\r\n\t<authorEmail>${authorEmail}</authorEmail>\r\n\t<authorUrl>${authorUrl}</authorUrl>\r\n\t<version>${version}</version>\r\n\t<description>MOD_${newWord.toUpperCase()}_XML_DESCRIPTION</description>\r\n\t<namespace path="src">Joomla\\Module\\${capitalizedWord}</namespace>\r\n\t<files>\r\n\t\t<folder module="${modulePrefix}">services</folder>\r\n\t\t<folder>src</folder>\r\n\t\t<folder>tmpl</folder>\r\n\t</files>\r\n\t<languages>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\r\n\t</languages>\r\n\t<help key="Site_Modules:_${capitalizedWord}" />\r\n\t<config>\r\n\t\t<fields name="params" addfieldprefix="Joomla\\Component\\Content\\Administrator\\Field">\r\n\t\t\t<fieldset name="basic">\r\n\t\t\t\t<field name="greeting" type="text" label="MOD_${newWord.toUpperCase()}_GREETING_LABEL" description="MOD_${newWord.toUpperCase()}_GREETING_DESC" default="Hello, World!" />\r\n\t\t\t</fieldset>\r\n\t\t\t<fieldset name="advanced">\r\n\t\t\t\t<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" class="form-select" validate="moduleLayout" />\r\n\t\t\t\t<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" rows="3" validate="CssIdentifier" />\r\n\t\t\t\t<field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" default="1" filter="integer" validate="options">\r\n\t\t\t\t\t<option value="1">JGLOBAL_USE_GLOBAL</option>\r\n\t\t\t\t\t<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>\r\n\t\t\t\t</field>\r\n\t\t\t\t<field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" default="900" filter="integer" />\r\n\t\t\t\t<field name="cachemode" type="hidden" default="static">\r\n\t\t\t\t\t<option value="static"></option>\r\n\t\t\t\t</field>\r\n\t\t\t</fieldset>\r\n\t\t</fields>\r\n\t</config>\r\n</extension>\r\n`,
+                
+                [`services/provider.php`]: `<?php\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;\r\nuse Joomla\\DI\\Container;\r\nuse Joomla\\DI\\ServiceProviderInterface;\r\n\r\nreturn new class () implements ServiceProviderInterface {\r\n    public function register(Container $container)\r\n    {\r\n        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}'));\r\n        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}\\\\${clientPath}\\\\Helper'));\r\n        $container->registerServiceProvider(new Module());\r\n    }\r\n};\r\n`,
+                
+                [`src/Dispatcher/Dispatcher.php`]: `<?php\r\n\r\nnamespace Joomla\\Module\\${capitalizedWord}\\${clientPath}\\Dispatcher;\r\n\r\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nclass Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface\r\n{\r\n    use HelperFactoryAwareTrait;\r\n\r\n    protected function getLayoutData()\r\n    {\r\n        \\$data = parent::getLayoutData();\r\n        \\$data['list'] = \\$this->getHelperFactory()->getHelper('${capitalizedWord}Helper')->getItems(\\$data['params'], \\$this->getApplication());\r\n        return \\$data;\r\n    }\r\n}\r\n`,
+                
+                [`src/Helper/${capitalizedWord}Helper.php`]: `<?php\r\n\r\nnamespace Joomla\\Module\\${capitalizedWord}\\${clientPath}\\Helper;\r\n\r\nuse Joomla\\CMS\\Application\\SiteApplication;\r\nuse Joomla\\Database\\DatabaseAwareInterface;\r\nuse Joomla\\Database\\DatabaseAwareTrait;\r\nuse Joomla\\Registry\\Registry;\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nclass ${capitalizedWord}Helper implements DatabaseAwareInterface\r\n{\r\n    use DatabaseAwareTrait;\r\n\r\n    public function getItems(Registry \\$params, SiteApplication \\$app)\r\n    {\r\n        \\$db = \\$this->getDatabase();\r\n        \\$query = \\$db->getQuery(true)\r\n            ->select('a.id, a.title')\r\n            ->from('#__modules AS a')\r\n            ->order('a.title ASC')\r\n            ->setLimit(\\$params->get('count', 5));\r\n        \\$db->setQuery(\\$query);\r\n        return \\$db->loadObjectList();\r\n    }\r\n}\r\n`,
+                
+                [`tmpl/default.php`]: `<?php\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\HTML\\HTMLHelper;\r\n\r\n/** @var Joomla\\CMS\\WebAsset\\WebAssetManager \\$wa */\r\n\\$wa = \\$app->getDocument()->getWebAssetManager();\r\n\\$wa->registerAndUseStyle('${modulePrefix}_css', 'media/${modulePrefix}/css/style.css');\r\n\\$wa->registerAndUseScript('${modulePrefix}_script', 'media/${modulePrefix}/js/script.js');\r\n\r\nif (!\\$list) {\r\n    return;\r\n}\r\n?>\r\n\r\n<div class="${modulePrefix}">\r\n    <h3><?php echo \\$params->get('greeting'); ?></h3>\r\n    <ul>\r\n        <?php foreach (\\$list as \\$item) : ?>\r\n            <li><?php echo \\$item->title; ?></li>\r\n        <?php endforeach; ?>\r\n    </ul>\r\n</div>\r\n`
+            };
+        }
 
-        const nameInput = document.getElementById('moduleName');
-        const previewNamespace = document.getElementById('previewNamespace');
-        const previewFolder = document.getElementById('previewFolder');
-        const structureList = document.getElementById('structureList');
-
-        nameInput.addEventListener('input', (e) => {
-            const val = e.target.value || "My Module";
-            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+        // Update preview
+        function updatePreview() {
+            const moduleName = document.getElementById('moduleName').value || 'My Module';
+            const clientType = document.getElementById('clientType').value;
+            const newLang = document.getElementById('newLang').value;
+            
+            const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
             const slug = clean.toLowerCase();
             const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
-            previewNamespace.innerText = `Joomla\\Module\\${cap}`;
-            previewFolder.innerText = `mod_${slug}`;
-            structureList.innerHTML = `mod_${slug}/<br>├── services/provider.php<br>├── src/Dispatcher/Dispatcher.php<br>├── src/Helper/${cap}Helper.php<br>├── tmpl/default.php<br>└── mod_${slug}.xml`;
-        });
+            
+            document.getElementById('previewNamespace').textContent = `Joomla\\Module\\${cap}`;
+            document.getElementById('previewFolder').textContent = `mod_${slug}`;
+            document.getElementById('previewClient').textContent = clientType;
+            document.getElementById('previewLang').textContent = newLang;
+            
+            let structure = `mod_${slug}/<br>`;
+            structure += `├── services/provider.php<br>`;
+            structure += `├── src/Dispatcher/Dispatcher.php<br>`;
+            structure += `├── src/Helper/${cap}Helper.php<br>`;
+            structure += `├── tmpl/default.php<br>`;
+            structure += `├── language/${newLang}/mod_${slug}.ini<br>`;
+            structure += `├── language/${newLang}/mod_${slug}.sys.ini<br>`;
+            structure += `└── mod_${slug}.xml`;
+            
+            document.getElementById('structureList').innerHTML = structure;
+        }
 
-        document.getElementById('moduleForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const moduleName = document.getElementById('moduleName').value;
-            const author = document.getElementById('author').value;
-            const authorEmail = document.getElementById('authorEmail').value;
-            const authorUrl = document.getElementById('authorUrl').value || "https://github.com/uzielweb";
-            const clientType = document.getElementById('clientType').value;
-            const newLang = document.getElementById('newLang').value || "en-GB";
-
-            const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
-            const newWord = clean.toLowerCase();
-            const modulePrefix = 'mod_' + newWord;
-            const capitalizedWord = clean.charAt(0).toUpperCase() + clean.slice(1);
-
-            const zip = new JSZip();
-            const root = zip.folder(modulePrefix);
-
-            for (const [path, data] of Object.entries(baseFiles)) {
-                let content = data.content;
-                let finalPath = path.replace(/hello/g, newWord).replace(/Hello/g, capitalizedWord).replace(/HELLO/g, newWord.toUpperCase());
-
-                if (!data.base64) {
-                    content = content.replace(/hello/g, newWord);
-                    content = content.replace(/Hello/g, capitalizedWord);
-                    content = content.replace(/HELLO/g, newWord.toUpperCase());
-                    content = content.replace(/mod_hello/g, modulePrefix);
-                    
-                    if (path.endsWith('.xml')) {
-                        content = content.replace(/<author>.*?<\/author>/, `<author>${author}</author>`);
-                        content = content.replace(/<creationDate>.*?<\/creationDate>/, `<creationDate>${new Date().toISOString().split('T')[0]}</creationDate>`);
-                        content = content.replace(/<copyright>.*?<\/copyright>/, `<copyright>(C) ${new Date().getFullYear()} ${author}</copyright>`);
-                        content = content.replace(/<authorEmail>.*?<\/authorEmail>/, `<authorEmail>${authorEmail}</authorEmail>`);
-                        content = content.replace(/<authorUrl>.*?<\/authorUrl>/, `<authorUrl>${authorUrl}</authorUrl>`);
-                        content = content.replace(/client="site"/, `client="${clientType}"`);
-                        const langEntry = `\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\n`;
-                        content = content.replace(/(<languages>)/, `$1\n\t${langEntry}`);
-                    }
-                    if (path.endsWith('.php')) {
-                        if (clientType === 'administrator') {
-                            content = content.replace(/\\Site/g, '\\Administrator');
-                        }
-                    }
-                }
-                if (path.includes('language/en-GB')) {
-                    finalPath = finalPath.replace('language/en-GB', `language/${newLang}`);
-                }
-                if (data.base64) {
-                    root.file(finalPath, content, {base64: true});
-                } else {
-                    root.file(finalPath, content);
-                }
+        // Event listeners for preview
+        ['moduleName', 'clientType', 'newLang'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', updatePreview);
+                el.addEventListener('change', updatePreview);
             }
-
-            const blob = await zip.generateAsync({type: "blob"});
-            confetti({
-                particleCount: 150,
-                spread: 70,
-                origin: { y: 0.6 },
-                colors: ['#009c3b', '#ffdf00', '#002776']
-            });
-
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `${modulePrefix}.zip`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
         });
 
-        // Initialize with default browser language if possible
+        // Form submission
+        document.getElementById('moduleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const generateBtn = document.getElementById('generateBtn');
+            const originalHTML = generateBtn.innerHTML;
+            generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando...';
+            generateBtn.disabled = true;
+            
+            try {
+                const moduleName = document.getElementById('moduleName').value.trim();
+                const author = document.getElementById('author').value.trim();
+                const authorEmail = document.getElementById('authorEmail').value.trim();
+                const authorUrl = document.getElementById('authorUrl').value.trim() || 'https://github.com/uzielweb';
+                const clientType = document.getElementById('clientType').value;
+                const newLang = document.getElementById('newLang').value || 'en-GB';
+                const version = '1.0.0';
+
+                if (!moduleName || !author || !authorEmail) {
+                    throw new Error('Preencha todos os campos obrigatórios');
+                }
+
+                const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+                const newWord = clean.toLowerCase();
+                const modulePrefix = 'mod_' + newWord;
+                const capitalizedWord = clean.charAt(0).toUpperCase() + clean.slice(1);
+
+                // Check if JSZip is loaded
+                if (typeof JSZip === 'undefined') {
+                    throw new Error('JSZip não foi carregado. Recarregue a página.');
+                }
+
+                const zip = new JSZip();
+                const root = zip.folder(modulePrefix);
+                
+                const templates = getBaseTemplates(newWord, capitalizedWord, modulePrefix, clientType, author, authorEmail, authorUrl, newLang, version);
+                
+                for (const [path, content] of Object.entries(templates)) {
+                    root.file(path, content);
+                }
+
+                const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+                
+                // Confetti celebration
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#009c3b', '#ffdf00', '#002776']
+                    });
+                }
+                
+                // Download
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${modulePrefix}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification('✅ Pacote gerado com sucesso!');
+                
+            } catch (error) {
+                console.error('Erro ao gerar pacote:', error);
+                showNotification('❌ ' + error.message, 'error');
+            } finally {
+                generateBtn.innerHTML = originalHTML;
+                generateBtn.disabled = false;
+            }
+        });
+
+        function showNotification(message, type = 'success') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            if (type === 'error') {
+                notification.style.borderColor = 'var(--danger)';
+            }
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                notification.style.transition = '0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
         const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
         setLang(userLang);
+        updatePreview();
     </script>
 </body>
 </html>
