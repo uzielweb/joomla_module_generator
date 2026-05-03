@@ -201,7 +201,7 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:13px 0;}
   <div class="sb-item" onclick="showPanel('params')" id="nav-params"><span class="ic">⚙️</span><span data-pro-i18n="sb-params">Parâmetros</span></div>
   <div class="sb-sec" data-pro-i18n="sb-features">Funcionalidades</div>
   <div class="sb-item" onclick="showPanel('features')" id="nav-features"><span class="ic">✨</span><span data-pro-i18n="sb-feat">Features</span></div>
-  <div class="sb-item" onclick="showPanel('assets')" id="nav-assets"><span class="ic">🎨</span>CSS / JS</div>
+  <div class="sb-item" onclick="showPanel('assets')" id="nav-assets"><span class="ic">🎨</span><span data-pro-i18n="sb-assets">CSS / JS</span></div>
   <div class="sb-item" onclick="showPanel('lang')" id="nav-lang"><span class="ic">🌐</span><span data-pro-i18n="sb-langs">Idiomas</span></div>
   <div class="sb-sec" data-pro-i18n="sb-output">Saída</div>
   <div class="sb-item" onclick="showPanel('preview')" id="nav-preview"><span class="ic">👁</span><span data-pro-i18n="sb-preview">Preview Código</span></div>
@@ -213,39 +213,39 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:13px 0;}
 
 <!-- BASIC -->
 <div class="panel on" id="panel-basic">
-  <div class="sec-title">📋 Informações Básicas</div>
-  <div class="sec-sub">Metadados do módulo Joomla</div>
+  <div class="sec-title" data-pro-i18n="panel-basic-title">📋 Informações Básicas</div>
+  <div class="sec-sub" data-pro-i18n="panel-basic-sub">Metadados do módulo Joomla</div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Identificação</div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-id-title">Identificação</span></div>
     <div class="fg">
-      <div class="field"><label>Nome do Módulo</label><input id="f-mn" value="mymodule" oninput="syncMod()"><small>Prefixado como mod_mymodule</small></div>
-      <div class="field"><label>Nome de Exibição</label><input id="f-dn" value="My Module"></div>
-      <div class="field"><label>Versão</label><input id="f-ver" value="1.0.0" oninput="updBadges()"></div>
-      <div class="field"><label>Data</label><input type="date" id="f-date"></div>
-      <div class="field full"><label>Descrição</label><textarea id="f-desc" rows="2">Um módulo Joomla gerado pelo JoomlaForge</textarea></div>
+      <div class="field"><label data-pro-i18n="lbl-mod-name">Nome do Módulo</label><input id="f-mn" value="mymodule" oninput="syncMod()"><small data-pro-i18n="lbl-mod-prefix">Prefixado como mod_mymodule</small></div>
+      <div class="field"><label data-pro-i18n="lbl-mod-display">Nome de Exibição</label><input id="f-dn" value="My Module"></div>
+      <div class="field"><label data-pro-i18n="lbl-version">Versão</label><input id="f-ver" value="1.0.0" oninput="updBadges()"></div>
+      <div class="field"><label data-pro-i18n="lbl-date">Data</label><input type="date" id="f-date"></div>
+      <div class="field full"><label data-pro-i18n="lbl-desc">Descrição</label><textarea id="f-desc" rows="2">Um módulo Joomla gerado pelo Joomla Module Generator Pro</textarea></div>
     </div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Autor & Licença</div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-auth-title">Autor & Licença</span></div>
     <div class="fg">
-      <div class="field"><label>Autor</label><input id="f-auth" value="Seu Nome"></div>
-      <div class="field"><label>Email</label><input type="email" id="f-email" value="email@example.com"></div>
-      <div class="field"><label>Website</label><input id="f-url" value="https://example.com"></div>
-      <div class="field"><label>Copyright</label><input id="f-copy" value="Copyright (C) 2025"></div>
-      <div class="field"><label>Licença</label>
+      <div class="field"><label data-pro-i18n="lbl-author">Autor</label><input id="f-auth" value="Seu Nome"></div>
+      <div class="field"><label data-pro-i18n="lbl-email">Email</label><input type="email" id="f-email" value="email@example.com"></div>
+      <div class="field"><label data-pro-i18n="lbl-website">Website</label><input id="f-url" value="https://example.com"></div>
+      <div class="field"><label data-pro-i18n="lbl-copyright">Copyright</label><input id="f-copy" value="Copyright (C) 2025"></div>
+      <div class="field"><label data-pro-i18n="lbl-license">Licença</label>
         <select id="f-lic">
           <option value="GNU General Public License version 2 or later">GPL v2+</option>
           <option value="GNU General Public License version 3 or later">GPL v3+</option>
           <option value="MIT License">MIT</option>
           <option value="Apache License 2.0">Apache 2.0</option>
-          <option value="Proprietary">Proprietária</option>
+          <option value="Proprietary" data-pro-i18n="opt-proprietary">Proprietária</option>
         </select>
       </div>
-      <div class="field"><label>Namespace PHP</label><input id="f-ns" value="MyCompany\Module\Mymodule"></div>
+      <div class="field"><label data-pro-i18n="lbl-namespace">Namespace PHP</label><input id="f-ns" value="MyCompany\Module\Mymodule"></div>
     </div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Compatibilidade Joomla</div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-comp-title">Compatibilidade Joomla</span></div>
     <div class="vgrid">
       <div class="vbtn" onclick="toggleVer(this,'3.x')">3.x</div>
       <div class="vbtn" onclick="toggleVer(this,'3.10')">3.10</div>
@@ -254,114 +254,114 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:13px 0;}
       <div class="vbtn" onclick="toggleVer(this,'6.x')">6.x</div>
       <div class="vbtn" onclick="toggleVer(this,'6.1')">6.1</div>
     </div>
-    <small style="color:var(--mut);font-size:10px;display:block;margin-top:8px">Versões para as quais o módulo será compatível (afeta o manifest)</small>
+    <small style="color:var(--mut);font-size:10px;display:block;margin-top:8px" data-pro-i18n="comp-note">Versões para as quais o módulo será compatível (afeta o manifest)</small>
   </div>
 </div>
 
 <!-- STRUCTURE -->
 <div class="panel" id="panel-struct">
-  <div class="sec-title">🏗 Estrutura do Módulo</div>
-  <div class="sec-sub">Arquivos e componentes a gerar</div>
+  <div class="sec-title" data-pro-i18n="panel-struct-title">🏗 Estrutura do Módulo</div>
+  <div class="sec-sub" data-pro-i18n="panel-struct-sub">Arquivos e componentes a gerar</div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Arquivos Principais</div>
-    <div class="tr"><div><div class="tr-l">services/provider.php <span style="font-size:9px;color:var(--grn)">(entry point J4/5/6)</span></div><div class="tr-d">DI Container — registro do Dispatcher e Helper. Não existe mais mod_name.php na raiz</div></div><div class="tog on" id="t-entry" onclick="tog('entry',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Helper Class (src/Helper)</div><div class="tr-d">Lógica de negócio separada do template</div></div><div class="tog on" id="t-helper" onclick="tog('helper',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">tmpl/default.php</div><div class="tr-d">Template de renderização padrão</div></div><div class="tog on" id="t-tmpl" onclick="tog('tmpl',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Dispatcher (Joomla 4+)</div><div class="tr-d">src/Dispatcher/Dispatcher.php — PSR-compliant</div></div><div class="tog on" id="t-disp" onclick="tog('disp',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Provider (Joomla 4+)</div><div class="tr-d">src/Extension/Module.php — Service Provider</div></div><div class="tog on" id="t-prov" onclick="tog('prov',this)"></div></div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-files-title">Arquivos Principais</span></div>
+    <div class="tr"><div><div class="tr-l">services/provider.php <span style="font-size:9px;color:var(--grn)">(entry point J4/5/6)</span></div><div class="tr-d" data-pro-i18n="struct-provider-desc">DI Container — registro do Dispatcher e Helper. Não existe mais mod_name.php na raiz</div></div><div class="tog on" id="t-entry" onclick="tog('entry',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Helper Class (src/Helper)</div><div class="tr-d" data-pro-i18n="struct-helper-desc">Lógica de negócio separada do template</div></div><div class="tog on" id="t-helper" onclick="tog('helper',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">tmpl/default.php</div><div class="tr-d" data-pro-i18n="struct-tmpl-desc">Template de renderização padrão</div></div><div class="tog on" id="t-tmpl" onclick="tog('tmpl',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Dispatcher (Joomla 4+)</div><div class="tr-d" data-pro-i18n="struct-dispatcher-desc">src/Dispatcher/Dispatcher.php — PSR-compliant</div></div><div class="tog on" id="t-disp" onclick="tog('disp',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Provider (Joomla 4+)</div><div class="tr-d" data-pro-i18n="struct-extension-desc">src/Extension/Module.php — Service Provider</div></div><div class="tog on" id="t-prov" onclick="tog('prov',this)"></div></div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Extras</div>
-    <div class="tr"><div><div class="tr-l">Manifest XML</div><div class="tr-d">Arquivo de instalação/atualização Joomla</div></div><div class="tog on" id="t-mani" onclick="tog('mani',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Script de Instalação</div><div class="tr-d">PHP executado no install/update/uninstall</div></div><div class="tog" id="t-inst" onclick="tog('inst',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Database SQL</div><div class="tr-d">SQL para criar/remover tabelas customizadas</div></div><div class="tog" id="t-sql" onclick="tog('sql',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Model (MVC)</div><div class="tr-d">src/Model — Camada de dados</div></div><div class="tog" id="t-model" onclick="tog('model',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">AJAX Handler</div><div class="tr-d">Endpoint AJAX com token CSRF</div></div><div class="tog" id="t-ajax" onclick="tog('ajax',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Multiple Layouts</div><div class="tr-d">tmpl/default.php + tmpl/outline.php</div></div><div class="tog" id="t-mlyt" onclick="tog('mlyt',this)"></div></div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-extras-title">Extras</span></div>
+    <div class="tr"><div><div class="tr-l">Manifest XML</div><div class="tr-d" data-pro-i18n="struct-xml-desc">Arquivo de instalação/atualização Joomla</div></div><div class="tog on" id="t-mani" onclick="tog('mani',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="lbl-script">Script de Instalação</div><div class="tr-d" data-pro-i18n="struct-script-desc">PHP executado no install/update/uninstall</div></div><div class="tog" id="t-inst" onclick="tog('inst',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Database SQL</div><div class="tr-d" data-pro-i18n="struct-sql-desc">SQL para criar/remover tabelas customizadas</div></div><div class="tog" id="t-sql" onclick="tog('sql',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Model (MVC)</div><div class="tr-d" data-pro-i18n="struct-model-desc">src/Model — Camada de dados</div></div><div class="tog" id="t-model" onclick="tog('model',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">AJAX Handler</div><div class="tr-d" data-pro-i18n="struct-ajax-desc">Endpoint AJAX com token CSRF</div></div><div class="tog" id="t-ajax" onclick="tog('ajax',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="lbl-layouts">Multiple Layouts</div><div class="tr-d" data-pro-i18n="struct-layouts-desc">tmpl/default.php + tmpl/outline.php</div></div><div class="tog" id="t-mlyt" onclick="tog('mlyt',this)"></div></div>
   </div>
 </div>
 
 <!-- PARAMS -->
 <div class="panel" id="panel-params">
-  <div class="sec-title">⚙️ Parâmetros do Módulo</div>
-  <div class="sec-sub">Todos os <strong style="color:var(--acc)">~75 tipos de campo</strong> do Joomla com atributos completos. Clique em ✎ para editar opções, subfields, attributos extras, showon, validate, etc.</div>
+  <div class="sec-title" data-pro-i18n="panel-params-title">⚙️ Parâmetros do Módulo</div>
+  <div class="sec-sub" data-pro-i18n="panel-params-sub">Todos os <strong style="color:var(--acc)">~75 tipos de campo</strong> do Joomla com atributos completos. Clique em ✎ para editar opções, subfields, attributos extras, showon, validate, etc.</div>
   <div class="card">
     <div class="card-title" style="justify-content:space-between">
-      <span style="display:flex;align-items:center;gap:7px"><span class="dot"></span>Campos Cadastrados</span>
+      <span style="display:flex;align-items:center;gap:7px"><span class="dot"></span><span data-pro-i18n="card-params-title">Campos Cadastrados</span></span>
       <span style="display:flex;gap:6px">
         <button class="btn btn-ghost btn-sm" onclick="exportParams()" title="Exportar JSON">⬇ JSON</button>
         <button class="btn btn-ghost btn-sm" onclick="g('import-file').click()" title="Importar JSON">⬆ Import</button>
-        <button class="btn btn-danger btn-sm" onclick="clearParams()" title="Limpar tudo">✕ Limpar</button>
+        <button class="btn btn-danger btn-sm" onclick="clearParams()" title="Limpar tudo" data-pro-i18n="btn-clear">✕ Limpar</button>
         <input type="file" id="import-file" accept=".json" style="display:none" onchange="importParams(this)">
       </span>
     </div>
     <table class="ptable">
-      <thead><tr><th>Tipo</th><th>Nome</th><th>Label</th><th>Padrão</th><th>Req</th><th>Descrição</th><th>Extra</th><th style="text-align:right">Ações</th></tr></thead>
+      <thead><tr><th data-pro-i18n="th-type">Tipo</th><th data-pro-i18n="th-name">Nome</th><th data-pro-i18n="th-label">Label</th><th data-pro-i18n="th-default">Padrão</th><th data-pro-i18n="th-req">Req</th><th data-pro-i18n="th-desc">Descrição</th><th data-pro-i18n="th-extra">Extra</th><th style="text-align:right" data-pro-i18n="th-actions">Ações</th></tr></thead>
       <tbody id="ptbody"></tbody>
     </table>
     <hr class="div">
     <div style="display:flex;gap:9px;flex-wrap:wrap;align-items:flex-end">
-      <div class="field" style="flex:1;min-width:90px"><label>Label</label><input id="p-label" placeholder="Rótulo" oninput="autoFillName(this.value)"></div>
-      <div class="field" style="flex:1;min-width:90px"><label>Nome <span style="font-size:9px;color:var(--mut);font-weight:400">(auto)</span></label><input id="p-name" placeholder="param_name" oninput="pNameEdited=true"></div>
-      <div class="field" style="min-width:160px"><label>Tipo</label><select id="p-type" onchange="onTypeChange()"></select></div>
-      <div class="field" style="width:85px"><label>Padrão</label><input id="p-def" placeholder=""></div>
-      <div class="field" style="width:80px"><label>Required</label><select id="p-req"><option value="">—</option><option value="true">true</option><option value="false">false</option></select></div>
-      <div class="field" style="flex:2;min-width:120px"><label>Descrição</label><input id="p-desc" placeholder="Texto de ajuda"></div>
-      <button class="btn btn-pri btn-sm" onclick="quickAdd()" style="align-self:flex-end">+ Adicionar</button>
+      <div class="field" style="flex:1;min-width:90px"><label data-pro-i18n="th-label">Label</label><input id="p-label" placeholder="Rótulo" oninput="autoFillName(this.value)"></div>
+      <div class="field" style="flex:1;min-width:90px"><label><span data-pro-i18n="th-name">Nome</span> <span style="font-size:9px;color:var(--mut);font-weight:400">(auto)</span></label><input id="p-name" placeholder="param_name" oninput="pNameEdited=true"></div>
+      <div class="field" style="min-width:160px"><label data-pro-i18n="th-type">Tipo</label><select id="p-type" onchange="onTypeChange()"></select></div>
+      <div class="field" style="width:85px"><label data-pro-i18n="th-default">Padrão</label><input id="p-def" placeholder=""></div>
+      <div class="field" style="width:80px"><label data-pro-i18n="th-req">Required</label><select id="p-req"><option value="">—</option><option value="true">true</option><option value="false">false</option></select></div>
+      <div class="field" style="flex:2;min-width:120px"><label data-pro-i18n="th-desc">Descrição</label><input id="p-desc" placeholder="Texto de ajuda"></div>
+      <button class="btn btn-pri btn-sm" onclick="quickAdd()" style="align-self:flex-end" data-pro-i18n="btn-add">+ Adicionar</button>
     </div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Parâmetros do Sistema</div>
-    <div class="tr"><div><div class="tr-l">Cache (caching / cache_time / cachemode)</div><div class="tr-d">Parâmetros padrão de cache Joomla</div></div><div class="tog on" id="t-pcache" onclick="tog('pcache',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Layout (modulelayout)</div><div class="tr-d">Seletor de layout alternativo do módulo no painel admin</div></div><div class="tog on" id="t-playout" onclick="tog('playout',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Module Class Suffix</div><div class="tr-d">moduleclass_sfx — classe CSS extra no frontend</div></div><div class="tog on" id="t-pclass" onclick="tog('pclass',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Module Tag (moduletag)</div><div class="tr-d">Tag HTML que envolve o módulo</div></div><div class="tog on" id="t-ptag" onclick="tog('ptag',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Header Tag (headertag)</div><div class="tr-d">Tag H1–H6 para o título</div></div><div class="tog on" id="t-phdr" onclick="tog('phdr',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Bootstrap Size</div><div class="tr-d">bootstrap_size — largura em colunas</div></div><div class="tog on" id="t-pbs" onclick="tog('pbs',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Header Class (header_class)</div><div class="tr-d">Classe CSS para o header do módulo</div></div><div class="tog on" id="t-phc" onclick="tog('phc',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Style (layout_style)</div><div class="tr-d">Chrome style herdado do template</div></div><div class="tog on" id="t-psty" onclick="tog('psty',this)"></div></div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-system-title">Parâmetros do Sistema</span></div>
+    <div class="tr"><div><div class="tr-l">Cache (caching / cache_time / cachemode)</div><div class="tr-d" data-pro-i18n="sys-cache-desc">Parâmetros padrão de cache Joomla</div></div><div class="tog on" id="t-pcache" onclick="tog('pcache',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Layout (modulelayout)</div><div class="tr-d" data-pro-i18n="sys-layout-desc">Seletor de layout alternativo do módulo no painel admin</div></div><div class="tog on" id="t-playout" onclick="tog('playout',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Module Class Suffix</div><div class="tr-d" data-pro-i18n="sys-class-desc">moduleclass_sfx — classe CSS extra no frontend</div></div><div class="tog on" id="t-pclass" onclick="tog('pclass',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Module Tag (moduletag)</div><div class="tr-d" data-pro-i18n="sys-tag-desc">Tag HTML que envolve o módulo</div></div><div class="tog on" id="t-ptag" onclick="tog('ptag',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Header Tag (headertag)</div><div class="tr-d" data-pro-i18n="sys-htag-desc">Tag H1–H6 para o título</div></div><div class="tog on" id="t-phdr" onclick="tog('phdr',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Bootstrap Size</div><div class="tr-d" data-pro-i18n="sys-bs-desc">bootstrap_size — largura em colunas</div></div><div class="tog on" id="t-pbs" onclick="tog('pbs',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Header Class (header_class)</div><div class="tr-d" data-pro-i18n="sys-hclass-desc">Classe CSS para o header do módulo</div></div><div class="tog on" id="t-phc" onclick="tog('phc',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Style (layout_style)</div><div class="tr-d" data-pro-i18n="sys-style-desc">Chrome style herdado do template</div></div><div class="tog on" id="t-psty" onclick="tog('psty',this)"></div></div>
   </div>
 </div>
 
 <!-- FEATURES -->
 <div class="panel" id="panel-features">
-  <div class="sec-title">✨ Features</div>
-  <div class="sec-sub">Funcionalidades prontas a incluir no módulo</div>
+  <div class="sec-title" data-pro-i18n="panel-features-title">✨ Features</div>
+  <div class="sec-sub" data-pro-i18n="panel-features-sub">Funcionalidades prontas a incluir no módulo</div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Integração Joomla</div>
-    <div class="tr"><div><div class="tr-l">User Auth Check</div><div class="tr-d">Verificar se usuário está logado</div></div><div class="tog" id="t-auth" onclick="tog('auth',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">ACL / Access Control</div><div class="tr-d">Controle de acesso por grupos</div></div><div class="tog" id="t-acl" onclick="tog('acl',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Cache Integration</div><div class="tr-d">JCache para cache de conteúdo</div></div><div class="tog" id="t-cache" onclick="tog('cache',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Database Query</div><div class="tr-d">JDatabase — consulta ao banco de dados</div></div><div class="tog on" id="t-db" onclick="tog('db',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Plugin Events</div><div class="tr-d">Disparar e escutar eventos Joomla</div></div><div class="tog" id="t-evts" onclick="tog('evts',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">REST API (J5/J6)</div><div class="tr-d">Endpoint REST API para o módulo</div></div><div class="tog" id="t-api" onclick="tog('api',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Multilingual (J4+)</div><div class="tr-d">Suporte a multi-idioma via Associations</div></div><div class="tog" id="t-mlt" onclick="tog('mlt',this)"></div></div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-integ-title">Integração Joomla</span></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-auth">User Auth Check</div><div class="tr-d" data-pro-i18n="feat-auth-desc">Verificar se usuário está logado</div></div><div class="tog" id="t-auth" onclick="tog('auth',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-acl">ACL / Access Control</div><div class="tr-d" data-pro-i18n="feat-acl-desc">Controle de acesso por grupos</div></div><div class="tog" id="t-acl" onclick="tog('acl',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-cache">Cache Integration</div><div class="tr-d" data-pro-i18n="feat-cache-desc">JCache para cache de conteúdo</div></div><div class="tog" id="t-cache" onclick="tog('cache',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-db">Database Query</div><div class="tr-d" data-pro-i18n="feat-db-desc">JDatabase — consulta ao banco de dados</div></div><div class="tog on" id="t-db" onclick="tog('db',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-events">Plugin Events</div><div class="tr-d" data-pro-i18n="feat-events-desc">Disparar e escutar eventos Joomla</div></div><div class="tog" id="t-evts" onclick="tog('evts',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-api">REST API (J5/J6)</div><div class="tr-d" data-pro-i18n="feat-api-desc">Endpoint REST API para o módulo</div></div><div class="tog" id="t-api" onclick="tog('api',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-multi">Multilingual (J4+)</div><div class="tr-d" data-pro-i18n="feat-multi-desc">Suporte a multi-idioma via Associations</div></div><div class="tog" id="t-mlt" onclick="tog('mlt',this)"></div></div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Frontend</div>
-    <div class="tr"><div><div class="tr-l">Bootstrap 5 Components</div><div class="tr-d">Componentes BS5 do Joomla no template</div></div><div class="tog on" id="t-bs" onclick="tog('bs',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Web Asset Manager (J4+)</div><div class="tr-d">Registrar CSS/JS via WebAssetManager</div></div><div class="tog on" id="t-wam" onclick="tog('wam',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Web Components (ES6)</div><div class="tr-d">JS estruturado como Custom Element</div></div><div class="tog" id="t-wc" onclick="tog('wc',this)"></div></div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-front-title">Frontend</span></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-bs5">Bootstrap 5 Components</div><div class="tr-d" data-pro-i18n="feat-bs5-desc">Componentes BS5 do Joomla no template</div></div><div class="tog on" id="t-bs" onclick="tog('bs',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-wam">Web Asset Manager (J4+)</div><div class="tr-d" data-pro-i18n="feat-wam-desc">Registrar CSS/JS via WebAssetManager</div></div><div class="tog on" id="t-wam" onclick="tog('wam',this)"></div></div>
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-wc">Web Components (ES6)</div><div class="tr-d" data-pro-i18n="feat-wc-desc">JS estruturado como Custom Element</div></div><div class="tog" id="t-wc" onclick="tog('wc',this)"></div></div>
   </div>
 </div>
 
 <!-- ASSETS -->
 <div class="panel" id="panel-assets">
-  <div class="sec-title">🎨 CSS & JavaScript</div>
-  <div class="sec-sub">Assets do módulo no frontend</div>
+  <div class="sec-title" data-pro-i18n="panel-assets-title">🎨 CSS & JavaScript</div>
+  <div class="sec-sub" data-pro-i18n="panel-assets-sub">Assets do módulo no frontend</div>
   <div class="card">
     <div class="card-title"><span class="dot"></span>CSS</div>
-    <div class="tr"><div><div class="tr-l">Incluir arquivo CSS</div><div class="tr-d">media/css/mod_name.css</div></div><div class="tog on" id="t-css" onclick="tog('css',this)"></div></div>
-    <div class="field" style="margin-top:11px"><label>CSS Inicial</label><textarea id="f-css" rows="6">.mod-mymodule { }
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-css">Incluir arquivo CSS</div><div class="tr-d">media/css/mod_name.css</div></div><div class="tog on" id="t-css" onclick="tog('css',this)"></div></div>
+    <div class="field" style="margin-top:11px"><label data-pro-i18n="lbl-css-init">CSS Inicial</label><textarea id="f-css" rows="6">.mod-mymodule { }
 .mod-mymodule__list { list-style: none; padding: 0; margin: 0; }
 .mod-mymodule__item { padding: 8px 0; border-bottom: 1px solid #e9ecef; }
 .mod-mymodule__item:last-child { border-bottom: none; }</textarea></div>
   </div>
   <div class="card">
     <div class="card-title"><span class="dot"></span>JavaScript</div>
-    <div class="tr"><div><div class="tr-l">Incluir arquivo JS</div><div class="tr-d">media/js/mod_name.js</div></div><div class="tog on" id="t-js" onclick="tog('js',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Defer JavaScript</div><div class="tr-d">Carregar com atributo defer</div></div><div class="tog on" id="t-defer" onclick="tog('defer',this)"></div></div>
-    <div class="field" style="margin-top:11px"><label>JavaScript Inicial</label><textarea id="f-js" rows="6">(function () {
+    <div class="tr"><div><div class="tr-l" data-pro-i18n="feat-js">Incluir arquivo JS</div><div class="tr-d">media/js/mod_name.js</div></div><div class="tog on" id="t-js" onclick="tog('js',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Defer JavaScript</div><div class="tr-d" data-pro-i18n="feat-defer-desc">Carregar com atributo defer</div></div><div class="tog on" id="t-defer" onclick="tog('defer',this)"></div></div>
+    <div class="field" style="margin-top:11px"><label data-pro-i18n="lbl-js-init">JavaScript Inicial</label><textarea id="f-js" rows="6">(function () {
   'use strict';
   document.addEventListener('DOMContentLoaded', function () {
     // Inicialização do módulo
@@ -372,18 +372,18 @@ hr.div{border:none;border-top:1px solid var(--b1);margin:13px 0;}
 
 <!-- LANG -->
 <div class="panel" id="panel-lang">
-  <div class="sec-title">🌐 Idiomas</div>
-  <div class="sec-sub">Arquivos .ini de tradução</div>
+  <div class="sec-title" data-pro-i18n="panel-lang-title">🌐 Idiomas</div>
+  <div class="sec-sub" data-pro-i18n="panel-lang-sub">Arquivos .ini de tradução</div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Arquivos</div>
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-lang-files">Arquivos</span></div>
     <div class="tr"><div><div class="tr-l">Português (pt-BR)</div></div><div class="tog on" id="t-ptbr" onclick="tog('ptbr',this)"></div></div>
     <div class="tr"><div><div class="tr-l">Inglês (en-GB)</div></div><div class="tog on" id="t-engb" onclick="tog('engb',this)"></div></div>
     <div class="tr"><div><div class="tr-l">Espanhol (es-ES)</div></div><div class="tog" id="t-eses" onclick="tog('eses',this)"></div></div>
-    <div class="tr"><div><div class="tr-l">Arquivo .sys.ini</div><div class="tr-d">Strings do gerenciador de módulos</div></div><div class="tog on" id="t-sys" onclick="tog('sys',this)"></div></div>
+    <div class="tr"><div><div class="tr-l">Arquivo .sys.ini</div><div class="tr-d" data-pro-i18n="lang-sys-desc">Strings do gerenciador de módulos</div></div><div class="tog on" id="t-sys" onclick="tog('sys',this)"></div></div>
   </div>
   <div class="card">
-    <div class="card-title"><span class="dot"></span>Strings Customizadas</div>
-    <div class="field"><label>Constantes INI extras</label><textarea id="f-langs" rows="7">MOD_MYMODULE_NO_ITEMS="No items found"
+    <div class="card-title"><span class="dot"></span><span data-pro-i18n="card-lang-custom">Strings Customizadas</span></div>
+    <div class="field"><label data-pro-i18n="lbl-ini-extra">Constantes INI extras</label><textarea id="f-langs" rows="7">MOD_MYMODULE_NO_ITEMS="No items found"
 MOD_MYMODULE_READ_MORE="Read More"
 MOD_MYMODULE_TITLE_LABEL="Title"
 MOD_MYMODULE_TITLE_DESC="The module title"</textarea></div>
@@ -392,18 +392,18 @@ MOD_MYMODULE_TITLE_DESC="The module title"</textarea></div>
 
 <!-- PREVIEW -->
 <div class="panel" id="panel-preview">
-  <div class="sec-title">👁 Preview do Código</div>
-  <div class="sec-sub">Arquivos que serão incluídos no ZIP</div>
+  <div class="sec-title" data-pro-i18n="panel-preview-title">👁 Preview do Código</div>
+  <div class="sec-sub" data-pro-i18n="panel-preview-sub">Arquivos que serão incluídos no ZIP</div>
   <div class="tab-bar" id="prev-tabs"></div>
   <div id="prev-content"></div>
 </div>
 
 <!-- TREE -->
 <div class="panel" id="panel-tree">
-  <div class="sec-title">📁 Árvore de Arquivos</div>
-  <div class="sec-sub">Estrutura completa do módulo</div>
+  <div class="sec-title" data-pro-i18n="panel-tree-title">📁 Árvore de Arquivos</div>
+  <div class="sec-sub" data-pro-i18n="panel-tree-sub">Estrutura completa do módulo</div>
   <div class="card"><div id="ftree-wrap"></div></div>
-  <button class="btn btn-ok" onclick="generateZip()" style="width:100%;justify-content:center;padding:13px;margin-top:14px;font-size:13px;">⬇ Baixar Módulo como ZIP</button>
+  <button class="btn btn-ok" onclick="generateZip()" style="width:100%;justify-content:center;padding:13px;margin-top:14px;font-size:13px;" data-pro-i18n="btn-dl-zip">⬇ Baixar Módulo como ZIP</button>
 </div>
 
 </div><!-- content -->
@@ -414,13 +414,13 @@ MOD_MYMODULE_TITLE_DESC="The module title"</textarea></div>
 <div class="overlay" id="modal" style="display:none" onclick="closeModalOut(event)">
   <div class="modal" onclick="event.stopPropagation()">
     <div class="mhdr">
-      <div class="mtitle" id="m-title">Editar Parâmetro</div>
+      <div class="mtitle" id="m-title" data-pro-i18n="modal-title">Editar Parâmetro</div>
       <button class="mclose" onclick="closeModal()">×</button>
     </div>
     <div id="m-body"></div>
     <div style="display:flex;gap:9px;justify-content:flex-end;margin-top:18px">
-      <button class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
-      <button class="btn btn-pri btn-sm" onclick="saveModal()">💾 Salvar</button>
+      <button class="btn btn-ghost btn-sm" onclick="closeModal()" data-pro-i18n="btn-cancel">Cancelar</button>
+      <button class="btn btn-pri btn-sm" onclick="saveModal()" data-pro-i18n="btn-save">💾 Salvar</button>
     </div>
   </div>
 </div>
@@ -827,25 +827,25 @@ function typePill(type){
 function renderParams(){
   const tb=g('ptbody'); tb.innerHTML='';
   if(!params.length){
-    tb.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:18px;color:var(--mut);font-size:12px">Nenhum parâmetro cadastrado. Use o formulário abaixo para adicionar.</td></tr>`;
+    tb.innerHTML=`<tr><td colspan="6" style="text-align:center;padding:18px;color:var(--mut);font-size:12px">${t('msg-no-params')}</td></tr>`;
     return;
   }
   params.forEach((p,i)=>{
     const td=FTYPES[p.type]||{};
     const badges=[];
     if(td.isSubform && p.children && p.children.length){
-      badges.push(`<span class="tpill tp-sf">${p.children.length} subcampo(s)</span>`);
+      badges.push(`<span class="tpill tp-sf">${p.children.length} ${t('th-subfields')}</span>`);
     }
     if(td.hasOpts && p.options && p.options.length){
-      badges.push(`<span class="tpill tp-sel">${p.options.length} opção(ões)</span>`);
+      badges.push(`<span class="tpill tp-sel">${p.options.length} ${t('th-options')}</span>`);
     }
     const filled=p.attrs?Object.keys(p.attrs).filter(k=>p.attrs[k]!==''&&p.attrs[k]!==undefined&&td.attrs&&td.attrs[k]&&p.attrs[k]!==td.attrs[k].d):[];
-    if(filled.length) badges.push(`<span class="tpill tp-text">${filled.length} attr extra</span>`);
-    if(p.required==='true') badges.push(`<span class="tpill" style="background:rgba(240,80,80,0.12);color:var(--red)">required</span>`);
+    if(filled.length) badges.push(`<span class="tpill tp-text">${filled.length} ${t('th-extra-attr')}</span>`);
+    if(p.required==='true') badges.push(`<span class="tpill" style="background:rgba(240,80,80,0.12);color:var(--red)">${t('lbl-required')}</span>`);
     if(p.attrs && p.attrs.showon) badges.push(`<span class="tpill tp-misc">showon</span>`);
     const extra=badges.length?badges.join(' '):'<span style="color:var(--b3);font-size:10px">—</span>';
     const reqBadge=p.required==='true'
-      ?`<span class="tpill" style="background:rgba(240,80,80,0.15);color:var(--red);font-size:9px">sim</span>`
+      ?`<span class="tpill" style="background:rgba(240,80,80,0.15);color:var(--red);font-size:9px">${t('th-yes')}</span>`
       :p.required==='false'?`<span style="color:var(--b3);font-size:10px">—</span>`
       :`<span style="color:var(--b3);font-size:10px">—</span>`;
     const descCell=p.desc
@@ -860,11 +860,11 @@ function renderParams(){
       <td>${descCell}</td>
       <td style="max-width:150px">${extra}</td>
       <td style="text-align:right;white-space:nowrap">
-        <button class="ibt ibt-up" onclick="moveParam(${i},-1)" title="Subir">↑</button>
-        <button class="ibt ibt-dn" onclick="moveParam(${i},1)" title="Descer">↓</button>
-        <button class="ibt" onclick="dupParam(${i})" title="Duplicar" style="color:var(--grn)">⧉</button>
-        <button class="ibt ibt-edit" onclick="openModal(${i})" title="Editar">✎</button>
-        <button class="ibt ibt-del" onclick="delParam(${i})" title="Remover">✕</button>
+        <button class="ibt ibt-up" onclick="moveParam(${i},-1)" title="${t('btn-up')}">↑</button>
+        <button class="ibt ibt-dn" onclick="moveParam(${i},1)" title="${t('btn-down')}">↓</button>
+        <button class="ibt" onclick="dupParam(${i})" title="${t('btn-dup')}" style="color:var(--grn)">⧉</button>
+        <button class="ibt ibt-edit" onclick="openModal(${i})" title="${t('btn-edit')}">✎</button>
+        <button class="ibt ibt-del" onclick="delParam(${i})" title="${t('btn-remove')}">✕</button>
       </td>
     </tr>`;
   });
@@ -877,12 +877,12 @@ function moveParam(i,dir){
   [params[i],params[j]]=[params[j],params[i]];
   renderParams();
 }
-function delParam(i){ params.splice(i,1); renderParams(); status('Parâmetro removido','a'); }
+function delParam(i){ params.splice(i,1); renderParams(); status(t('msg-param-removed'),'a'); }
 function dupParam(i){
   const clone=JSON.parse(JSON.stringify(params[i]));
   clone.name=clone.name+'_copy';
   params.splice(i+1,0,clone);
-  renderParams(); status('Parâmetro duplicado');
+  renderParams(); status(t('msg-param-dup'));
 }
 // Auto-fill name from label
 let pNameEdited = false;
@@ -903,7 +903,7 @@ function autoFillName(label){
 function quickAdd(){
   const l=v('p-label').trim(), n=v('p-name').trim()||toSlug(l), t=v('p-type'), d=v('p-def').trim();
   const req=v('p-req'), desc=g('p-desc').value.trim();
-  if(!n){ status('Informe o Label ou Nome do parâmetro','a'); return; }
+  if(!n){ status(t('msg-param-error'),'a'); return; }
   const td=FTYPES[t]||{};
   const defAttrs={};
   if(td.attrs) Object.keys(td.attrs).forEach(k=>{ defAttrs[k]=td.attrs[k].d||''; });
@@ -913,10 +913,10 @@ function quickAdd(){
   renderParams();
   if(td.isSubform){
     const idx=params.length-1;
-    status(`Subform "${n}" adicionado — clique em ✎ para adicionar campos filhos!`,'g');
+    status(t('msg-subform-added', {n}),'g');
     setTimeout(()=>openModal(idx),300);
   } else {
-    status('Parâmetro adicionado!');
+    status(t('msg-param-added'));
   }
 }
 
@@ -934,23 +934,23 @@ function closeModal(){ g('modal').style.display='none'; editIdx=-1; editTmp=null
 function closeModalOut(e){ if(e.target===g('modal')) closeModal(); }
 function saveModal(){
   if(editIdx>=0) params[editIdx]=JSON.parse(JSON.stringify(editTmp));
-  closeModal(); renderParams(); status('Parâmetro salvo!');
+  closeModal(); renderParams(); status(t('msg-param-saved'));
 }
 
 function buildModalBody(){
   const p=editTmp, td=FTYPES[p.type]||{};
   let html=`<div class="fg">
-    <div class="field"><label>Nome</label><input id="m-name" value="${esc(p.name)}" oninput="editTmp.name=this.value"></div>
-    <div class="field"><label>Tipo</label><span style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:var(--surf2);border-radius:7px;border:1px solid var(--b2)">${typePill(p.type)} ${td.label||p.type}</span></div>
-    <div class="field"><label>Label (translatable)</label><input id="m-lbl" value="${esc(p.label||'')}" oninput="editTmp.label=this.value"></div>
-    <div class="field"><label>Description (translatable)</label><input id="m-desc" value="${esc(p.desc||'')}" oninput="editTmp.desc=this.value"></div>
-    <div class="field"><label>Valor Padrão (default)</label><input id="m-def" value="${esc(p.default||'')}" oninput="editTmp.default=this.value"></div>
+    <div class="field"><label>${t('lbl-name')}</label><input id="m-name" value="${esc(p.name)}" oninput="editTmp.name=this.value"></div>
+    <div class="field"><label>${t('lbl-type')}</label><span style="font-family:var(--mono);font-size:12px;padding:8px 10px;background:var(--surf2);border-radius:7px;border:1px solid var(--b2)">${typePill(p.type)} ${td.label||p.type}</span></div>
+    <div class="field"><label>${t('lbl-lbl-trans')}</label><input id="m-lbl" value="${esc(p.label||'')}" oninput="editTmp.label=this.value"></div>
+    <div class="field"><label>${t('lbl-desc-trans')}</label><input id="m-desc" value="${esc(p.desc||'')}" oninput="editTmp.desc=this.value"></div>
+    <div class="field"><label>${t('lbl-def-val')}</label><input id="m-def" value="${esc(p.default||'')}" oninput="editTmp.default=this.value"></div>
     <div class="field"><label>Required</label><select id="m-req" onchange="editTmp.required=this.value"><option value="">—</option><option value="true" ${p.required==='true'?'selected':''}>true</option><option value="false" ${p.required==='false'?'selected':''}>false</option></select></div>
   </div>`;
 
   // EXTRA ATTRS
   if(td.attrs && Object.keys(td.attrs).length){
-    html+=`<div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:10px">⚙ Atributos Específicos — ${p.type}</div>
+    html+=`<div style="margin-top:16px"><div style="font-size:10px;font-weight:700;color:var(--acc);text-transform:uppercase;letter-spacing:0.7px;margin-bottom:10px">⚙ ${t('lbl-spec-attr')} — ${p.type}</div>
     <div class="attr-grid">`;
     Object.keys(td.attrs).forEach(ak=>{
       const ad=td.attrs[ak]; const val=p.attrs[ak]!==undefined?p.attrs[ak]:ad.d;
@@ -1683,8 +1683,8 @@ ${Object.keys(buildFilesRaw()).map(f=>'  '+f).join('\n')}
 
 ## Desenvolvimento
 
-Gerado com **JoomlaForge Module Generator**  
-https://github.com/seu-usuario/${MF}
+Gerado com **Joomla Module Generator Pro**  
+https://github.com/uzielweb/${MF}
 `;
 }
 
@@ -1858,8 +1858,8 @@ function fileItem(path,depth){
 // ZIP
 // ═══════════════════════════════════════════════════════
 async function generateZip(){
-  const btn=g('dl-btn'); btn.textContent='⏳ Gerando...'; btn.disabled=true;
-  status('Gerando arquivos...','a');
+  const btn=g('dl-btn'); btn.textContent=`⏳ ${t('msg-generating')}...`; btn.disabled=true;
+  status(`${t('msg-generating')}...`,'a');
   await new Promise(r=>setTimeout(r,50));
   const files=buildFiles(), MF=mf(), VER=v('f-ver')||'1.0.0';
   const zip=new JSZip(), folder=zip.folder(MF);
@@ -1877,8 +1877,8 @@ async function generateZip(){
   const a=document.createElement('a'); a.href=url; a.download=`${MF}_v${VER}.zip`;
   document.body.appendChild(a); a.click(); document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  btn.textContent='⬇ Baixar ZIP'; btn.disabled=false;
-  status(`✓ ${MF}_v${VER}.zip — ${Object.keys(files).length} arquivos`);
+  btn.innerHTML=t('btn-dl-zip'); btn.disabled=false;
+  status(`✓ ${MF}_v${VER}.zip — ${Object.keys(files).length} ${t('btn-files')}`);
 }
 
 // ═══════════════════════════════════════════════════════
@@ -1902,10 +1902,142 @@ const proI18n = {
     'sb-params': 'Parâmetros',
     'sb-features': 'Funcionalidades',
     'sb-feat': 'Features',
+    'sb-assets': 'CSS / JS',
     'sb-langs': 'Idiomas',
     'sb-output': 'Saída',
     'sb-preview': 'Preview Código',
     'sb-tree': 'Árvore de Arquivos',
+    'panel-basic-title': '📋 Informações Básicas',
+    'panel-basic-sub': 'Metadados do módulo Joomla',
+    'card-id-title': 'Identificação',
+    'lbl-mod-name': 'Nome do Módulo',
+    'lbl-mod-prefix': 'Prefixado como mod_mymodule',
+    'lbl-mod-display': 'Nome de Exibição',
+    'lbl-version': 'Versão',
+    'lbl-date': 'Data',
+    'lbl-desc': 'Descrição',
+    'card-auth-title': 'Autor & Licença',
+    'lbl-author': 'Autor',
+    'lbl-email': 'Email',
+    'lbl-website': 'Website',
+    'lbl-copyright': 'Copyright',
+    'lbl-license': 'Licença',
+    'lbl-namespace': 'Namespace PHP',
+    'opt-proprietary': 'Proprietária',
+    'card-comp-title': 'Compatibilidade Joomla',
+    'comp-note': 'Versões para as quais o módulo será compatível (afeta o manifest)',
+    'panel-struct-title': '🏗 Estrutura do Módulo',
+    'panel-struct-sub': 'Arquivos e componentes a gerar',
+    'card-files-title': 'Arquivos Principais',
+    'struct-provider-desc': 'DI Container — registro do Dispatcher e Helper. Não existe mais mod_name.php na raiz',
+    'struct-helper-desc': 'Lógica de negócio separada do template',
+    'struct-tmpl-desc': 'Template de renderização padrão',
+    'struct-dispatcher-desc': 'src/Dispatcher/Dispatcher.php — PSR-compliant',
+    'struct-extension-desc': 'src/Extension/Module.php — Service Provider',
+    'card-extras-title': 'Extras',
+    'struct-xml-desc': 'Arquivo de instalação/atualização Joomla',
+    'lbl-script': 'Script de Instalação',
+    'struct-script-desc': 'PHP executado no install/update/uninstall',
+    'struct-sql-desc': 'SQL para criar/remover tabelas customizadas',
+    'struct-model-desc': 'src/Model — Camada de dados',
+    'struct-ajax-desc': 'Endpoint AJAX com token CSRF',
+    'lbl-layouts': 'Múltiplos Layouts',
+    'struct-layouts-desc': 'tmpl/default.php + tmpl/outline.php',
+    'panel-params-title': '⚙️ Parâmetros do Módulo',
+    'panel-params-sub': 'Todos os tipos de campo do Joomla com atributos completos.',
+    'card-params-title': 'Campos Cadastrados',
+    'btn-clear': '✕ Limpar',
+    'th-type': 'Tipo',
+    'th-name': 'Nome',
+    'th-label': 'Label',
+    'th-default': 'Padrão',
+    'th-req': 'Req',
+    'th-desc': 'Descrição',
+    'th-extra': 'Extra',
+    'th-actions': 'Ações',
+    'btn-add': '+ Adicionar',
+    'card-system-title': 'Parâmetros do Sistema',
+    'sys-cache-desc': 'Parâmetros padrão de cache Joomla',
+    'sys-layout-desc': 'Seletor de layout alternativo do módulo no painel admin',
+    'sys-class-desc': 'moduleclass_sfx — classe CSS extra no frontend',
+    'sys-tag-desc': 'Tag HTML que envolve o módulo',
+    'sys-htag-desc': 'Tag H1–H6 para o título',
+    'sys-bs-desc': 'bootstrap_size — largura em colunas',
+    'sys-hclass-desc': 'Classe CSS para o header do módulo',
+    'sys-style-desc': 'Chrome style herdado do template',
+    'panel-features-title': '✨ Features',
+    'panel-features-sub': 'Funcionalidades prontas a incluir no módulo',
+    'card-integ-title': 'Integração Joomla',
+    'feat-auth': 'User Auth Check',
+    'feat-auth-desc': 'Verificar se usuário está logado',
+    'feat-acl': 'ACL / Access Control',
+    'feat-acl-desc': 'Controle de acesso por grupos',
+    'feat-cache': 'Cache Integration',
+    'feat-cache-desc': 'JCache para cache de conteúdo',
+    'feat-db': 'Database Query',
+    'feat-db-desc': 'JDatabase — consulta ao banco de dados',
+    'feat-events': 'Plugin Events',
+    'feat-events-desc': 'Disparar e escutar eventos Joomla',
+    'feat-api': 'REST API (J5/J6)',
+    'feat-api-desc': 'Endpoint REST API para o módulo',
+    'feat-multi': 'Multilingual (J4+)',
+    'feat-multi-desc': 'Suporte a multi-idioma via Associations',
+    'card-front-title': 'Frontend',
+    'feat-bs5': 'Bootstrap 5 Components',
+    'feat-bs5-desc': 'Componentes BS5 do Joomla no template',
+    'feat-wam': 'Web Asset Manager (J4+)',
+    'feat-wam-desc': 'Registrar CSS/JS via WebAssetManager',
+    'feat-wc': 'Web Components (ES6)',
+    'feat-wc-desc': 'JS estruturado como Custom Element',
+    'panel-assets-title': '🎨 CSS & JavaScript',
+    'panel-assets-sub': 'Assets do módulo no frontend',
+    'feat-css': 'Incluir arquivo CSS',
+    'lbl-css-init': 'CSS Inicial',
+    'feat-js': 'Incluir arquivo JS',
+    'feat-defer-desc': 'Carregar com atributo defer',
+    'lbl-js-init': 'JavaScript Inicial',
+    'panel-lang-title': '🌐 Idiomas',
+    'panel-lang-sub': 'Arquivos .ini de tradução',
+    'card-lang-files': 'Arquivos',
+    'lang-sys-desc': 'Strings do gerenciador de módulos',
+    'card-lang-custom': 'Strings Customizadas',
+    'lbl-ini-extra': 'Constantes INI extras',
+    'panel-preview-title': '👁 Preview do Código',
+    'panel-preview-sub': 'Arquivos que serão incluídos no ZIP',
+    'panel-tree-title': '📁 Árvore de Arquivos',
+    'panel-tree-sub': 'Estrutura completa do módulo',
+    'btn-dl-zip': '⬇ Baixar Módulo como ZIP',
+    'modal-title': 'Editar Parâmetro',
+    'btn-cancel': 'Cancelar',
+    'btn-save': '💾 Salvar',
+    'msg-param-removed': 'Parâmetro removido',
+    'msg-param-dup': 'Parâmetro duplicado',
+    'msg-param-error': 'Informe o Label ou Nome do parâmetro',
+    'msg-param-added': 'Parâmetro adicionado!',
+    'msg-subform-added': 'Subform "{n}" adicionado — clique em ✎ para adicionar campos filhos!',
+    'msg-param-saved': 'Parâmetro salvo!',
+    'msg-no-params': 'Nenhum parâmetro cadastrado. Use o formulário abaixo para adicionar.',
+    'msg-ready': 'Pronto',
+    'th-subfields': 'subcampo(s)',
+    'th-options': 'opção(ões)',
+    'th-extra-attr': 'attr extra',
+    'th-yes': 'sim',
+    'lbl-name': 'Nome',
+    'lbl-type': 'Tipo',
+    'lbl-lbl-trans': 'Label (traduzível)',
+    'lbl-desc-trans': 'Descrição (traduzível)',
+    'lbl-def-val': 'Valor Padrão (default)',
+    'lbl-spec-attr': 'Atributos Específicos',
+    'lbl-univ-attr': 'Atributos Universais',
+    'lbl-opts': 'Opções',
+    'lbl-subfields': 'Subcampos',
+    'btn-up': 'Subir',
+    'btn-down': 'Descer',
+    'btn-dup': 'Duplicar',
+    'btn-edit': 'Editar',
+    'btn-remove': 'Remover',
+    'msg-generating': 'Gerando',
+    'lbl-required': 'obrigatório',
   },
   en: {
     'back': 'Hub',
@@ -1918,10 +2050,142 @@ const proI18n = {
     'sb-params': 'Parameters',
     'sb-features': 'Features',
     'sb-feat': 'Features',
+    'sb-assets': 'CSS / JS',
     'sb-langs': 'Languages',
     'sb-output': 'Output',
     'sb-preview': 'Code Preview',
     'sb-tree': 'File Tree',
+    'panel-basic-title': '📋 Basic Information',
+    'panel-basic-sub': 'Joomla module metadata',
+    'card-id-title': 'Identification',
+    'lbl-mod-name': 'Module Name',
+    'lbl-mod-prefix': 'Prefixed as mod_mymodule',
+    'lbl-mod-display': 'Display Name',
+    'lbl-version': 'Version',
+    'lbl-date': 'Date',
+    'lbl-desc': 'Description',
+    'card-auth-title': 'Author & License',
+    'lbl-author': 'Author',
+    'lbl-email': 'Email',
+    'lbl-website': 'Website',
+    'lbl-copyright': 'Copyright',
+    'lbl-license': 'License',
+    'lbl-namespace': 'PHP Namespace',
+    'opt-proprietary': 'Proprietary',
+    'card-comp-title': 'Joomla Compatibility',
+    'comp-note': 'Versions the module will be compatible with (affects manifest)',
+    'panel-struct-title': '🏗 Module Structure',
+    'panel-struct-sub': 'Files and components to generate',
+    'card-files-title': 'Main Files',
+    'struct-provider-desc': 'DI Container — Dispatcher and Helper registration. No more mod_name.php in root',
+    'struct-helper-desc': 'Business logic separated from template',
+    'struct-tmpl-desc': 'Default rendering template',
+    'struct-dispatcher-desc': 'src/Dispatcher/Dispatcher.php — PSR-compliant',
+    'struct-extension-desc': 'src/Extension/Module.php — Service Provider',
+    'card-extras-title': 'Extras',
+    'struct-xml-desc': 'Joomla installation/update manifest file',
+    'lbl-script': 'Installation Script',
+    'struct-script-desc': 'PHP executed on install/update/uninstall',
+    'struct-sql-desc': 'SQL to create/remove custom tables',
+    'struct-model-desc': 'src/Model — Data layer',
+    'struct-ajax-desc': 'AJAX endpoint with CSRF token',
+    'lbl-layouts': 'Multiple Layouts',
+    'struct-layouts-desc': 'tmpl/default.php + tmpl/outline.php',
+    'panel-params-title': '⚙️ Module Parameters',
+    'panel-params-sub': 'All Joomla field types with full attributes.',
+    'card-params-title': 'Registered Fields',
+    'btn-clear': '✕ Clear',
+    'th-type': 'Type',
+    'th-name': 'Name',
+    'th-label': 'Label',
+    'th-default': 'Default',
+    'th-req': 'Req',
+    'th-desc': 'Description',
+    'th-extra': 'Extra',
+    'th-actions': 'Actions',
+    'btn-add': '+ Add',
+    'card-system-title': 'System Parameters',
+    'sys-cache-desc': 'Joomla default cache parameters',
+    'sys-layout-desc': 'Alternative module layout selector in admin panel',
+    'sys-class-desc': 'moduleclass_sfx — extra CSS class on frontend',
+    'sys-tag-desc': 'HTML tag wrapping the module',
+    'sys-htag-desc': 'H1–H6 tag for the title',
+    'sys-bs-desc': 'bootstrap_size — width in columns',
+    'sys-hclass-desc': 'CSS class for the module header',
+    'sys-style-desc': 'Chrome style inherited from template',
+    'panel-features-title': '✨ Features',
+    'panel-features-sub': 'Ready-to-use features to include in the module',
+    'card-integ-title': 'Joomla Integration',
+    'feat-auth': 'User Auth Check',
+    'feat-auth-desc': 'Check if user is logged in',
+    'feat-acl': 'ACL / Access Control',
+    'feat-acl-desc': 'Access control by groups',
+    'feat-cache': 'Cache Integration',
+    'feat-cache-desc': 'JCache for content caching',
+    'feat-db': 'Database Query',
+    'feat-db-desc': 'JDatabase — database query',
+    'feat-events': 'Plugin Events',
+    'feat-events-desc': 'Trigger and listen to Joomla events',
+    'feat-api': 'REST API (J5/J6)',
+    'feat-api-desc': 'REST API endpoint for the module',
+    'feat-multi': 'Multilingual (J4+)',
+    'feat-multi-desc': 'Multi-language support via Associations',
+    'card-front-title': 'Frontend',
+    'feat-bs5': 'Bootstrap 5 Components',
+    'feat-bs5-desc': 'Joomla BS5 components in the template',
+    'feat-wam': 'Web Asset Manager (J4+)',
+    'feat-wam-desc': 'Register CSS/JS via WebAssetManager',
+    'feat-wc': 'Web Components (ES6)',
+    'feat-wc-desc': 'Structured JS as Custom Element',
+    'panel-assets-title': '🎨 CSS & JavaScript',
+    'panel-assets-sub': 'Module assets on the frontend',
+    'feat-css': 'Include CSS file',
+    'lbl-css-init': 'Initial CSS',
+    'feat-js': 'Include JS file',
+    'feat-defer-desc': 'Load with defer attribute',
+    'lbl-js-init': 'Initial JavaScript',
+    'panel-lang-title': '🌐 Languages',
+    'panel-lang-sub': 'Translation .ini files',
+    'card-lang-files': 'Files',
+    'lang-sys-desc': 'Module manager strings',
+    'card-lang-custom': 'Custom Strings',
+    'lbl-ini-extra': 'Extra INI constants',
+    'panel-preview-title': '👁 Code Preview',
+    'panel-preview-sub': 'Files to be included in the ZIP',
+    'panel-tree-title': '📁 File Tree',
+    'panel-tree-sub': 'Complete module structure',
+    'btn-dl-zip': '⬇ Download Module as ZIP',
+    'modal-title': 'Edit Parameter',
+    'btn-cancel': 'Cancel',
+    'btn-save': '💾 Save',
+    'msg-param-removed': 'Parameter removed',
+    'msg-param-dup': 'Parameter duplicated',
+    'msg-param-error': 'Enter the Label or Name of the parameter',
+    'msg-param-added': 'Parameter added!',
+    'msg-subform-added': 'Subform "{n}" added — click ✎ to add child fields!',
+    'msg-param-saved': 'Parameter saved!',
+    'msg-no-params': 'No parameters registered. Use the form below to add.',
+    'msg-ready': 'Ready',
+    'th-subfields': 'subfield(s)',
+    'th-options': 'option(s)',
+    'th-extra-attr': 'extra attr',
+    'th-yes': 'yes',
+    'lbl-name': 'Name',
+    'lbl-type': 'Type',
+    'lbl-lbl-trans': 'Label (translatable)',
+    'lbl-desc-trans': 'Description (translatable)',
+    'lbl-def-val': 'Default Value',
+    'lbl-spec-attr': 'Specific Attributes',
+    'lbl-univ-attr': 'Universal Attributes',
+    'lbl-opts': 'Options',
+    'lbl-subfields': 'Subfields',
+    'btn-up': 'Up',
+    'btn-down': 'Down',
+    'btn-dup': 'Duplicate',
+    'btn-edit': 'Edit',
+    'btn-remove': 'Remove',
+    'msg-generating': 'Generating',
+    'lbl-required': 'required',
   },
   es: {
     'back': 'Hub',
@@ -1934,13 +2198,153 @@ const proI18n = {
     'sb-params': 'Parámetros',
     'sb-features': 'Funcionalidades',
     'sb-feat': 'Funciones',
+    'sb-assets': 'CSS / JS',
     'sb-langs': 'Idiomas',
     'sb-output': 'Salida',
     'sb-preview': 'Vista previa',
     'sb-tree': 'Árbol de archivos',
+    'panel-basic-title': '📋 Información Básica',
+    'panel-basic-sub': 'Metadatos del módulo Joomla',
+    'card-id-title': 'Identificación',
+    'lbl-mod-name': 'Nombre del Módulo',
+    'lbl-mod-prefix': 'Prefijado como mod_mymodule',
+    'lbl-mod-display': 'Nombre de Visualización',
+    'lbl-version': 'Versión',
+    'lbl-date': 'Fecha',
+    'lbl-desc': 'Descripción',
+    'card-auth-title': 'Autor y Licencia',
+    'lbl-author': 'Autor',
+    'lbl-email': 'Email',
+    'lbl-website': 'Sitio Web',
+    'lbl-copyright': 'Copyright',
+    'lbl-license': 'Licencia',
+    'lbl-namespace': 'Espacio de nombres PHP',
+    'opt-proprietary': 'Propietaria',
+    'card-comp-title': 'Compatibilidad con Joomla',
+    'comp-note': 'Versiones con las que el módulo será compatible (afecta al manifiesto)',
+    'panel-struct-title': '🏗 Estructura del Módulo',
+    'panel-struct-sub': 'Archivos y componentes a generar',
+    'card-files-title': 'Archivos Principales',
+    'struct-provider-desc': 'Contenedor DI — registro de Dispatcher y Helper. Ya no hay mod_name.php en la raíz',
+    'struct-helper-desc': 'Lógica de negocio separada de la plantilla',
+    'struct-tmpl-desc': 'Plantilla de renderizado predeterminada',
+    'struct-dispatcher-desc': 'src/Dispatcher/Dispatcher.php — cumple con PSR',
+    'struct-extension-desc': 'src/Extension/Module.php — Proveedor de servicios',
+    'card-extras-title': 'Extras',
+    'struct-xml-desc': 'Archivo de manifiesto de instalación/actualización de Joomla',
+    'lbl-script': 'Script de Instalación',
+    'struct-script-desc': 'PHP ejecutado en install/update/uninstall',
+    'struct-sql-desc': 'SQL para crear/eliminar tablas personalizadas',
+    'struct-model-desc': 'src/Model — Capa de datos',
+    'struct-ajax-desc': 'Endpoint AJAX con token CSRF',
+    'lbl-layouts': 'Múltiples Diseños',
+    'struct-layouts-desc': 'tmpl/default.php + tmpl/outline.php',
+    'panel-params-title': '⚙️ Parámetros del Módulo',
+    'panel-params-sub': 'Todos los tipos de campo de Joomla con atributos completos.',
+    'card-params-title': 'Campos Registrados',
+    'btn-clear': '✕ Limpiar',
+    'th-type': 'Tipo',
+    'th-name': 'Nombre',
+    'th-label': 'Etiqueta',
+    'th-default': 'Predeterminado',
+    'th-req': 'Req',
+    'th-desc': 'Descripción',
+    'th-extra': 'Extra',
+    'th-actions': 'Acciones',
+    'btn-add': '+ Añadir',
+    'card-system-title': 'Parámetros del Sistema',
+    'sys-cache-desc': 'Parámetros de caché predeterminados de Joomla',
+    'sys-layout-desc': 'Selector de diseño de módulo alternativo en el panel de administración',
+    'sys-class-desc': 'moduleclass_sfx — clase CSS adicional en el frontend',
+    'sys-tag-desc': 'Etiqueta HTML que envuelve el módulo',
+    'sys-htag-desc': 'Etiqueta H1–H6 para el título',
+    'sys-bs-desc': 'bootstrap_size — ancho en columnas',
+    'sys-hclass-desc': 'Clase CSS para el encabezado del módulo',
+    'sys-style-desc': 'Estilo Chrome heredado de la plantilla',
+    'panel-features-title': '✨ Funciones',
+    'panel-features-sub': 'Funcionalidades listas para incluir en el módulo',
+    'card-integ-title': 'Integración con Joomla',
+    'feat-auth': 'User Auth Check',
+    'feat-auth-desc': 'Verificar si el usuario ha iniciado sesión',
+    'feat-acl': 'ACL / Control de Acceso',
+    'feat-acl-desc': 'Control de acceso por grupos',
+    'feat-cache': 'Integración de Caché',
+    'feat-cache-desc': 'JCache para el almacenamiento en caché de contenido',
+    'feat-db': 'Consulta de Base de Datos',
+    'feat-db-desc': 'JDatabase — consulta a la base de datos',
+    'feat-events': 'Eventos de Plugin',
+    'feat-events-desc': 'Disparar y escuchar eventos de Joomla',
+    'feat-api': 'REST API (J5/J6)',
+    'feat-api-desc': 'Endpoint de REST API para el módulo',
+    'feat-multi': 'Multilenguaje (J4+)',
+    'feat-multi-desc': 'Soporte multi-idioma vía Associations',
+    'card-front-title': 'Frontend',
+    'feat-bs5': 'Componentes Bootstrap 5',
+    'feat-bs5-desc': 'Componentes BS5 de Joomla en la plantilla',
+    'feat-wam': 'Web Asset Manager (J4+)',
+    'feat-wam-desc': 'Registrar CSS/JS vía WebAssetManager',
+    'feat-wc': 'Web Components (ES6)',
+    'feat-wc-desc': 'JS estructurado como Custom Element',
+    'panel-assets-title': '🎨 CSS y JavaScript',
+    'panel-assets-sub': 'Recursos del módulo en el frontend',
+    'feat-css': 'Incluir archivo CSS',
+    'lbl-css-init': 'CSS Inicial',
+    'feat-js': 'Incluir archivo JS',
+    'feat-defer-desc': 'Cargar com atributo defer',
+    'lbl-js-init': 'JavaScript Inicial',
+    'panel-lang-title': '🌐 Idiomas',
+    'panel-lang-sub': 'Archivos .ini de traducción',
+    'card-lang-files': 'Archivos',
+    'lang-sys-desc': 'Cadenas del administrador de módulos',
+    'card-lang-custom': 'Cadenas Personalizadas',
+    'lbl-ini-extra': 'Constantes INI adicionales',
+    'panel-preview-title': '👁 Vista previa del código',
+    'panel-preview-sub': 'Archivos que se incluirán en el ZIP',
+    'panel-tree-title': '📁 Árbol de archivos',
+    'panel-tree-sub': 'Estructura completa del módulo',
+    'btn-dl-zip': '⬇ Descargar módulo como ZIP',
+    'modal-title': 'Editar Parámetro',
+    'btn-cancel': 'Cancelar',
+    'btn-save': '💾 Guardar',
+    'msg-param-removed': 'Parámetro eliminado',
+    'msg-param-dup': 'Parámetro duplicado',
+    'msg-param-error': 'Ingrese la etiqueta o el nombre del parámetro',
+    'msg-param-added': '¡Parámetro añadido!',
+    'msg-subform-added': 'Subform "{n}" añadido — ¡haz clic en ✎ para añadir campos hijos!',
+    'msg-param-saved': '¡Parámetro guardado!',
+    'msg-no-params': 'No hay parámetros registrados. Use el formulario de abajo para añadir.',
+    'msg-ready': 'Listo',
+    'th-subfields': 'subcampo(s)',
+    'th-options': 'opción(es)',
+    'th-extra-attr': 'attr extra',
+    'th-yes': 'sí',
+    'lbl-name': 'Nombre',
+    'lbl-type': 'Tipo',
+    'lbl-lbl-trans': 'Etiqueta (traducible)',
+    'lbl-desc-trans': 'Descripción (traducible)',
+    'lbl-def-val': 'Valor Predeterminado',
+    'lbl-spec-attr': 'Atributos Específicos',
+    'lbl-univ-attr': 'Atributos Universales',
+    'lbl-opts': 'Opciones',
+    'lbl-subfields': 'Subcampos',
+    'btn-up': 'Subir',
+    'btn-down': 'Bajar',
+    'btn-dup': 'Duplicar',
+    'btn-edit': 'Editar',
+    'btn-remove': 'Eliminar',
+    'msg-generating': 'Generando',
+    'lbl-required': 'obligatorio',
   }
 };
+let currentProLang = 'pt';
+function t(k, vars={}){
+  const dict = proI18n[currentProLang] || proI18n['pt'];
+  let txt = dict[k] || k;
+  Object.keys(vars).forEach(v => { txt = txt.replace('{'+v+'}', vars[v]); });
+  return txt;
+}
 function setProLang(lang){
+  currentProLang = lang;
   const dict = proI18n[lang] || proI18n['pt'];
   document.querySelectorAll('[data-pro-i18n]').forEach(el => {
     const key = el.getAttribute('data-pro-i18n');
@@ -1951,6 +2355,7 @@ function setProLang(lang){
     if(btn){ btn.style.background = l===lang ? 'var(--acc)' : 'transparent'; btn.style.color = l===lang ? '#fff' : 'var(--mut)'; }
   });
   document.documentElement.lang = lang === 'pt' ? 'pt-BR' : lang;
+  renderParams();
 }
 // Auto-detect
 (function(){

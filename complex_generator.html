@@ -332,19 +332,26 @@
         <a href="index.html" class="logo">
             <i class="fa-solid fa-cube"></i> Joomla<span style="font-size: 0.8rem;">Module Generator</span>
         </a>
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div class="lang-switch" style="display:flex; gap:5px; background:rgba(255,255,255,0.05); padding:3px; border-radius:8px;">
+                <button class="lang-btn" onclick="setLang('en')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">EN</button>
+                <button class="lang-btn" onclick="setLang('pt')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">PT</button>
+                <button class="lang-btn" onclick="setLang('es')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">ES</button>
+            </div>
+        </div>
         <a href="joomla-module-generator-pro.html" style="display:flex;align-items:center;gap:6px;font-size:0.7rem;font-weight:800;color:var(--accent);text-decoration:none;padding:6px 10px;background:rgba(92,111,255,0.08);border:1px solid rgba(92,111,255,0.25);border-radius:8px;margin-bottom:4px;">
             ⚡ Module Generator <span style="color:#8b5cf6;margin-left:3px;">Pro</span>
         </a>
         
         <div class="section-label">Metadados</div>
-        <div class="input-group"><label>Nome do Módulo</label><input type="text" id="modName" value="My Features" oninput="update()"></div>
-        <div class="input-group"><label>Namespace</label><input type="text" id="ns" value="MyFeatures" oninput="update()"></div>
-        <div class="input-group"><label>Autor</label><input type="text" id="author" value="John Doe"></div>
+        <div class="input-group"><label data-i18n="lbl-mod-name">Nome do Módulo</label><input type="text" id="modName" value="My Features" oninput="autoFill(this.value)"></div>
+        <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="ns" value="MyFeatures" oninput="update()"></div>
+        <div class="input-group"><label data-i18n="lbl-author">Autor</label><input type="text" id="author" value="John Doe"></div>
         <div class="input-group"><label>Email</label><input type="email" id="authorEmail" value="john@example.com"></div>
         <div class="input-group"><label>Website</label><input type="url" id="authorUrl" value="https://example.com"></div>
         <div class="input-group"><label>Versão</label><input type="text" id="version" value="1.0.0"></div>
-        <div class="input-group"><label>Cliente</label><select id="client" onchange="update()"><option value="site">Site</option><option value="administrator">Admin</option></select></div>
-        <div class="input-group"><label>Idioma</label><select id="lang"><option value="pt-BR">Português</option><option value="en-GB">English</option></select></div>
+        <div class="input-group"><label data-i18n="lbl-client">Cliente</label><select id="client" onchange="update()"><option value="site" data-i18n="opt-site">Site</option><option value="administrator" data-i18n="opt-admin">Admin</option></select></div>
+        <div class="input-group"><label data-i18n="lbl-lang">Idioma</label><select id="lang"><option value="pt-BR">Português</option><option value="en-GB">English</option><option value="es-ES">Español</option></select></div>
         
         <div class="section-label">Templates</div>
         <div class="presets-grid">
@@ -413,6 +420,84 @@
 
         let list = [], customPHP = '', fieldCounter = 0;
         const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user', 'number'];
+
+        function autoFill(val) {
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            document.getElementById('ns').value = cap;
+            update();
+        }
+
+        const i18n = {
+            pt: {
+                "lbl-mod-name": "Nome do Módulo",
+                "lbl-namespace": "Namespace PHP",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor",
+                "msg-gen-success": "✅ Pacote gerado com sucesso!",
+                "msg-gen-generating": "⏳ Gerando...",
+                "msg-copied": "📋 Copiado!",
+                "msg-copy-error": "❌ Erro ao copiar",
+                "msg-imported": "📥 Importado!",
+                "msg-exported": "💾 Exportado!",
+                "msg-import-error": "❌ Arquivo inválido",
+                "btn-copy": "Copiar",
+                "btn-copied": "Copiado!"
+            },
+            en: {
+                "lbl-mod-name": "Module Name",
+                "lbl-namespace": "PHP Namespace",
+                "lbl-client": "Client Type",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Primary Language",
+                "lbl-author": "Author",
+                "msg-gen-success": "✅ Package generated successfully!",
+                "msg-gen-generating": "⏳ Generating...",
+                "msg-copied": "📋 Copied!",
+                "msg-copy-error": "❌ Copy error",
+                "msg-imported": "📥 Imported!",
+                "msg-exported": "💾 Exported!",
+                "msg-import-error": "❌ Invalid file",
+                "btn-copy": "Copy",
+                "btn-copied": "Copied!"
+            },
+            es: {
+                "lbl-mod-name": "Nombre del Módulo",
+                "lbl-namespace": "Espacio de nombres PHP",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Sitio (Frontend)",
+                "opt-admin": "Administrador (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor",
+                "msg-gen-success": "¡✅ Paquete generado con éxito!",
+                "msg-gen-generating": "⏳ Generando...",
+                "msg-copied": "¡📋 Copiado!",
+                "msg-copy-error": "❌ Error al copiar",
+                "msg-imported": "¡📥 Importado!",
+                "msg-exported": "¡💾 Exportado!",
+                "msg-import-error": "❌ Archivo inválido",
+                "btn-copy": "Copiar",
+                "btn-copied": "Copiado!"
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) { el.innerHTML = i18n[lang][key]; }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const isActive = btn.getAttribute('onclick').includes(`'${lang}'`);
+                btn.style.background = isActive ? 'var(--accent)' : 'transparent';
+                btn.style.color = isActive ? '#000' : 'rgba(255,255,255,0.4)';
+            });
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : lang;
+            window.currentLang = lang;
+        }
 
         function preset(k) {
             const p = presets[k];
@@ -631,7 +716,7 @@
                 document.body.removeChild(a);
                 URL.revokeObjectURL(url);
                 
-                showToast('✅ Pacote gerado com sucesso!');
+                showToast(i18n[window.currentLang]['msg-gen-success']);
             } catch (error) {
                 console.error('Erro:', error);
                 showToast('❌ ' + error.message, 'error');
@@ -645,9 +730,9 @@
             else if (type === 'struct') content = document.getElementById('struct').textContent;
             navigator.clipboard.writeText(content).then(() => {
                 const btn = document.querySelector(`.copy-btn[onclick="copyCode('${type}')"]`);
-                if (btn) { btn.textContent = 'Copiado!'; btn.classList.add('copied'); setTimeout(() => { btn.textContent = 'Copiar'; btn.classList.remove('copied'); }, 1500); }
-                showToast('📋 Copiado!');
-            }).catch(() => showToast('❌ Erro ao copiar', 'error'));
+                if (btn) { btn.textContent = i18n[window.currentLang]['btn-copied']; btn.classList.add('copied'); setTimeout(() => { btn.textContent = i18n[window.currentLang]['btn-copy']; btn.classList.remove('copied'); }, 1500); }
+                showToast(i18n[window.currentLang]['msg-copied']);
+            }).catch(() => showToast(i18n[window.currentLang]['msg-copy-error'], 'error'));
         }
 
         function showToast(msg, type = 'success') {
@@ -669,7 +754,7 @@
             a.download = 'module-config.json';
             a.click();
             URL.revokeObjectURL(url);
-            showToast('💾 Exportado!');
+            showToast(i18n[window.currentLang]['msg-exported']);
         }
 
         function importConfig() {
@@ -693,8 +778,8 @@
                             document.getElementById('lang').value = config.lang || 'en-GB';
                             list = config.fields || [];
                             render();
-                            showToast('📥 Importado!');
-                        } catch (err) { showToast('❌ Arquivo inválido', 'error'); }
+                            showToast(i18n[window.currentLang]['msg-imported']);
+                        } catch (err) { showToast(i18n[window.currentLang]['msg-import-error'], 'error'); }
                     };
                     reader.readAsText(file);
                 }
@@ -702,7 +787,12 @@
             input.click();
         }
 
-        window.onload = () => preset('features');
+        window.onload = () => {
+            const navLang = (navigator.language || '').toLowerCase();
+            const userLang = navLang.startsWith('pt') ? 'pt' : navLang.startsWith('es') ? 'es' : 'en';
+            setLang(userLang);
+            preset('features');
+        };
     </script>
 </body>
 </html>

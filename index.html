@@ -325,6 +325,7 @@
             <div class="lang-switch">
                 <button class="lang-btn" onclick="setLang('en')">EN</button>
                 <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+                <button class="lang-btn" onclick="setLang('es')">ES</button>
             </div>
         </div>
     </nav>
@@ -349,7 +350,7 @@
                 <form id="moduleForm" class="gen-form" autocomplete="off">
                     <div class="input-group full-col">
                         <label data-i18n="lbl-mod-name">Nome do Módulo *</label>
-                        <input type="text" id="moduleName" placeholder="Ex: Meu Banner Premium" required>
+                        <input type="text" id="moduleName" placeholder="Ex: Meu Banner Premium" required oninput="autoFillSlug(this.value)">
                     </div>
                     <div class="input-group">
                         <label data-i18n="lbl-client">Tipo de Cliente</label>
@@ -563,6 +564,44 @@
                 "feat3-title": "Modern",
                 "feat3-desc": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
                 "footer-text": "&copy; 2024 Joomla Module Generator. Developed for the global developer community."
+            },
+            es: {
+                "nav-generator": "Generador",
+                "nav-pro": "⚡ Module Generator Pro",
+                "nav-advanced": "Generador Avanzado",
+                "hero-title": "Scaffolding <br> Next-Gen",
+                "hero-subtitle": "Genere módulos robustos para Joomla 4, 5 y 6 en segundos. Estándares PSR, Namespaces y Dispatchers configurados automáticamente.",
+                "btn-start": "Empezar Ahora",
+                "btn-repo": "Ver Repositorio",
+                "gen-title": "Generador Inteligente",
+                "gen-subtitle": "Complete los campos a continuación para generar su paquete .ZIP",
+                "lbl-mod-name": "Nombre del Módulo *",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Sitio (Frontend)",
+                "opt-admin": "Administrador (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor *",
+                "lbl-email": "Email del Autor *",
+                "lbl-website": "Sitio Web del Autor",
+                "btn-zip": "Generar Paquete .ZIP",
+                "preview-title": "Resumen del Paquete",
+                "preview-folder": "Nombre Carpeta",
+                "pro-title": "⚡ Module Generator Pro",
+                "pro-subtitle": "Scaffolding completo con ~75 tipos de campo, subforms, atributos universales y generación de ZIP en tiempo real",
+                "btn-pro": "⚡ Abrir Module Generator Pro",
+                "pro-feat1": "~75 Tipos de Campo",
+                "pro-feat1d": "text, sql, subform, calendar, media y mucho más con atributos completos",
+                "pro-feat2": "Subforms Visuales",
+                "pro-feat2d": "Cree subforms repeatable-grid con campos hijos vía interfaz gráfica",
+                "pro-feat3": "ZIP Completo",
+                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ generados automáticamente",
+                "feat1-title": "Rendimiento",
+                "feat1-desc": "Generación instantánea en el cliente. Sin tiempos de espera del servidor ni cargas innecesarias.",
+                "feat2-title": "Estándar Core",
+                "feat2-desc": "Código generado siguiendo rigurosamente la arquitectura nativa de Joomla 4, 5 y 6.",
+                "feat3-title": "Moderno",
+                "feat3-desc": "Soporte total a Namespaces, Inyección de Dependencias y Web Asset Manager.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Desarrollado para la comunidad global de desarrolladores."
             }
         };
 
@@ -574,9 +613,16 @@
                 }
             });
             document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
-            const activeBtn = document.querySelector(`.lang-btn[onclick*="${lang}"]`);
+            const activeBtn = document.querySelector(`.lang-btn[onclick*="'${lang}'"]`);
             if (activeBtn) activeBtn.classList.add('active');
-            document.documentElement.lang = lang === 'pt' ? 'pt-br' : 'en';
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : lang === 'es' ? 'es' : 'en';
+        }
+
+        function autoFillSlug(val) {
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9\s]/g, '');
+            const slug = clean.toLowerCase().trim().replace(/\s+/g, '');
+            // Update preview but let the user see the real name
+            updatePreview();
         }
 
         // Base templates
@@ -732,7 +778,8 @@
         }
 
         // Initialize
-        const userLang = navigator.language.startsWith('pt') ? 'pt' : 'en';
+        const navLang = (navigator.language || '').toLowerCase();
+        const userLang = navLang.startsWith('pt') ? 'pt' : navLang.startsWith('es') ? 'es' : 'en';
         setLang(userLang);
         updatePreview();
     </script>
