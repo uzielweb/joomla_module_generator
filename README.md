@@ -1,6 +1,7 @@
-
 # Joomla Module Generator
 **The Ultimate Scaffolding Tool for Joomla 4, Joomla 5, and Joomla 6 Extensions**
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=joomla)](https://uzielweb.github.io/joomla_module_generator/)
 
 Joomla Module Generator is a powerful, lightweight scaffolding tool designed to accelerate your development workflow. Create modern, PSR-compliant Joomla modules in seconds with full support for the latest Joomla versions.
 
