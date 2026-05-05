@@ -318,8 +318,8 @@
         <div class="nav-right">
             <div class="nav-links">
                 <a href="#generator-basic" data-i18n="nav-basic">Básico</a>
-                <a href="#generator-intermediate" data-i18n="nav-intermediate" style="color: var(--accent); font-weight: 800;">⚡ Intermediário</a>
-                <a href="#generator-advanced" data-i18n="nav-advanced" style="color: var(--br-yellow); font-weight: 800;">🚀 Avançado</a>
+                  <a href="#generator-intermediate" data-i18n="nav-intermediate" style="color: var(--br-yellow); font-weight: 800;">🚀 Avançado</a>
+                  <a href="#generator-professional" data-i18n="nav-professional" style="color: var(--accent); font-weight: 800;">⚡ Profissional</a>
                 <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank">GitHub</a>
             </div>
             <div class="lang-switch">
@@ -334,7 +334,7 @@
         <h1 data-i18n="hero-title">Scaffolding de <br> Próxima Geração</h1>
         <p data-i18n="hero-subtitle">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
         <div>
-            <a href="#generator" class="btn btn-primary"><span data-i18n="btn-start">Começar Agora</span> <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="#generator-basic" class="btn btn-primary"><span data-i18n="btn-start">Começar Agora</span> <i class="fa-solid fa-arrow-right"></i></a>
             <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank" class="btn btn-outline" style="margin-left: 1rem;" data-i18n="btn-repo">Ver Repositório</a>
         </div>
     </header>
@@ -419,49 +419,17 @@
             </div>
         </div>
     </section>
-
-    <section id="generator-intermediate" class="generator" style="padding-top: 50px;">
+   <section id="generator-intermediate" class="generator-basic" style="padding-top: 50px;">
         <div class="section-title">
-            <h2 data-i18n="intermediate-title">⚡ Joomla Module Generator <span style="color:var(--accent)">Intermediate</span></h2>
-            <p data-i18n="intermediate-subtitle">Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real</p>
-        </div>
-        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
-            <a href="joomla-module-generator-intermediate.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #5c6fff, #8b5cf6); box-shadow: 0 10px 30px rgba(92,111,255,0.3);">
-                <span data-i18n="btn-intermediate">⚡ Abrir Module Generator Intermediário</span> <i class="fa-solid fa-arrow-right"></i>
-            </a>
-        </div>
-        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:900px;margin:3rem auto 0;">
-            <div class="feat-card" style="text-align:center;">
-                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
-                <h3 data-i18n="pro-feat1">~75 Tipos de Campo</h3>
-                <p data-i18n="pro-feat1d">text, sql, subform, calendar, media e muito mais com atributos completos</p>
-            </div>
-            <div class="feat-card" style="text-align:center;">
-                <i class="fa-solid fa-cubes" style="color:var(--br-yellow)"></i>
-                <h3 data-i18n="pro-feat2">Subforms Visuais</h3>
-                <p data-i18n="pro-feat2d">Crie subforms repeatable-grid com campos filhos via interface gráfica</p>
-            </div>
-            <div class="feat-card" style="text-align:center;">
-                <i class="fa-solid fa-download" style="color:var(--br-green)"></i>
-                <h3 data-i18n="pro-feat3">ZIP Completo</h3>
-                <p data-i18n="pro-feat3d">Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="generator-advanced" class="generator" style="padding-top: 50px;">
-        <div class="section-title">
-            <h2 data-i18n="advanced-title">🚀 Joomla Module Generator <span style="color:var(--br-yellow)">Advanced</span></h2>
-            <p data-i18n="advanced-subtitle">Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais</p>
+            <h2 data-i18n="intermediate-title">🚀 Joomla Module Generator <span style="color:var(--br-yellow)">Intermediate</span></h2>
+            <p data-i18n="intermediate-subtitle">Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais</p>
         </div>
         <div style="text-align: center;">
-            <a href="joomla-module-generator-advanced.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #f5a623, #e05b00); box-shadow: 0 10px 30px rgba(245,166,35,0.3);">
-                <span data-i18n="btn-advanced">🚀 Abrir Module Generator Avançado</span> <i class="fa-solid fa-arrow-right"></i>
+            <a href="joomla-module-generator-intermediate.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #f5a623, #e05b00); box-shadow: 0 10px 30px rgba(245,166,35,0.3);">
+                <span data-i18n="btn-intermediate">🚀 Abrir Module Generator Avançado</span> <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
-    </section>
-
-    <section class="features">
+        <div class="features">
         <div class="feat-card">
             <i class="fa-solid fa-bolt-lightning"></i>
             <h3 data-i18n="feat1-title">Performance</h3>
@@ -477,22 +445,84 @@
             <h3 data-i18n="feat3-title">Moderno</h3>
             <p data-i18n="feat3-desc">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
         </div>
+    </div>
     </section>
 
+    
+
+    <section id="generator-professional" class="generator-basic" style="padding-top: 50px;">
+        <div class="section-title">
+            <h2 data-i18n="professional-title">⚡ Joomla Module Generator <span style="color:var(--accent)">Professional</span></h2>
+            <p data-i18n="professional-subtitle">Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real</p>
+        </div>
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
+            <a href="joomla-module-generator-professional.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #5c6fff, #8b5cf6); box-shadow: 0 10px 30px rgba(92,111,255,0.3);">
+                <span data-i18n="btn-professional">⚡ Abrir Module Generator Profissional</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:3rem auto 0;">
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat1">~75 Tipos de Campo</h3>
+                <p data-i18n="pro-feat1d">text, sql, subform, calendar, media e muito mais com atributos completos</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-cubes" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat2">Subforms Visuais</h3>
+                <p data-i18n="pro-feat2d">Crie subforms repeatable-grid com campos filhos via interface gráfica</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-download" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat3">ZIP Completo</h3>
+                <p data-i18n="pro-feat3d">Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-code" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat4">Namespaces PSR-4</h3>
+                <p data-i18n="pro-feat4d">Autoloading automático e namespaces configurados seguindo os padrões modernos do PHP.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-file-code" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat5">Web Asset Manager</h3>
+                <p data-i18n="pro-feat5d">Gerenciamento inteligente de arquivos JS e CSS integrados ao núcleo do Joomla.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-plug" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat6">Injeção de Dependência</h3>
+                <p data-i18n="pro-feat6d">Uso de Dispatchers e Providers para uma arquitetura modular e extensível.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-sync" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat7">Suporte AJAX</h3>
+                <p data-i18n="pro-feat7d">Endpoints AJAX integrados para interações dinâmicas sem recarregar a página.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-database" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat8">Integração SQL</h3>
+                <p data-i18n="pro-feat8d">Geração automática de campos SQL e queries otimizadas para o banco do Joomla.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-sitemap" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat9">Arquitetura MVC</h3>
+                <p data-i18n="pro-feat9d">Estrutura organizada em Model, View e Controller para facilitar a manutenção.</p>
+            </div>
+        </div>
+    </section>
+
+ 
     <footer>
         <p data-i18n="footer-text">&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores.</p>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         const i18n = {
             pt: {
                 "nav-basic": "Basic",
-                "nav-intermediate": "⚡ Intermediate",
-                "nav-advanced": "🚀 Advanced",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
                 "hero-title": "Scaffolding de <br> Próxima Geração",
                 "hero-subtitle": "Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.",
                 "btn-start": "Começar Agora",
@@ -510,18 +540,30 @@
                 "btn-zip": "Gerar Pacote .ZIP",
                 "preview-title": "Resumo do Pacote",
                 "preview-folder": "Nome Pasta",
-                "intermediate-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Intermediate</span>",
-                "intermediate-subtitle": "Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real",
-                "btn-intermediate": "⚡ Abrir Module Generator Intermediate",
-                "advanced-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Advanced</span>",
-                "advanced-subtitle": "Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais",
-                "btn-advanced": "🚀 Abrir Module Generator Advanced",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real",
+                "btn-professional": "⚡ Abrir Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais",
+                "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
                 "pro-feat1": "~75 Tipos de Campo",
                 "pro-feat1d": "text, sql, subform, calendar, media e muito mais com atributos completos",
                 "pro-feat2": "Subforms Visuais",
                 "pro-feat2d": "Crie subforms repeatable-grid com campos filhos via interface gráfica",
                 "pro-feat3": "ZIP Completo",
                 "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente",
+                "pro-feat4": "Namespaces PSR-4",
+                "pro-feat4d": "Autoloading automático e namespaces configurados seguindo os padrões modernos do PHP.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Gerenciamento inteligente de arquivos JS e CSS integrados ao núcleo do Joomla.",
+                "pro-feat6": "Injeção de Dependência",
+                "pro-feat6d": "Uso de Dispatchers e Providers para uma arquitetura modular e extensível.",
+                "pro-feat7": "Suporte AJAX",
+                "pro-feat7d": "Endpoints AJAX integrados para interações dinâmicas sem recarregar a página.",
+                "pro-feat8": "Integração SQL",
+                "pro-feat8d": "Geração automática de campos SQL e queries otimizadas para o banco do Joomla.",
+                "pro-feat9": "Arquitetura MVC",
+                "pro-feat9d": "Estrutura organizada em Model, View e Controller para facilitar a manutenção.",
                 "feat1-title": "Performance",
                 "feat1-desc": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
                 "feat2-title": "Padrão Core",
@@ -532,8 +574,8 @@
             },
             en: {
                 "nav-basic": "Basic",
-                "nav-intermediate": "⚡ Intermediate",
-                "nav-advanced": "🚀 Advanced",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
                 "hero-title": "Next-Gen <br> Scaffolding",
                 "hero-subtitle": "Generate robust modules for Joomla 4, 5, and 6 in seconds. PSR standards, Namespaces, and Dispatchers automatically configured.",
                 "btn-start": "Start Now",
@@ -551,18 +593,30 @@
                 "btn-zip": "Generate .ZIP Package",
                 "preview-title": "Package Summary",
                 "preview-folder": "Folder Name",
-                "intermediate-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Intermediate</span>",
-                "intermediate-subtitle": "Full scaffolding with ~75 field types, subforms, universal attributes and real-time ZIP generation",
-                "btn-intermediate": "⚡ Open Module Generator Intermediate",
-                "advanced-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Advanced</span>",
-                "advanced-subtitle": "Professional tool with all ~75 Joomla field types, multiple layouts, AJAX, MVC, REST API and more",
-                "btn-advanced": "🚀 Open Module Generator Advanced",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Full scaffolding with ~75 field types, subforms, universal attributes and real-time ZIP generation",
+                "btn-professional": "⚡ Open Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Professional tool with all ~75 Joomla field types, multiple layouts, AJAX, MVC, REST API and more",
+                "btn-intermediate": "🚀 Open Module Generator Intermediate",
                 "pro-feat1": "~75 Field Types",
                 "pro-feat1d": "text, sql, subform, calendar, media and more with full attributes",
                 "pro-feat2": "Visual Subforms",
                 "pro-feat2d": "Build repeatable-grid subforms with child fields via a visual interface",
                 "pro-feat3": "Complete ZIP",
                 "pro-feat3d": "XML Manifest, Dispatcher, Helper, tmpl/, services/, language/ generated automatically",
+                "pro-feat4": "PSR-4 Namespaces",
+                "pro-feat4d": "Automatic autoloading and namespaces configured following modern PHP standards.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Smart management of JS and CSS files integrated with the Joomla core.",
+                "pro-feat6": "Dependency Injection",
+                "pro-feat6d": "Usage of Dispatchers and Providers for a modular and extensible architecture.",
+                "pro-feat7": "AJAX Support",
+                "pro-feat7d": "Integrated AJAX endpoints for dynamic interactions without page reloads.",
+                "pro-feat8": "SQL Integration",
+                "pro-feat8d": "Automatic generation of SQL fields and optimized queries for the Joomla database.",
+                "pro-feat9": "MVC Architecture",
+                "pro-feat9d": "Organized Model, View, and Controller structure for easier maintenance.",
                 "feat1-title": "Performance",
                 "feat1-desc": "Instant client-side generation. No server wait times or unnecessary uploads.",
                 "feat2-title": "Core Standards",
@@ -573,8 +627,8 @@
             },
             es: {
                 "nav-basic": "Basic",
-                "nav-intermediate": "⚡ Intermediate",
-                "nav-advanced": "🚀 Advanced",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
                 "hero-title": "Scaffolding <br> Next-Gen",
                 "hero-subtitle": "Genere módulos robustos para Joomla 4, 5 y 6 en segundos. Estándares PSR, Namespaces y Dispatchers configurados automáticamente.",
                 "btn-start": "Empezar Ahora",
@@ -592,18 +646,30 @@
                 "btn-zip": "Generar Paquete .ZIP",
                 "preview-title": "Resumen del Paquete",
                 "preview-folder": "Nombre Carpeta",
-                "intermediate-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Intermediate</span>",
-                "intermediate-subtitle": "Scaffolding completo con ~75 tipos de campo, subforms, atributos universales y generación de ZIP en tiempo real",
-                "btn-intermediate": "⚡ Abrir Module Generator Intermediate",
-                "advanced-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Advanced</span>",
-                "advanced-subtitle": "Herramienta profesional con los ~75 tipos de campo de Joomla, múltiples diseños, AJAX, MVC, REST API y más",
-                "btn-advanced": "🚀 Abrir Module Generator Advanced",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Scaffolding completo con ~75 tipos de campo, subforms, atributos universales y generación de ZIP en tiempo real",
+                "btn-professional": "⚡ Abrir Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Herramienta profesional con los ~75 tipos de campo de Joomla, múltiples diseños, AJAX, MVC, REST API y más",
+                "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
                 "pro-feat1": "~75 Tipos de Campo",
                 "pro-feat1d": "text, sql, subform, calendar, media y mucho más con atributos completos",
                 "pro-feat2": "Subforms Visuales",
                 "pro-feat2d": "Cree subforms repeatable-grid con campos hijos vía interfaz gráfica",
                 "pro-feat3": "ZIP Completo",
                 "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ generados automáticamente",
+                "pro-feat4": "Namespaces PSR-4",
+                "pro-feat4d": "Autoloading automático y espacios de nombres configurados siguiendo los estándares modernos de PHP.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Gestión inteligente de archivos JS y CSS integrados en el núcleo de Joomla.",
+                "pro-feat6": "Inyección de Dependencias",
+                "pro-feat6d": "Uso de Dispatchers y Providers para una arquitectura modular y extensible.",
+                "pro-feat7": "Soporte AJAX",
+                "pro-feat7d": "Endpoints AJAX integrados para interacciones dinámicas sin recargar la página.",
+                "pro-feat8": "Integración SQL",
+                "pro-feat8d": "Generación automática de campos SQL y consultas optimizadas para la base de datos de Joomla.",
+                "pro-feat9": "Arquitectura MVC",
+                "pro-feat9d": "Estructura organizada en Model, View y Controller para facilitar el mantenimiento.",
                 "feat1-title": "Rendimiento",
                 "feat1-desc": "Generación instantánea en el cliente. Sin tiempos de espera del servidor ni cargas innecesarias.",
                 "feat2-title": "Estándar Core",
@@ -644,7 +710,7 @@
                 
                 [`language/${newLang}/${modulePrefix}.sys.ini`]: `MOD_${newWord.toUpperCase()}="${capitalizedWord}"\r\nMOD_${newWord.toUpperCase()}_XML_DESCRIPTION="This is a simple module that displays '${capitalizedWord}'"`,
                 
-                [`${modulePrefix}.xml`]: `<?xml version="1.0" encoding="UTF-8"?>\r\n<extension type="module" client="${clientType}" method="upgrade">\r\n\t<name>${modulePrefix}</name>\r\n\t<author>${author}</author>\r\n\t<creationDate>${new Date().toISOString().split('T')[0]}</creationDate>\r\n\t<copyright>(C) ${new Date().getFullYear()} ${author}</copyright>\r\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\r\n\t<authorEmail>${authorEmail}</authorEmail>\r\n\t<authorUrl>${authorUrl}</authorUrl>\r\n\t<version>${version}</version>\r\n\t<description>MOD_${newWord.toUpperCase()}_XML_DESCRIPTION</description>\r\n\t<namespace path="src">Joomla\\Module\\${capitalizedWord}</namespace>\r\n\t<files>\r\n\t\t<folder module="${modulePrefix}">services</folder>\r\n\t\t<folder>src</folder>\r\n\t\t<folder>tmpl</folder>\r\n\t</files>\r\n\t<languages>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\r\n\t</languages>\r\n\t<help key="Site_Modules:_${capitalizedWord}" />\r\n\t<config>\r\n\t\t<fields name="params" addfieldprefix="Joomla\\Component\\Content\\Administrator\\Field">\r\n\t\t\t<fieldset name="basic">\r\n\t\t\t\t<field name="greeting" type="text" label="MOD_${newWord.toUpperCase()}_GREETING_LABEL" description="MOD_${newWord.toUpperCase()}_GREETING_DESC" default="Hello, World!" />\r\n\t\t\t</fieldset>\r\n\t\t\t<fieldset name="advanced">\r\n\t\t\t\t<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" class="form-select" validate="moduleLayout" />\r\n\t\t\t\t<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" rows="3" validate="CssIdentifier" />\r\n\t\t\t\t<field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" default="1" filter="integer" validate="options">\r\n\t\t\t\t\t<option value="1">JGLOBAL_USE_GLOBAL</option>\r\n\t\t\t\t\t<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>\r\n\t\t\t\t</field>\r\n\t\t\t\t<field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" default="900" filter="integer" />\r\n\t\t\t\t<field name="cachemode" type="hidden" default="static">\r\n\t\t\t\t\t<option value="static"></option>\r\n\t\t\t\t</field>\r\n\t\t\t</fieldset>\r\n\t\t</fields>\r\n\t</config>\r\n</extension>\r\n`,
+                [`${modulePrefix}.xml`]: `<?xml version="1.0" encoding="UTF-8"?>\r\n<extension type="module" client="${clientType}" method="upgrade">\r\n\t<name>${modulePrefix}</name>\r\n\t<author>${author}</author>\r\n\t<creationDate>${new Date().toISOString().split('T')[0]}</creationDate>\r\n\t<copyright>(C) ${new Date().getFullYear()} ${author}</copyright>\r\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\r\n\t<authorEmail>${authorEmail}</authorEmail>\r\n\t<authorUrl>${authorUrl}</authorUrl>\r\n\t<version>${version}</version>\r\n\t<description>MOD_${newWord.toUpperCase()}_XML_DESCRIPTION</description>\r\n\t<namespace path="src">Joomla\\Module\\${capitalizedWord}</namespace>\r\n\t<files>\r\n\t\t<folder module="${modulePrefix}">services</folder>\r\n\t\t<folder>src</folder>\r\n\t\t<folder>tmpl</folder>\r\n\t</files>\r\n\t<languages>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\r\n\t</languages>\r\n\t<help key="Site_Modules:_${capitalizedWord}" />\r\n\t<config>\r\n\t\t<fields name="params" addfieldprefix="Joomla\\Component\\Content\\Administrator\\Field">\r\n\t\t\t<fieldset name="basic">\r\n\t\t\t\t<field name="greeting" type="text" label="MOD_${newWord.toUpperCase()}_GREETING_LABEL" description="MOD_${newWord.toUpperCase()}_GREETING_DESC" default="Hello, World!" />\r\n\t\t\t</fieldset>\r\n\t\t\t<fieldset name="intermediate">\r\n\t\t\t\t<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" class="form-select" validate="moduleLayout" />\r\n\t\t\t\t<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" rows="3" validate="CssIdentifier" />\r\n\t\t\t\t<field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" default="1" filter="integer" validate="options">\r\n\t\t\t\t\t<option value="1">JGLOBAL_USE_GLOBAL</option>\r\n\t\t\t\t\t<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>\r\n\t\t\t\t</field>\r\n\t\t\t\t<field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" default="900" filter="integer" />\r\n\t\t\t\t<field name="cachemode" type="hidden" default="static">\r\n\t\t\t\t\t<option value="static"></option>\r\n\t\t\t\t</field>\r\n\t\t\t</fieldset>\r\n\t\t</fields>\r\n\t</config>\r\n</extension>\r\n`,
                 
                 [`services/provider.php`]: `<?php\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;\r\nuse Joomla\\DI\\Container;\r\nuse Joomla\\DI\\ServiceProviderInterface;\r\n\r\nreturn new class () implements ServiceProviderInterface {\r\n    public function register(Container $container)\r\n    {\r\n        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}'));\r\n        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}\\\\${clientPath}\\\\Helper'));\r\n        $container->registerServiceProvider(new Module());\r\n    }\r\n};\r\n`,
                 
