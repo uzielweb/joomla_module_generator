@@ -429,23 +429,53 @@
                 <span data-i18n="btn-intermediate">🚀 Abrir Module Generator Avançado</span> <i class="fa-solid fa-arrow-right"></i>
             </a>
         </div>
-        <div class="features">
-        <div class="feat-card">
-            <i class="fa-solid fa-bolt-lightning"></i>
-            <h3 data-i18n="feat1-title">Performance</h3>
-            <p data-i18n="feat1-desc">Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
+        <div class="features" style="grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 3rem auto 0;">
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-bolt-lightning" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat1">Performance</h3>
+                <p data-i18n="int-feat1d">Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-shield-halved" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat2">Padrão Core</h3>
+                <p data-i18n="int-feat2d">Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-code-branch" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat3">Moderno</h3>
+                <p data-i18n="int-feat3d">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat4">+12 Templates</h3>
+                <p data-i18n="int-feat4d">Presets prontos para Carousel, Hero, Pricing, FAQ, Galeria, Equipe e muito mais.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-diagram-project" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat5">Fields Architect</h3>
+                <p data-i18n="int-feat5d">Interface visual para criar formulários complexos com diversos tipos de campos.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-file-export" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat6">Exportação JSON</h3>
+                <p data-i18n="int-feat6d">Salve suas configurações em arquivos JSON para editar ou compartilhar mais tarde.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat7">Subforms Dinâmicos</h3>
+                <p data-i18n="int-feat7d">Crie campos repetíveis (repeatable-grid) com suporte a múltiplos sub-campos.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-eye" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat8">Preview em Tempo Real</h3>
+                <p data-i18n="int-feat8d">Visualize o Manifest XML e o código PHP (default.php) enquanto edita.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-language" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat9">Suporte Multilíngue</h3>
+                <p data-i18n="int-feat9d">Geração automática de arquivos de tradução .ini para o site e administrador.</p>
+            </div>
         </div>
-        <div class="feat-card">
-            <i class="fa-solid fa-shield-halved"></i>
-            <h3 data-i18n="feat2-title">Padrão Core</h3>
-            <p data-i18n="feat2-desc">Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
-        </div>
-        <div class="feat-card">
-            <i class="fa-solid fa-code-branch"></i>
-            <h3 data-i18n="feat3-title">Moderno</h3>
-            <p data-i18n="feat3-desc">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
-        </div>
-    </div>
     </section>
 
     
@@ -516,7 +546,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script>
         const i18n = {
             pt: {
@@ -544,7 +573,7 @@
                 "professional-subtitle": "Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real",
                 "btn-professional": "⚡ Abrir Module Generator Professional",
                 "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
-                "intermediate-subtitle": "Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais",
+                "intermediate-subtitle": "Ferramenta com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais",
                 "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
                 "pro-feat1": "~75 Tipos de Campo",
                 "pro-feat1d": "text, sql, subform, calendar, media e muito mais com atributos completos",
@@ -564,12 +593,24 @@
                 "pro-feat8d": "Geração automática de campos SQL e queries otimizadas para o banco do Joomla.",
                 "pro-feat9": "Arquitetura MVC",
                 "pro-feat9d": "Estrutura organizada em Model, View e Controller para facilitar a manutenção.",
-                "feat1-title": "Performance",
-                "feat1-desc": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
-                "feat2-title": "Padrão Core",
-                "feat2-desc": "Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.",
-                "feat3-title": "Moderno",
-                "feat3-desc": "Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.",
+                "int-feat1": "Alta Performance",
+                "int-feat1d": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
+                "int-feat2": "Padrão Core",
+                "int-feat2d": "Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.",
+                "int-feat3": "Arquitetura Moderna",
+                "int-feat3d": "Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.",
+                "int-feat4": "+12 Templates",
+                "int-feat4d": "Presets prontos para Carousel, Hero, Pricing, FAQ, Galeria, Equipe e muito mais.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Interface visual para criar formulários complexos com diversos tipos de campos.",
+                "int-feat6": "Exportação JSON",
+                "int-feat6d": "Salve suas configurações em arquivos JSON para editar ou compartilhar mais tarde.",
+                "int-feat7": "Subforms Dinâmicos",
+                "int-feat7d": "Crie campos repetíveis (repeatable-grid) com suporte a múltiplos sub-campos.",
+                "int-feat8": "Preview em Tempo Real",
+                "int-feat8d": "Visualize o Manifest XML e o código PHP (default.php) enquanto edita.",
+                "int-feat9": "Suporte Multilíngue",
+                "int-feat9d": "Geração automática de arquivos de tradução .ini para o site e administrador.",
                 "footer-text": "&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores."
             },
             en: {
@@ -597,7 +638,7 @@
                 "professional-subtitle": "Full scaffolding with ~75 field types, subforms, universal attributes and real-time ZIP generation",
                 "btn-professional": "⚡ Open Module Generator Professional",
                 "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
-                "intermediate-subtitle": "Professional tool with all ~75 Joomla field types, multiple layouts, AJAX, MVC, REST API and more",
+                "intermediate-subtitle": "Tool with all ~75 Joomla field types, multiple layouts, AJAX, MVC, REST API and more",
                 "btn-intermediate": "🚀 Open Module Generator Intermediate",
                 "pro-feat1": "~75 Field Types",
                 "pro-feat1d": "text, sql, subform, calendar, media and more with full attributes",
@@ -617,12 +658,24 @@
                 "pro-feat8d": "Automatic generation of SQL fields and optimized queries for the Joomla database.",
                 "pro-feat9": "MVC Architecture",
                 "pro-feat9d": "Organized Model, View, and Controller structure for easier maintenance.",
-                "feat1-title": "Performance",
-                "feat1-desc": "Instant client-side generation. No server wait times or unnecessary uploads.",
-                "feat2-title": "Core Standards",
-                "feat2-desc": "Code generated strictly following the native Joomla 4, 5, and 6 architecture.",
-                "feat3-title": "Modern",
-                "feat3-desc": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
+                "int-feat1": "High Performance",
+                "int-feat1d": "Instant client-side generation. No server wait times or unnecessary uploads.",
+                "int-feat2": "Core Standards",
+                "int-feat2d": "Code generated strictly following the native Joomla 4, 5, and 6 architecture.",
+                "int-feat3": "Modern Architecture",
+                "int-feat3d": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
+                "int-feat4": "+12 Templates",
+                "int-feat4d": "Ready-to-use presets for Carousel, Hero, Pricing, FAQ, Gallery, Team, and more.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Visual interface to build complex forms with various field types.",
+                "int-feat6": "JSON Export",
+                "int-feat6d": "Save your configurations to JSON files for later editing or sharing.",
+                "int-feat7": "Dynamic Subforms",
+                "int-feat7d": "Create repeatable fields (repeatable-grid) with support for multiple sub-fields.",
+                "int-feat8": "Real-time Preview",
+                "int-feat8d": "Visualize the XML Manifest and PHP code (default.php) as you edit.",
+                "int-feat9": "Multilingual Support",
+                "int-feat9d": "Automatic generation of .ini translation files for site and administrator.",
                 "footer-text": "&copy; 2024 Joomla Module Generator. Developed for the global developer community."
             },
             es: {
@@ -650,14 +703,14 @@
                 "professional-subtitle": "Scaffolding completo con ~75 tipos de campo, subforms, atributos universales y generación de ZIP en tiempo real",
                 "btn-professional": "⚡ Abrir Module Generator Professional",
                 "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
-                "intermediate-subtitle": "Herramienta profesional con los ~75 tipos de campo de Joomla, múltiples diseños, AJAX, MVC, REST API y más",
+                "intermediate-subtitle": "Herramienta con los ~75 tipos de campo de Joomla, múltiples diseños, AJAX, MVC, REST API y más",
                 "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
                 "pro-feat1": "~75 Tipos de Campo",
                 "pro-feat1d": "text, sql, subform, calendar, media y mucho más con atributos completos",
                 "pro-feat2": "Subforms Visuales",
                 "pro-feat2d": "Cree subforms repeatable-grid con campos hijos vía interfaz gráfica",
                 "pro-feat3": "ZIP Completo",
-                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ generados automáticamente",
+                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente",
                 "pro-feat4": "Namespaces PSR-4",
                 "pro-feat4d": "Autoloading automático y espacios de nombres configurados siguiendo los estándares modernos de PHP.",
                 "pro-feat5": "Web Asset Manager",
@@ -670,13 +723,25 @@
                 "pro-feat8d": "Generación automática de campos SQL y consultas optimizadas para la base de datos de Joomla.",
                 "pro-feat9": "Arquitectura MVC",
                 "pro-feat9d": "Estructura organizada en Model, View y Controller para facilitar el mantenimiento.",
-                "feat1-title": "Rendimiento",
-                "feat1-desc": "Generación instantánea en el cliente. Sin tiempos de espera del servidor ni cargas innecesarias.",
-                "feat2-title": "Estándar Core",
-                "feat2-desc": "Código generado siguiendo rigurosamente la arquitectura nativa de Joomla 4, 5 y 6.",
-                "feat3-title": "Moderno",
-                "feat3-desc": "Soporte total a Namespaces, Inyección de Dependencias y Web Asset Manager.",
-                "footer-text": "&copy; 2024 Joomla Module Generator. Desarrollado para la comunidad global de desarrolladores."
+                "int-feat1": "Alto Rendimiento",
+                "int-feat1d": "Generación instantánea en el cliente. Sin esperas de servidor ni cargas innecesarias.",
+                "int-feat2": "Estándar Core",
+                "int-feat2d": "Código generado siguiendo rigurosamente la arquitectura nativa de Joomla 4, 5 y 6.",
+                "int-feat3": "Arquitectura Moderna",
+                "int-feat3d": "Soporte total a Namespaces, Inyección de Dependencia y Web Asset Manager.",
+                "int-feat4": "+12 Plantillas",
+                "int-feat4d": "Ajustes listos para Carrusel, Hero, Precios, FAQ, Galería, Equipo y más.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Interfaz visual para crear formularios complejos con diversos tipos de campos.",
+                "int-feat6": "Exportación JSON",
+                "int-feat6d": "Guarde sus configuraciones en archivos JSON para editarlas o compartirlas más tarde.",
+                "int-feat7": "Subformularios Dinámicos",
+                "int-feat7d": "Cree campos repetibles (repeatable-grid) con soporte para múltiples subcampos.",
+                "int-feat8": "Vista Previa en Tiempo Real",
+                "int-feat8d": "Visualice el Manifiesto XML y el código PHP (default.php) mientras edita.",
+                "int-feat9": "Soporte Multilingüe",
+                "int-feat9d": "Generación automática de archivos de traducción .ini para el sitio y el administrador.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Desarrollado para la comunidad global de desenvolvedores."
             }
         };
 
