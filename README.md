@@ -1,7 +1,7 @@
 # Joomla Extension Generator Professional
 **The Ultimate Scaffolding Ecosystem for Modern Joomla Development (v4, v5, and v6)**
 
-[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=joomla)](https://uzielweb.github.io/joomla_module_generator/)
+[![Launch Generator](https://img.shields.io/badge/Launch-Generator-brightgreen?style=for-the-badge&logo=joomla)](https://uzielweb.github.io/joomla_module_generator/)
 
 ## 🌟 Project Overview
 The **Joomla Extension Generator** is a comprehensive ecosystem of scaffolding tools designed to eliminate repetitive tasks in Joomla extension creation. It doesn't just generate files; it implements an **enterprise-grade architecture** based on the latest Joomla core standards.
