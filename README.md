@@ -1,15 +1,48 @@
-# Joomla Module Generator
-**The Ultimate Scaffolding Tool for Joomla 4, Joomla 5, and Joomla 6 Extensions**
+# Joomla Extension Generator Professional
+**The Ultimate Scaffolding Ecosystem for Modern Joomla Development (v4, v5, and v6)**
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=joomla)](https://uzielweb.github.io/joomla_module_generator/)
 
-Joomla Module Generator is a powerful, lightweight scaffolding tool designed to accelerate your development workflow. Create modern, PSR-compliant Joomla modules in seconds with full support for the latest Joomla versions.
+## 🌟 Visão Geral do Projeto
+O **Joomla Extension Generator** é um ecossistema completo de ferramentas de scaffolding projetado para eliminar o trabalho repetitivo na criação de extensões para Joomla. Ele não apenas gera arquivos, mas implementa uma **arquitetura de nível corporativo** baseada nos padrões mais recentes do núcleo do Joomla.
 
-## 🚀 Key Features
-- **Multi-Version Support**: Fully compatible with **Joomla 4, Joomla 5, and Joomla 6**.
-- **Easy Scaffolding**: Use the `modulegenerator.php` script to generate a complete module structure instantly.
-- **Modern Standards**: Generates code using Namespaces, Service Providers, and Dispatchers.
-- **SEO Optimized**: Built with performance and best practices in mind.
+Se você é um desenvolvedor que busca produtividade, este projeto oferece três níveis de automação para atender desde módulos simples até componentes e plugins complexos com lógica de banco de dados e APIs.
+
+---
+
+## ⚡ Níveis de Geração (Tiers)
+
+Este repositório abriga três versões distintas do gerador, cada uma focada em um nível de complexidade:
+
+### 1. 🟢 Basic Generator (`index.html`)
+Ideal para iniciantes ou módulos rápidos que não requerem configurações complexas.
+- Gera a estrutura básica (Dispatcher, Helper, Provider).
+- Suporte a metadados essenciais e namespaces.
+- Download instantâneo de pacotes .ZIP.
+
+### 2. 🚀 Intermediate Generator (`joomla-module-generator-intermediate.html`)
+Focado em módulos funcionais com interface de usuário.
+- **+12 Templates Prontos**: Hero, Carrossel, FAQ, Galeria, Tabela de Preços, etc.
+- **Arquitetura MVC**: Separação clara entre dados e exibição.
+- **Web Asset Manager**: Enfileiramento automático de JS/CSS.
+- **Suporte Multilíngue**: Geração de arquivos `.ini` para múltiplos idiomas.
+
+### 3. ⚡ Professional Generator (`joomla-module-generator-professional.html`)
+A ferramenta definitiva para desenvolvedores sêniores e agências.
+- **Fields Architect**: Interface visual para criar formulários com os **~75 tipos de campos nativos do Joomla**.
+- **Subforms Dinâmicos**: Suporte a campos repetíveis (repeatable-grid) com campos filhos.
+- **Integração SQL**: Lógica de banco de dados pré-configurada.
+- **AJAX & REST**: Endpoints preparados para interações assíncronas.
+- **Exportação JSON**: Salve suas configurações para editar ou compartilhar futuramente.
+
+---
+
+## 🚀 Principais Recursos Técnicos
+- **Compatibilidade Total**: Suporte garantido para Joomla 4.4, Joomla 5.x e o futuro Joomla 6.
+- **Padrões PSR**: Código gerado com Namespaces e Autoloading (PSR-4).
+- **Service Providers**: Implementação nativa do padrão de Injeção de Dependência.
+- **Modern Dispatchers**: Controle centralizado de requisições conforme o novo padrão do Core.
+- **Zero Dependências**: Funciona inteiramente no navegador (Client-side) usando JSZip.
 
 ### 🛠️ How to Use
 1. Clone this repository or download the `modulegenerator.php` file.
