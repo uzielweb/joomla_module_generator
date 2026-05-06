@@ -3,116 +3,116 @@
 
 [![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen?style=for-the-badge&logo=joomla)](https://uzielweb.github.io/joomla_module_generator/)
 
-## 🌟 Visão Geral do Projeto
-O **Joomla Extension Generator** é um ecossistema completo de ferramentas de scaffolding projetado para eliminar o trabalho repetitivo na criação de extensões para Joomla. Ele não apenas gera arquivos, mas implementa uma **arquitetura de nível corporativo** baseada nos padrões mais recentes do núcleo do Joomla.
+## 🌟 Project Overview
+The **Joomla Extension Generator** is a comprehensive ecosystem of scaffolding tools designed to eliminate repetitive tasks in Joomla extension creation. It doesn't just generate files; it implements an **enterprise-grade architecture** based on the latest Joomla core standards.
 
-Se você é um desenvolvedor que busca produtividade, este projeto oferece três níveis de automação para atender desde módulos simples até componentes e plugins complexos com lógica de banco de dados e APIs.
+If you are a developer seeking productivity, this project offers three levels of automation to handle everything from simple modules to complex components and plugins with database logic and APIs.
 
 ---
 
-## ⚡ Níveis de Geração (Tiers)
+## ⚡ Generation Tiers
 
-Este repositório abriga três versões distintas do gerador, cada uma focada em um nível de complexidade:
+This repository houses three distinct versions of the generator, each focused on a specific level of complexity:
 
 ### 1. 🟢 Basic Generator (`index.html`)
-Ideal para iniciantes ou módulos rápidos que não requerem configurações complexas.
-- Gera a estrutura básica (Dispatcher, Helper, Provider).
-- Suporte a metadados essenciais e namespaces.
-- Download instantâneo de pacotes .ZIP.
+Ideal for beginners or quick modules that don't require complex configurations.
+- Generates the basic structure (Dispatcher, Helper, Provider).
+- Support for essential metadata and namespaces.
+- Instant .ZIP package download.
 
 ### 2. 🚀 Intermediate Generator (`joomla-module-generator-intermediate.html`)
-Focado em módulos funcionais com interface de usuário.
-- **+12 Templates Prontos**: Hero, Carrossel, FAQ, Galeria, Tabela de Preços, etc.
-- **Arquitetura MVC**: Separação clara entre dados e exibição.
-- **Web Asset Manager**: Enfileiramento automático de JS/CSS.
-- **Suporte Multilíngue**: Geração de arquivos `.ini` para múltiplos idiomas.
+Focused on functional modules with a rich user interface.
+- **+12 Ready-to-use Templates**: Hero, Carousel, FAQ, Gallery, Pricing Table, etc.
+- **MVC Architecture**: Clear separation between data and display.
+- **Web Asset Manager**: Automatic JS/CSS enqueuing.
+- **Multilingual Support**: Automatic `.ini` file generation for multiple languages.
 
 ### 3. ⚡ Professional Generator (`joomla-module-generator-professional.html`)
-A ferramenta definitiva para desenvolvedores sêniores e agências.
-- **Fields Architect**: Interface visual para criar formulários com os **~75 tipos de campos nativos do Joomla**.
-- **Subforms Dinâmicos**: Suporte a campos repetíveis (repeatable-grid) com campos filhos.
-- **Integração SQL**: Lógica de banco de dados pré-configurada.
-- **AJAX & REST**: Endpoints preparados para interações assíncronas.
-- **Exportação JSON**: Salve suas configurações para editar ou compartilhar futuramente.
+The definitive tool for senior developers and agencies.
+- **Fields Architect**: Visual interface to create forms with **~75 native Joomla field types**.
+- **Dynamic Subforms**: Support for repeatable fields (repeatable-grid) with child fields.
+- **SQL Integration**: Pre-configured database logic.
+- **AJAX & REST**: Endpoints prepared for asynchronous interactions.
+- **JSON Export**: Save your configurations for future editing or sharing.
 
 ---
 
-## 🚀 Principais Recursos Técnicos
-- **Compatibilidade Total**: Suporte garantido para Joomla 4.4, Joomla 5.x e o futuro Joomla 6.
-- **Padrões PSR**: Código gerado com Namespaces e Autoloading (PSR-4).
-- **Service Providers**: Implementação nativa do padrão de Injeção de Dependência.
-- **Modern Dispatchers**: Controle centralizado de requisições conforme o novo padrão do Core.
-- **Zero Dependências**: Funciona inteiramente no navegador (Client-side) usando JSZip.
+## 🚀 Key Technical Features
+- **Full Compatibility**: Guaranteed support for Joomla 4.4, Joomla 5.x, and the upcoming Joomla 6.
+- **PSR Standards**: Code generated with Namespaces and Autoloading (PSR-4).
+- **Service Providers**: Native implementation of the Dependency Injection pattern.
+- **Modern Dispatchers**: Centralized request control according to the new Core standard.
+- **Zero Dependencies**: Works entirely in the browser (Client-side) using JSZip.
 
 ---
 
-## 🏗️ Estrutura Padrão Joomla 5/6 (Corrigida)
+## 🏗️ Default Joomla 5/6 Structure (Corrected)
 
-Uma extensão moderna do Joomla deve seguir esta organização para garantir compatibilidade com o instalador e o sistema de Namespaces:
+A modern Joomla extension must follow this organization to ensure compatibility with the installer and the Namespace system:
 
 ```text
-mod_exemplo/
+mod_hello/
 ├── language/
 │   └── en-GB/
-│       ├── mod_exemplo.ini        # Traduções da interface
-│       └── mod_exemplo.sys.ini    # Traduções do sistema/instalador
-├── media/                         # Ativos públicos (Web Assets)
+│       ├── mod_hello.ini        # Interface translations
+│       └── mod_hello.sys.ini    # System/Installer translations
+├── media/                       # Public assets (Web Assets)
 │   ├── css/
 │   ├── js/
 │   ├── images/
-│   └── joomla.asset.json          # Definição de dependências de ativos
+│   └── joomla.asset.json        # Asset dependency definitions
 ├── services/
-│   └── provider.php               # Registro no Service Container (DI)
-├── src/                           # Código Fonte (PSR-4)
+│   └── provider.php             # Registration in the Service Container (DI)
+├── src/                         # Source Code (PSR-4)
 │   ├── Dispatcher/
-│   │   └── Dispatcher.php         # Controlador principal
+│   │   └── Dispatcher.php       # Main Controller
 │   └── Helper/
-│       └── ExemploHelper.php      # Lógica de dados/DB
+│       └── HelloHelper.php      # Data/DB Logic
 ├── tmpl/
-│   └── default.php                # Layout (View)
-└── mod_exemplo.xml                # Manifesto da Extensão
+│   └── default.php              # Layout (View)
+└── mod_hello.xml                # Extension Manifest
 ```
 
-### Por que JSZip?
-Toda a inteligência de geração deste projeto reside em **Vanilla JS** (JavaScript puro) dentro dos próprios arquivos HTML. O **JSZip** é utilizado exclusivamente para permitir que o seu navegador consiga agrupar esses diversos arquivos gerados em um único pacote `.zip` baixável, sem a necessidade de processamento no servidor.
+### Why JSZip?
+All the generation intelligence of this project resides in **Vanilla JS** (pure JavaScript) within the HTML files themselves. **JSZip** is used exclusively to allow your browser to bundle these multiple generated files into a single downloadable `.zip` package, without requiring server-side processing.
 
 ---
 
-## 📜 História e Evolução
+## 📜 History & Evolution
 
-Este projeto nasceu do **`modulegenerator.php`**, um script PHP básico (Engine Legada) criado para automatizar a estrutura de arquivos do Joomla. Ele ainda está disponível neste repositório como uma ferramenta de linha de comando ou execução direta via servidor local.
+This project was born from **`modulegenerator.php`**, a basic PHP script (Legacy Engine) created to automate the Joomla file structure. It is still available in this repository as a command-line tool or for direct execution via a local server.
 
-Hoje, o projeto evoluiu para um ecossistema completo de ferramentas visuais, oferecendo uma experiência de desenvolvimento muito mais rica e profissional através das interfaces web:
+Today, the project has evolved into a complete ecosystem of visual tools, offering a much richer and more professional development experience through web interfaces:
 
-### 🛠️ Como Usar (Escolha sua Versão)
+### 🛠️ How to Use (Choose your Version)
 
-#### Opção A: Web Interface (Recomendado)
-Acesse a **[Live Demo](https://uzielweb.github.io/joomla_module_generator/)** e escolha entre as versões **Basic, Intermediate ou Professional** conforme sua necessidade.
+#### Option A: Web Interface (Recommended)
+Access the **[Live Demo](https://uzielweb.github.io/joomla_module_generator/)** and choose between the **Basic, Intermediate, or Professional** versions according to your needs.
 
-#### Opção B: Script PHP (Legado/Servidor Local)
-1. Coloque a pasta do projeto no seu servidor local (ex: Laragon/XAMPP).
-2. Acesse `localhost/joomla_module_generator/modulegenerator.php`.
-3. Preencha o formulário e clique em **Executar** para baixar o `.zip`.
+#### Option B: PHP Script (Legacy / Local Server)
+1. Place the project folder on your local server (e.g., Laragon/XAMPP).
+2. Access `localhost/joomla_module_generator/modulegenerator.php`.
+3. Fill out the form and click **Execute** to download the `.zip`.
 
 ---
 
-## 🏗️ Arquitetura Gerada (Padrão Joomla 5/6)
+## 🏗️ Generated Architecture (Joomla 5/6 Standard)
 
-Independentemente da versão do gerador utilizada, o código resultante segue rigorosamente os padrões modernos do Joomla:
+Regardless of the generator version used, the resulting code strictly follows modern Joomla standards:
 
 ### 1. Services (`/services/provider.php`)
-O "coração" da extensão. Utiliza o **Dependency Injection Container** do Joomla para registrar o Dispatcher, o Helper e a própria extensão.
+The "heart" of the extension. Uses Joomla's **Dependency Injection Container** to register the Dispatcher, the Helper, and the extension itself.
 
 ### 2. Dispatcher (`/src/Dispatcher/Dispatcher.php`)
-Substitui o antigo arquivo principal do módulo. É o controlador que decide quais dados carregar e qual layout exibir.
+Replaces the old main module file. It is the controller that decides what data to load and which layout to display.
 
 ### 3. Helper Factory (`/src/Helper/`)
-As funções auxiliares (consultas ao banco de dados, processamento de dados) são organizadas em classes Helper que utilizam **Traits** nativas do Joomla.
+Auxiliary functions (database queries, data processing) are organized into Helper classes that use native Joomla **Traits**.
 
 ### 4. Web Asset Manager (`/tmpl/default.php`)
-A exibição utiliza o novo gerenciador de ativos do Joomla. CSS e JS são registrados e carregados de forma inteligente.
+Display uses the new Joomla Asset Manager. CSS and JS are registered and loaded intelligently.
 
-### 5. Namespaces PSR-4
-Todo o código é organizado em Namespaces, garantindo compatibilidade com o autoloader do Joomla.
+### 5. PSR-4 Namespaces
+All code is organized into Namespaces, ensuring compatibility with the Joomla autoloader.
 
-&copy; 2024-2026 Joomla Extension Generator. Criado para elevar o padrão de desenvolvimento na comunidade Joomla.
+&copy; 2024-2026 Joomla Extension Generator. Created to raise the standard of development in the Joomla community.
