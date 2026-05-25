@@ -298,30 +298,42 @@
         echo '<span class="text-info">Module created for ' . ($clientType === 'administrator' ? 'Administrator (Backend)' : 'Site (Frontend)') . '. </span>';
         
         // zip the new module
-        $zip = new ZipArchive();
-        $zipFileName = $cacheDir . '/mod_' . $newWord . '.zip';
-        if ($zip->open($zipFileName, ZipArchive::CREATE) === TRUE) {
-            $files = new RecursiveIteratorIterator(
-                new RecursiveDirectoryIterator($newDir),
-                RecursiveIteratorIterator::SELF_FIRST
-            );
-            foreach ($files as $file) {
-                $file = str_replace('\\', '/', $file);
-                if (in_array(basename($file), ['.', '..'])) {
-                    continue;
-                }
-                if (is_dir($file) === TRUE) {
-                    $zip->addEmptyDir(str_replace($newDir . '/', '', $file . '/'));
-                } else if (is_file($file) === TRUE) {
-                    $zip->addFromString(str_replace($newDir . '/', '', $file), file_get_contents($file));
-                }
-            }
-            $zip->close();
-            echo '<span class="text-success">The new module has been zipped successfully! </span>';
-            // zip link
-            echo '<span><a href="'.$zipFileName.'" class="btn btn-primary" download>Download module <strong>' . $moduleName . '<strong></a></span>';
+        if (!class_exists('ZipArchive')) {
+            echo '<div class="alert alert-warning mt-3">';
+            echo '<strong>Atenção:</strong> A extensão <code>zip</code> do PHP não está habilitada no seu servidor.<br>';
+            echo 'O módulo foi gerado com sucesso no diretório <code>' . htmlspecialchars($newDir) . '</code>, mas não foi possível criar o arquivo ZIP para download.<br><br>';
+            echo '<strong>Como habilitar no Laragon:</strong><br>';
+            echo '1. Clique com o botão direito no painel/ícone do <strong>Laragon</strong>.<br>';
+            echo '2. Navegue até <strong>PHP</strong> -> <strong>Extensions</strong>.<br>';
+            echo '3. Clique em <strong>zip</strong> para ativá-lo (deve ficar marcado com um check).<br>';
+            echo '4. Reinicie os serviços do Laragon para aplicar a alteração.<br>';
+            echo '</div>';
         } else {
-            echo '<span class="text-danger">Failed to zip the new module!';
+            $zip = new ZipArchive();
+            $zipFileName = $cacheDir . '/mod_' . $newWord . '.zip';
+            if ($zip->open($zipFileName, ZipArchive::CREATE) === TRUE) {
+                $files = new RecursiveIteratorIterator(
+                    new RecursiveDirectoryIterator($newDir),
+                    RecursiveIteratorIterator::SELF_FIRST
+                );
+                foreach ($files as $file) {
+                    $file = str_replace('\\', '/', $file);
+                    if (in_array(basename($file), ['.', '..'])) {
+                        continue;
+                    }
+                    if (is_dir($file) === TRUE) {
+                        $zip->addEmptyDir(str_replace($newDir . '/', '', $file . '/'));
+                    } else if (is_file($file) === TRUE) {
+                        $zip->addFromString(str_replace($newDir . '/', '', $file), file_get_contents($file));
+                    }
+                }
+                $zip->close();
+                echo '<span class="text-success">The new module has been zipped successfully! </span>';
+                // zip link
+                echo '<span><a href="'.$zipFileName.'" class="btn btn-primary" download>Download module <strong>' . $moduleName . '<strong></a></span>';
+            } else {
+                echo '<span class="text-danger">Failed to zip the new module!';
+            }
         }
 
 
