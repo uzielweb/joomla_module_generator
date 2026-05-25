@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joomla Module Generator | Premium Scaffolding</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --br-green: #009c3b;
+            --br-yellow: #ffdf00;
+            --br-blue: #002776;
+            --br-white: #ffffff;
+            --dark-bg: #05070a;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-white: rgba(255, 255, 255, 0.08);
+            --accent: #00e676;
+            --danger: #ff5252;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-title: 'Outfit', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark-bg);
+            color: var(--br-white);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        .ambient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+
+        .glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(120px);
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .glow-green { background: var(--br-green); width: 70vw; height: 70vw; top: -10%; left: -10%; animation: floatGreen 20s infinite alternate; }
+        .glow-blue { background: var(--br-blue); width: 60vw; height: 60vw; bottom: -10%; right: -10%; animation: floatBlue 25s infinite alternate-reverse; }
+        .glow-yellow { background: var(--br-yellow); width: 50vw; height: 50vw; top: 50%; left: 50%; transform: translate(-50%, -50%); animation: floatYellow 18s infinite alternate; }
+
+        @keyframes floatGreen {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(100px, 50px) scale(1.2); }
+        }
+        @keyframes floatBlue {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(-80px, -40px) scale(1.1); }
+        }
+        @keyframes floatYellow {
+            0% { transform: translate(-50%, -50%) scale(0.8); }
+            100% { transform: translate(-40%, -60%) scale(1); }
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-white);
+            background: rgba(5, 7, 10, 0.7);
+        }
+
+        .nav-logo {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-decoration: none;
+            color: var(--br-white);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span { color: var(--br-yellow); }
+        .nav-logo i { color: var(--br-green); font-size: 1.6rem; animation: pulse 2s infinite; }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .nav-right { display: flex; align-items: center; gap: 2rem; }
+        .nav-links { display: flex; gap: 2rem; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--br-white);
+            font-size: 0.85rem;
+            font-weight: 600;
+            opacity: 0.6;
+            transition: 0.3s;
+        }
+        .nav-links a:hover { opacity: 1; color: var(--br-yellow); }
+
+        .lang-switch {
+            display: flex;
+            background: rgba(255,255,255,0.05);
+            padding: 4px;
+            border-radius: 10px;
+            border: 1px solid var(--border-white);
+        }
+
+        .lang-btn {
+            padding: 6px 14px;
+            border-radius: 7px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            border: none;
+            background: transparent;
+            color: rgba(255,255,255,0.4);
+            text-transform: uppercase;
+        }
+
+        .lang-btn.active { background: var(--br-blue); color: var(--br-yellow); }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 160px 10% 80px;
+        }
+
+        .hero h1 {
+            font-family: var(--font-title);
+            font-size: clamp(2.5rem, 9vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            background: linear-gradient(to bottom, #fff 40%, rgba(255,255,255,0.7));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            max-width: 750px;
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 4rem;
+        }
+
+        .btn {
+            padding: 1.2rem 2.8rem;
+            border-radius: 14px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--br-green), #00c853);
+            color: #fff;
+            box-shadow: 0 10px 30px rgba(0, 156, 59, 0.2);
+        }
+        .btn-primary:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 156, 59, 0.4); }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--border-white);
+            color: var(--br-white);
+        }
+        .btn-outline:hover { background: var(--border-white); transform: translateY(-3px); }
+
+        .section-title { text-align: center; margin-bottom: 4rem; }
+        .section-title h2 { font-family: var(--font-title); font-size: 3rem; margin-bottom: 1rem; }
+        .section-title p { color: rgba(255,255,255,0.4); }
+
+        .generator { padding: 100px 5%; max-width: 1400px; margin: 0 auto; }
+        .gen-container { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; }
+        .gen-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-white);
+            border-radius: 32px;
+            padding: 3rem;
+            backdrop-filter: blur(30px);
+        }
+
+        .gen-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--br-yellow);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .input-group input, .input-group select {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--border-white);
+            padding: 1rem;
+            border-radius: 14px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--br-green);
+            background: rgba(255,255,255,0.06);
+        }
+        .input-group select option { background: #1a1a2e; color: #fff; }
+        .full-col { grid-column: span 2; }
+
+        .preview-card {
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--border-white);
+            border-radius: 32px;
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 110px;
+            height: fit-content;
+            backdrop-filter: blur(30px);
+        }
+
+        .preview-item { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-white); padding-bottom: 12px; }
+        .preview-item span:first-child { color: rgba(255,255,255,0.4); font-size: 0.85rem; }
+        .preview-item span:last-child { font-weight: 700; font-size: 0.9rem; color: var(--accent); }
+
+        .folder-structure {
+            background: rgba(0,0,0,0.5);
+            border-radius: 16px;
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--accent);
+            line-height: 1.8;
+            border: 1px solid var(--border-white);
+        }
+
+        .features { padding: 80px 8%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .feat-card { padding: 2.5rem; background: var(--card-bg); border: 1px solid var(--border-white); border-radius: 24px; transition: 0.3s; }
+        .feat-card:hover { border-color: var(--br-green); transform: translateY(-8px); }
+        .feat-card i { font-size: 2rem; color: var(--br-yellow); margin-bottom: 1.2rem; display: block; }
+        .feat-card h3 { font-size: 1.3rem; margin-bottom: 0.8rem; }
+        .feat-card p { font-size: 0.9rem; color: rgba(255,255,255,0.5); }
+
+        footer { padding: 60px 5%; text-align: center; border-top: 1px solid var(--border-white); margin-top: 60px; }
+        footer p { color: rgba(255,255,255,0.25); font-size: 0.85rem; }
+
+        .notification {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(0,0,0,0.9);
+            border: 1px solid var(--br-green);
+            padding: 1rem 2rem;
+            border-radius: 14px;
+            color: #fff;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+            backdrop-filter: blur(20px);
+            font-weight: 600;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 1000px) {
+            .gen-container { grid-template-columns: 1fr; }
+            .features { grid-template-columns: 1fr; }
+            .preview-card { position: static; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-bg">
+        <div class="glow glow-green"></div>
+        <div class="glow glow-blue"></div>
+        <div class="glow glow-yellow"></div>
+    </div>
+
+    <nav>
+        <a href="#" class="nav-logo">
+            <i class="fa-brands fa-joomla"></i> Joomla<span>Module Generator</span>
+        </a>
+        <div class="nav-right">
+            <div class="nav-links">
+                <a href="#generator-basic" data-i18n="nav-basic">Básico</a>
+                  <a href="#generator-intermediate" data-i18n="nav-intermediate" style="color: var(--br-yellow); font-weight: 800;">🚀 Avançado</a>
+                  <a href="#generator-professional" data-i18n="nav-professional" style="color: var(--accent); font-weight: 800;">⚡ Profissional</a>
+                <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank">GitHub</a>
+            </div>
+            <div class="lang-switch">
+                <button class="lang-btn" onclick="setLang('en')">EN</button>
+                <button class="lang-btn active" onclick="setLang('pt')">PT</button>
+                <button class="lang-btn" onclick="setLang('es')">ES</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1 data-i18n="hero-title">Scaffolding de <br> Próxima Geração</h1>
+        <p data-i18n="hero-subtitle">Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.</p>
+        <div>
+            <a href="#generator-basic" class="btn btn-primary"><span data-i18n="btn-start">Começar Agora</span> <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="https://github.com/uzielweb/joomla_module_generator" target="_blank" class="btn btn-outline" style="margin-left: 1rem;" data-i18n="btn-repo">Ver Repositório</a>
+        </div>
+    </header>
+
+    <section id="generator-basic" class="generator">
+        <div class="section-title">
+            <h2 data-i18n="gen-title">🟢 Joomla Module Generator <span style="color:var(--accent)">Basic</span></h2>
+            <p data-i18n="gen-subtitle">Preencha os campos abaixo para gerar seu pacote .ZIP</p>
+        </div>
+
+        <div class="gen-container">
+            <div class="gen-card">
+                <form id="moduleForm" class="gen-form" autocomplete="off">
+                    <div class="input-group full-col">
+                        <label data-i18n="lbl-mod-name">Nome do Módulo *</label>
+                        <input type="text" id="moduleName" placeholder="Ex: Meu Banner Premium" required oninput="autoFillSlug(this.value)">
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="lbl-client">Tipo de Cliente</label>
+                        <select id="clientType">
+                            <option value="site" data-i18n="opt-site">Site (Frontend)</option>
+                            <option value="administrator" data-i18n="opt-admin">Admin (Backend)</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="lbl-lang">Idioma Principal</label>
+                        <select id="newLang">
+                            <option value="pt-BR">Português (Brasil)</option>
+                            <option value="en-GB">English (UK)</option>
+                            <option value="es-ES">Español</option>
+                            <option value="fr-FR">Français</option>
+                            <option value="de-DE">Deutsch</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="lbl-author">Autor *</label>
+                        <input type="text" id="author" placeholder="John Doe" required>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="lbl-email">Email do Autor *</label>
+                        <input type="email" id="authorEmail" placeholder="email@exemplo.com" required>
+                    </div>
+                    <div class="input-group">
+                        <label data-i18n="lbl-website">Website do Autor</label>
+                        <input type="url" id="authorUrl" placeholder="https://seusite.com">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary full-col" style="margin-top: 10px;" id="generateBtn">
+                        <span data-i18n="btn-zip">Gerar Pacote .ZIP</span> <i class="fa-solid fa-download"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="preview-card">
+                <h3 style="color: var(--br-yellow)"><i class="fa-solid fa-eye"></i> <span data-i18n="preview-title">Resumo do Pacote</span></h3>
+                <div class="preview-item">
+                    <span>Namespace</span>
+                    <span id="previewNamespace">Joomla\Module\Hello</span>
+                </div>
+                <div class="preview-item">
+                    <span data-i18n="preview-folder">Nome Pasta</span>
+                    <span id="previewFolder">mod_hello</span>
+                </div>
+                <div class="preview-item">
+                    <span>Cliente</span>
+                    <span id="previewClient">site</span>
+                </div>
+                <div class="preview-item">
+                    <span>Idioma</span>
+                    <span id="previewLang">pt-BR</span>
+                </div>
+                
+                <div class="folder-structure" id="structureList">
+                    mod_hello/<br>
+                    ├── services/provider.php<br>
+                    ├── src/Dispatcher/Dispatcher.php<br>
+                    ├── src/Helper/HelloHelper.php<br>
+                    ├── tmpl/default.php<br>
+                    ├── language/pt-BR/mod_hello.ini<br>
+                    └── mod_hello.xml
+                </div>
+            </div>
+        </div>
+    </section>
+   <section id="generator-intermediate" class="generator-basic" style="padding-top: 50px;">
+        <div class="section-title">
+            <h2 data-i18n="intermediate-title">🚀 Joomla Module Generator <span style="color:var(--br-yellow)">Intermediate</span></h2>
+            <p data-i18n="intermediate-subtitle">Ferramenta profissional com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais</p>
+        </div>
+        <div style="text-align: center;">
+            <a href="joomla-module-generator-intermediate.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #f5a623, #e05b00); box-shadow: 0 10px 30px rgba(245,166,35,0.3);">
+                <span data-i18n="btn-intermediate">🚀 Abrir Module Generator Avançado</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        <div class="features" style="grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1100px; margin: 3rem auto 0;">
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-bolt-lightning" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat1">Performance</h3>
+                <p data-i18n="int-feat1d">Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-shield-halved" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat2">Padrão Core</h3>
+                <p data-i18n="int-feat2d">Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-code-branch" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat3">Moderno</h3>
+                <p data-i18n="int-feat3d">Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-wand-magic-sparkles" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat4">+12 Templates</h3>
+                <p data-i18n="int-feat4d">Presets prontos para Carousel, Hero, Pricing, FAQ, Galeria, Equipe e muito mais.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-diagram-project" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat5">Fields Architect</h3>
+                <p data-i18n="int-feat5d">Interface visual para criar formulários complexos com diversos tipos de campos.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-file-export" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat6">Exportação JSON</h3>
+                <p data-i18n="int-feat6d">Salve suas configurações em arquivos JSON para editar ou compartilhar mais tarde.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <h3 data-i18n="int-feat7">Subforms Dinâmicos</h3>
+                <p data-i18n="int-feat7d">Crie campos repetíveis (repeatable-grid) com suporte a múltiplos sub-campos.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-eye" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="int-feat8">Preview em Tempo Real</h3>
+                <p data-i18n="int-feat8d">Visualize o Manifest XML e o código PHP (default.php) enquanto edita.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-language" style="color:var(--br-green)"></i>
+                <h3 data-i18n="int-feat9">Suporte Multilíngue</h3>
+                <p data-i18n="int-feat9d">Geração automática de arquivos de tradução .ini para o site e administrador.</p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <section id="generator-professional" class="generator-basic" style="padding-top: 50px;">
+        <div class="section-title">
+            <h2 data-i18n="professional-title">⚡ Joomla Module Generator <span style="color:var(--accent)">Professional</span></h2>
+            <p data-i18n="professional-subtitle">Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real</p>
+        </div>
+        <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;align-items:center;">
+            <a href="joomla-module-generator-professional.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.3rem 3rem; background: linear-gradient(135deg, #5c6fff, #8b5cf6); box-shadow: 0 10px 30px rgba(92,111,255,0.3);">
+                <span data-i18n="btn-professional">⚡ Abrir Module Generator Profissional</span> <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:3rem auto 0;">
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-layer-group" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat1">~75 Tipos de Campo</h3>
+                <p data-i18n="pro-feat1d">text, sql, subform, calendar, media e muito mais com atributos completos</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-cubes" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat2">Subforms Visuais</h3>
+                <p data-i18n="pro-feat2d">Crie subforms repeatable-grid com campos filhos via interface gráfica</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-download" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat3">ZIP Completo</h3>
+                <p data-i18n="pro-feat3d">Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-code" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat4">Namespaces PSR-4</h3>
+                <p data-i18n="pro-feat4d">Autoloading automático e namespaces configurados seguindo os padrões modernos do PHP.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-file-code" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat5">Web Asset Manager</h3>
+                <p data-i18n="pro-feat5d">Gerenciamento inteligente de arquivos JS e CSS integrados ao núcleo do Joomla.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-plug" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat6">Injeção de Dependência</h3>
+                <p data-i18n="pro-feat6d">Uso de Dispatchers e Providers para uma arquitetura modular e extensível.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-sync" style="color:var(--accent)"></i>
+                <h3 data-i18n="pro-feat7">Suporte AJAX</h3>
+                <p data-i18n="pro-feat7d">Endpoints AJAX integrados para interações dinâmicas sem recarregar a página.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-database" style="color:var(--br-yellow)"></i>
+                <h3 data-i18n="pro-feat8">Integração SQL</h3>
+                <p data-i18n="pro-feat8d">Geração automática de campos SQL e queries otimizadas para o banco do Joomla.</p>
+            </div>
+            <div class="feat-card" style="text-align:center;">
+                <i class="fa-solid fa-sitemap" style="color:var(--br-green)"></i>
+                <h3 data-i18n="pro-feat9">Arquitetura MVC</h3>
+                <p data-i18n="pro-feat9d">Estrutura organizada em Model, View e Controller para facilitar a manutenção.</p>
+            </div>
+        </div>
+    </section>
+
+ 
+    <footer>
+        <p data-i18n="footer-text">&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores.</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+    </script>
+    <script>
+        const i18n = {
+            pt: {
+                "nav-basic": "Basic",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
+                "hero-title": "Scaffolding de <br> Próxima Geração",
+                "hero-subtitle": "Gere módulos robustos para Joomla 4, 5 e 6 em segundos. Padrão PSR, Namespaces e Dispatchers configurados automaticamente.",
+                "btn-start": "Começar Agora",
+                "btn-repo": "Ver Repositório",
+                "gen-title": "🟢 Joomla Module Generator <span style=\"color:var(--accent)\">Basic</span>",
+                "gen-subtitle": "Preencha os campos abaixo para gerar seu pacote .ZIP",
+                "lbl-mod-name": "Nome do Módulo *",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor *",
+                "lbl-email": "Email do Autor *",
+                "lbl-website": "Website do Autor",
+                "btn-zip": "Gerar Pacote .ZIP",
+                "preview-title": "Resumo do Pacote",
+                "preview-folder": "Nome Pasta",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Scaffolding completo com ~75 tipos de campo, subforms, atributos universais e geração de ZIP em tempo real",
+                "btn-professional": "⚡ Abrir Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Ferramenta com todos os ~75 tipos de campo Joomla, múltiplos layouts, AJAX, MVC, REST API e muito mais",
+                "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
+                "pro-feat1": "~75 Tipos de Campo",
+                "pro-feat1d": "text, sql, subform, calendar, media e muito mais com atributos completos",
+                "pro-feat2": "Subforms Visuais",
+                "pro-feat2d": "Crie subforms repeatable-grid com campos filhos via interface gráfica",
+                "pro-feat3": "ZIP Completo",
+                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente",
+                "pro-feat4": "Namespaces PSR-4",
+                "pro-feat4d": "Autoloading automático e namespaces configurados seguindo os padrões modernos do PHP.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Gerenciamento inteligente de arquivos JS e CSS integrados ao núcleo do Joomla.",
+                "pro-feat6": "Injeção de Dependência",
+                "pro-feat6d": "Uso de Dispatchers e Providers para uma arquitetura modular e extensível.",
+                "pro-feat7": "Suporte AJAX",
+                "pro-feat7d": "Endpoints AJAX integrados para interações dinâmicas sem recarregar a página.",
+                "pro-feat8": "Integração SQL",
+                "pro-feat8d": "Geração automática de campos SQL e queries otimizadas para o banco do Joomla.",
+                "pro-feat9": "Arquitetura MVC",
+                "pro-feat9d": "Estrutura organizada em Model, View e Controller para facilitar a manutenção.",
+                "int-feat1": "Alta Performance",
+                "int-feat1d": "Geração instantânea no cliente. Sem tempo de espera de servidor ou uploads desnecessários.",
+                "int-feat2": "Padrão Core",
+                "int-feat2d": "Código gerado seguindo rigorosamente a arquitetura nativa do Joomla 4, 5 e 6.",
+                "int-feat3": "Arquitetura Moderna",
+                "int-feat3d": "Suporte total a Namespaces, Injeção de Dependência e Web Asset Manager.",
+                "int-feat4": "+12 Templates",
+                "int-feat4d": "Presets prontos para Carousel, Hero, Pricing, FAQ, Galeria, Equipe e muito mais.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Interface visual para criar formulários complexos com diversos tipos de campos.",
+                "int-feat6": "Exportação JSON",
+                "int-feat6d": "Salve suas configurações em arquivos JSON para editar ou compartilhar mais tarde.",
+                "int-feat7": "Subforms Dinâmicos",
+                "int-feat7d": "Crie campos repetíveis (repeatable-grid) com suporte a múltiplos sub-campos.",
+                "int-feat8": "Preview em Tempo Real",
+                "int-feat8d": "Visualize o Manifest XML e o código PHP (default.php) enquanto edita.",
+                "int-feat9": "Suporte Multilíngue",
+                "int-feat9d": "Geração automática de arquivos de tradução .ini para o site e administrador.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Desenvolvido para a comunidade global de desenvolvedores."
+            },
+            en: {
+                "nav-basic": "Basic",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
+                "hero-title": "Next-Gen <br> Scaffolding",
+                "hero-subtitle": "Generate robust modules for Joomla 4, 5, and 6 in seconds. PSR standards, Namespaces, and Dispatchers automatically configured.",
+                "btn-start": "Start Now",
+                "btn-repo": "View Repository",
+                "gen-title": "🟢 Joomla Module Generator <span style=\"color:var(--accent)\">Basic</span>",
+                "gen-subtitle": "Fill in the fields below to generate your .ZIP package",
+                "lbl-mod-name": "Module Name *",
+                "lbl-client": "Client Type",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Default Language",
+                "lbl-author": "Author *",
+                "lbl-email": "Author Email *",
+                "lbl-website": "Author Website",
+                "btn-zip": "Generate .ZIP Package",
+                "preview-title": "Package Summary",
+                "preview-folder": "Folder Name",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Full scaffolding with ~75 field types, subforms, universal attributes and real-time ZIP generation",
+                "btn-professional": "⚡ Open Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Tool with all ~75 Joomla field types, multiple layouts, AJAX, MVC, REST API and more",
+                "btn-intermediate": "🚀 Open Module Generator Intermediate",
+                "pro-feat1": "~75 Field Types",
+                "pro-feat1d": "text, sql, subform, calendar, media and more with full attributes",
+                "pro-feat2": "Visual Subforms",
+                "pro-feat2d": "Build repeatable-grid subforms with child fields via a visual interface",
+                "pro-feat3": "Complete ZIP",
+                "pro-feat3d": "XML Manifest, Dispatcher, Helper, tmpl/, services/, language/ generated automatically",
+                "pro-feat4": "PSR-4 Namespaces",
+                "pro-feat4d": "Automatic autoloading and namespaces configured following modern PHP standards.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Smart management of JS and CSS files integrated with the Joomla core.",
+                "pro-feat6": "Dependency Injection",
+                "pro-feat6d": "Usage of Dispatchers and Providers for a modular and extensible architecture.",
+                "pro-feat7": "AJAX Support",
+                "pro-feat7d": "Integrated AJAX endpoints for dynamic interactions without page reloads.",
+                "pro-feat8": "SQL Integration",
+                "pro-feat8d": "Automatic generation of SQL fields and optimized queries for the Joomla database.",
+                "pro-feat9": "MVC Architecture",
+                "pro-feat9d": "Organized Model, View, and Controller structure for easier maintenance.",
+                "int-feat1": "High Performance",
+                "int-feat1d": "Instant client-side generation. No server wait times or unnecessary uploads.",
+                "int-feat2": "Core Standards",
+                "int-feat2d": "Code generated strictly following the native Joomla 4, 5, and 6 architecture.",
+                "int-feat3": "Modern Architecture",
+                "int-feat3d": "Full support for Namespaces, Dependency Injection, and Web Asset Manager.",
+                "int-feat4": "+12 Templates",
+                "int-feat4d": "Ready-to-use presets for Carousel, Hero, Pricing, FAQ, Gallery, Team, and more.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Visual interface to build complex forms with various field types.",
+                "int-feat6": "JSON Export",
+                "int-feat6d": "Save your configurations to JSON files for later editing or sharing.",
+                "int-feat7": "Dynamic Subforms",
+                "int-feat7d": "Create repeatable fields (repeatable-grid) with support for multiple sub-fields.",
+                "int-feat8": "Real-time Preview",
+                "int-feat8d": "Visualize the XML Manifest and PHP code (default.php) as you edit.",
+                "int-feat9": "Multilingual Support",
+                "int-feat9d": "Automatic generation of .ini translation files for site and administrator.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Developed for the global developer community."
+            },
+            es: {
+                "nav-basic": "Basic",
+                "nav-professional": "⚡ Professional",
+                "nav-intermediate": "🚀 Intermediate",
+                "hero-title": "Scaffolding <br> Next-Gen",
+                "hero-subtitle": "Genere módulos robustos para Joomla 4, 5 y 6 en segundos. Estándares PSR, Namespaces y Dispatchers configurados automáticamente.",
+                "btn-start": "Empezar Ahora",
+                "btn-repo": "Ver Repositorio",
+                "gen-title": "🟢 Joomla Module Generator <span style=\"color:var(--accent)\">Basic</span>",
+                "gen-subtitle": "Complete los campos a continuación para generar su paquete .ZIP",
+                "lbl-mod-name": "Nombre del Módulo *",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Sitio (Frontend)",
+                "opt-admin": "Administrador (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor *",
+                "lbl-email": "Email del Autor *",
+                "lbl-website": "Sitio Web del Autor",
+                "btn-zip": "Generar Paquete .ZIP",
+                "preview-title": "Resumen del Paquete",
+                "preview-folder": "Nombre Carpeta",
+                "professional-title": "⚡ Joomla Module Generator <span style=\"color:var(--accent)\">Professional</span>",
+                "professional-subtitle": "Scaffolding completo con ~75 tipos de campo, subforms, atributos universales y generación de ZIP en tiempo real",
+                "btn-professional": "⚡ Abrir Module Generator Professional",
+                "intermediate-title": "🚀 Joomla Module Generator <span style=\"color:var(--br-yellow)\">Intermediate</span>",
+                "intermediate-subtitle": "Herramienta con los ~75 tipos de campo de Joomla, múltiples diseños, AJAX, MVC, REST API y más",
+                "btn-intermediate": "🚀 Abrir Module Generator Intermediate",
+                "pro-feat1": "~75 Tipos de Campo",
+                "pro-feat1d": "text, sql, subform, calendar, media y mucho más con atributos completos",
+                "pro-feat2": "Subforms Visuales",
+                "pro-feat2d": "Cree subforms repeatable-grid con campos hijos vía interfaz gráfica",
+                "pro-feat3": "ZIP Completo",
+                "pro-feat3d": "Manifest XML, Dispatcher, Helper, tmpl/, services/, language/ gerados automaticamente",
+                "pro-feat4": "Namespaces PSR-4",
+                "pro-feat4d": "Autoloading automático y espacios de nombres configurados siguiendo los estándares modernos de PHP.",
+                "pro-feat5": "Web Asset Manager",
+                "pro-feat5d": "Gestión inteligente de archivos JS y CSS integrados en el núcleo de Joomla.",
+                "pro-feat6": "Inyección de Dependencias",
+                "pro-feat6d": "Uso de Dispatchers y Providers para una arquitectura modular y extensible.",
+                "pro-feat7": "Soporte AJAX",
+                "pro-feat7d": "Endpoints AJAX integrados para interacciones dinámicas sin recargar la página.",
+                "pro-feat8": "Integración SQL",
+                "pro-feat8d": "Generación automática de campos SQL y consultas optimizadas para la base de datos de Joomla.",
+                "pro-feat9": "Arquitectura MVC",
+                "pro-feat9d": "Estructura organizada en Model, View y Controller para facilitar el mantenimiento.",
+                "int-feat1": "Alto Rendimiento",
+                "int-feat1d": "Generación instantánea en el cliente. Sin esperas de servidor ni cargas innecesarias.",
+                "int-feat2": "Estándar Core",
+                "int-feat2d": "Código generado siguiendo rigurosamente la arquitectura nativa de Joomla 4, 5 y 6.",
+                "int-feat3": "Arquitectura Moderna",
+                "int-feat3d": "Soporte total a Namespaces, Inyección de Dependencia y Web Asset Manager.",
+                "int-feat4": "+12 Plantillas",
+                "int-feat4d": "Ajustes listos para Carrusel, Hero, Precios, FAQ, Galería, Equipo y más.",
+                "int-feat5": "Fields Architect",
+                "int-feat5d": "Interfaz visual para crear formularios complejos con diversos tipos de campos.",
+                "int-feat6": "Exportación JSON",
+                "int-feat6d": "Guarde sus configuraciones en archivos JSON para editarlas o compartirlas más tarde.",
+                "int-feat7": "Subformularios Dinámicos",
+                "int-feat7d": "Cree campos repetibles (repeatable-grid) con soporte para múltiples subcampos.",
+                "int-feat8": "Vista Previa en Tiempo Real",
+                "int-feat8d": "Visualice el Manifiesto XML y el código PHP (default.php) mientras edita.",
+                "int-feat9": "Soporte Multilingüe",
+                "int-feat9d": "Generación automática de archivos de traducción .ini para el sitio y el administrador.",
+                "footer-text": "&copy; 2024 Joomla Module Generator. Desarrollado para la comunidad global de desenvolvedores."
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) {
+                    el.innerHTML = i18n[lang][key];
+                }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.querySelector(`.lang-btn[onclick*="'${lang}'"]`);
+            if (activeBtn) activeBtn.classList.add('active');
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : lang === 'es' ? 'es' : 'en';
+        }
+
+        function autoFillSlug(val) {
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9\s]/g, '');
+            const slug = clean.toLowerCase().trim().replace(/\s+/g, '');
+            // Update preview but let the user see the real name
+            updatePreview();
+        }
+
+        // Base templates
+        function getBaseTemplates(newWord, capitalizedWord, modulePrefix, clientType, author, authorEmail, authorUrl, newLang, version) {
+            const clientPath = clientType === 'administrator' ? 'Administrator' : 'Site';
+            const upClientPath = clientType === 'administrator' ? 'Administrator' : 'Site';
+            
+            return {
+                [`language/${newLang}/${modulePrefix}.ini`]: `MOD_${newWord.toUpperCase()}="${capitalizedWord}"\r\nMOD_${newWord.toUpperCase()}_XML_DESCRIPTION="This is a simple module that displays '${capitalizedWord}'"\r\nMOD_${newWord.toUpperCase()}_GREETING_LABEL="Greeting"\r\nMOD_${newWord.toUpperCase()}_GREETING_DESC="Enter a greeting to display"`,
+                
+                [`language/${newLang}/${modulePrefix}.sys.ini`]: `MOD_${newWord.toUpperCase()}="${capitalizedWord}"\r\nMOD_${newWord.toUpperCase()}_XML_DESCRIPTION="This is a simple module that displays '${capitalizedWord}'"`,
+                
+                [`${modulePrefix}.xml`]: `<?xml version="1.0" encoding="UTF-8"?>\r\n<extension type="module" client="${clientType}" method="upgrade">\r\n\t<name>${modulePrefix}</name>\r\n\t<author>${author}</author>\r\n\t<creationDate>${new Date().toISOString().split('T')[0]}</creationDate>\r\n\t<copyright>(C) ${new Date().getFullYear()} ${author}</copyright>\r\n\t<license>GNU General Public License version 2 or later; see LICENSE.txt</license>\r\n\t<authorEmail>${authorEmail}</authorEmail>\r\n\t<authorUrl>${authorUrl}</authorUrl>\r\n\t<version>${version}</version>\r\n\t<description>MOD_${newWord.toUpperCase()}_XML_DESCRIPTION</description>\r\n\t<namespace path="src">Joomla\\Module\\${capitalizedWord}</namespace>\r\n\t<files>\r\n\t\t<folder module="${modulePrefix}">services</folder>\r\n\t\t<folder>src</folder>\r\n\t\t<folder>tmpl</folder>\r\n\t</files>\r\n\t<languages>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.ini</language>\r\n\t\t<language tag="${newLang}">language/${newLang}/${modulePrefix}.sys.ini</language>\r\n\t</languages>\r\n\t<help key="Site_Modules:_${capitalizedWord}" />\r\n\t<config>\r\n\t\t<fields name="params" addfieldprefix="Joomla\\Component\\Content\\Administrator\\Field">\r\n\t\t\t<fieldset name="basic">\r\n\t\t\t\t<field name="greeting" type="text" label="MOD_${newWord.toUpperCase()}_GREETING_LABEL" description="MOD_${newWord.toUpperCase()}_GREETING_DESC" default="Hello, World!" />\r\n\t\t\t</fieldset>\r\n\t\t\t<fieldset name="advanced">\r\n\t\t\t\t<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" class="form-select" validate="moduleLayout" />\r\n\t\t\t\t<field name="moduleclass_sfx" type="textarea" label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL" rows="3" validate="CssIdentifier" />\r\n\t\t\t\t<field name="cache" type="list" label="COM_MODULES_FIELD_CACHING_LABEL" default="1" filter="integer" validate="options">\r\n\t\t\t\t\t<option value="1">JGLOBAL_USE_GLOBAL</option>\r\n\t\t\t\t\t<option value="0">COM_MODULES_FIELD_VALUE_NOCACHING</option>\r\n\t\t\t\t</field>\r\n\t\t\t\t<field name="cache_time" type="number" label="COM_MODULES_FIELD_CACHE_TIME_LABEL" default="900" filter="integer" />\r\n\t\t\t\t<field name="cachemode" type="hidden" default="static">\r\n\t\t\t\t\t<option value="static"></option>\r\n\t\t\t\t</field>\r\n\t\t\t</fieldset>\r\n\t\t</fields>\r\n\t</config>\r\n</extension>\r\n`,
+                
+                [`services/provider.php`]: `<?php\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\r\nuse Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;\r\nuse Joomla\\DI\\Container;\r\nuse Joomla\\DI\\ServiceProviderInterface;\r\n\r\nreturn new class () implements ServiceProviderInterface {\r\n    public function register(Container $container)\r\n    {\r\n        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}'));\r\n        $container->registerServiceProvider(new HelperFactory('\\\\Joomla\\\\Module\\\\${capitalizedWord}\\\\${clientPath}\\\\Helper'));\r\n        $container->registerServiceProvider(new Module());\r\n    }\r\n};\r\n`,
+                
+                [`src/Dispatcher/Dispatcher.php`]: `<?php\r\n\r\nnamespace Joomla\\Module\\${capitalizedWord}\\${clientPath}\\Dispatcher;\r\n\r\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;\r\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nclass Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface\r\n{\r\n    use HelperFactoryAwareTrait;\r\n\r\n    protected function getLayoutData()\r\n    {\r\n        $data = parent::getLayoutData();\r\n        $data['list'] = $this->getHelperFactory()->getHelper('${capitalizedWord}Helper')->getItems($data['params'], $this->getApplication());\r\n        return $data;\r\n    }\r\n}\r\n`,
+                
+                [`src/Helper/${capitalizedWord}Helper.php`]: `<?php\r\n\r\nnamespace Joomla\\Module\\${capitalizedWord}\\${clientPath}\\Helper;\r\n\r\nuse Joomla\\CMS\\Application\\SiteApplication;\r\nuse Joomla\\Database\\DatabaseAwareInterface;\r\nuse Joomla\\Database\\DatabaseAwareTrait;\r\nuse Joomla\\Registry\\Registry;\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nclass ${capitalizedWord}Helper implements DatabaseAwareInterface\r\n{\r\n    use DatabaseAwareTrait;\r\n\r\n    public function getItems(Registry $params, SiteApplication $app)\r\n    {\r\n        $db = $this->getDatabase();\r\n        $query = $db->getQuery(true)\r\n            ->select('a.id, a.title')\r\n            ->from('#__modules AS a')\r\n            ->order('a.title ASC')\r\n            ->setLimit($params->get('count', 5));\r\n        $db->setQuery($query);\r\n        return $db->loadObjectList();\r\n    }\r\n}\r\n`,
+                
+                [`tmpl/default.php`]: `<?php\r\n\r\ndefined('_JEXEC') or die;\r\n\r\nuse Joomla\\CMS\\HTML\\HTMLHelper;\r\n\r\n/** @var Joomla\\CMS\\WebAsset\\WebAssetManager $wa */\r\n$wa = $app->getDocument()->getWebAssetManager();\r\n$wa->registerAndUseStyle('${modulePrefix}_css', 'media/${modulePrefix}/css/style.css');\r\n$wa->registerAndUseScript('${modulePrefix}_script', 'media/${modulePrefix}/js/script.js');\r\n\r\nif (!$list) {\r\n    return;\r\n}\r\n?>\r\n\r\n<div class="${modulePrefix}">\r\n    <h3><?php echo $params->get('greeting'); ?></h3>\r\n    <ul>\r\n        <?php foreach ($list as $item) : ?>\r\n            <li><?php echo $item->title; ?></li>\r\n        <?php endforeach; ?>\r\n    </ul>\r\n</div>\r\n`
+            };
+        }
+
+        // Update preview
+        function updatePreview() {
+            const moduleName = document.getElementById('moduleName').value || 'My Module';
+            const clientType = document.getElementById('clientType').value;
+            const newLang = document.getElementById('newLang').value;
+            
+            const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const slug = clean.toLowerCase();
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            
+            document.getElementById('previewNamespace').textContent = `Joomla\\Module\\${cap}`;
+            document.getElementById('previewFolder').textContent = `mod_${slug}`;
+            document.getElementById('previewClient').textContent = clientType;
+            document.getElementById('previewLang').textContent = newLang;
+            
+            let structure = `mod_${slug}/<br>`;
+            structure += `├── services/provider.php<br>`;
+            structure += `├── src/Dispatcher/Dispatcher.php<br>`;
+            structure += `├── src/Helper/${cap}Helper.php<br>`;
+            structure += `├── tmpl/default.php<br>`;
+            structure += `├── language/${newLang}/mod_${slug}.ini<br>`;
+            structure += `├── language/${newLang}/mod_${slug}.sys.ini<br>`;
+            structure += `└── mod_${slug}.xml`;
+            
+            document.getElementById('structureList').innerHTML = structure;
+        }
+
+        // Event listeners for preview
+        ['moduleName', 'clientType', 'newLang'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('input', updatePreview);
+                el.addEventListener('change', updatePreview);
+            }
+        });
+
+        // Form submission
+        document.getElementById('moduleForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const generateBtn = document.getElementById('generateBtn');
+            const originalHTML = generateBtn.innerHTML;
+            generateBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Gerando...';
+            generateBtn.disabled = true;
+            
+            try {
+                const moduleName = document.getElementById('moduleName').value.trim();
+                const author = document.getElementById('author').value.trim();
+                const authorEmail = document.getElementById('authorEmail').value.trim();
+                const authorUrl = document.getElementById('authorUrl').value.trim() || 'https://github.com/uzielweb';
+                const clientType = document.getElementById('clientType').value;
+                const newLang = document.getElementById('newLang').value || 'en-GB';
+                const version = '1.0.0';
+
+                if (!moduleName || !author || !authorEmail) {
+                    throw new Error('Preencha todos os campos obrigatórios');
+                }
+
+                const clean = moduleName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+                const newWord = clean.toLowerCase();
+                const modulePrefix = 'mod_' + newWord;
+                const capitalizedWord = clean.charAt(0).toUpperCase() + clean.slice(1);
+
+                // Check if JSZip is loaded
+                if (typeof JSZip === 'undefined') {
+                    throw new Error('JSZip não foi carregado. Recarregue a página.');
+                }
+
+                const zip = new JSZip();
+                const root = zip.folder(modulePrefix);
+                
+                const templates = getBaseTemplates(newWord, capitalizedWord, modulePrefix, clientType, author, authorEmail, authorUrl, newLang, version);
+                
+                for (const [path, content] of Object.entries(templates)) {
+                    root.file(path, content);
+                }
+
+                const blob = await zip.generateAsync({ type: "blob", compression: "DEFLATE" });
+                
+                // Confetti celebration
+                if (typeof confetti === 'function') {
+                    confetti({
+                        particleCount: 150,
+                        spread: 70,
+                        origin: { y: 0.6 },
+                        colors: ['#009c3b', '#ffdf00', '#002776']
+                    });
+                }
+                
+                // Download
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${modulePrefix}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showNotification('✅ Pacote gerado com sucesso!');
+                
+            } catch (error) {
+                console.error('Erro ao gerar pacote:', error);
+                showNotification('❌ ' + error.message, 'error');
+            } finally {
+                generateBtn.innerHTML = originalHTML;
+                generateBtn.disabled = false;
+            }
+        });
+
+        function showNotification(message, type = 'success') {
+            const existing = document.querySelector('.notification');
+            if (existing) existing.remove();
+            
+            const notification = document.createElement('div');
+            notification.className = 'notification';
+            notification.textContent = message;
+            if (type === 'error') {
+                notification.style.borderColor = 'var(--danger)';
+            }
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                notification.style.transition = '0.3s ease';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize
+        const navLang = (navigator.language || '').toLowerCase();
+        const userLang = navLang.startsWith('pt') ? 'pt' : navLang.startsWith('es') ? 'es' : 'en';
+        setLang(userLang);
+        updatePreview();
+    </script>
+</body>
+</html>

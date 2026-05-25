@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joomla Module Generator Professional</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Plus+Jakarta+Sans:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --br-green: #009c3b;
+            --br-yellow: #ffdf00;
+            --br-blue: #002776;
+            --br-white: #ffffff;
+            --dark-bg: #05070a;
+            --sidebar-bg: #080a0f;
+            --card-bg: rgba(255, 255, 255, 0.02);
+            --border-white: rgba(255, 255, 255, 0.06);
+            --accent: #00e676;
+            --danger: #ff5252;
+            --warning: #ff9100;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --font-mono: 'Fira Code', monospace;
+            --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark-bg);
+            color: var(--br-white);
+            height: 100vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 340px 1fr 500px;
+            color-scheme: dark;
+        }
+
+        .sidebar {
+            background: var(--sidebar-bg);
+            border-right: 1px solid var(--border-white);
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .sidebar::-webkit-scrollbar { width: 4px; }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--border-white); border-radius: 10px; }
+
+        .logo {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #fff;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+        }
+        .logo span { color: var(--br-yellow); }
+        .logo i { color: var(--br-green); font-size: 1.5rem; }
+
+        .section-label {
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: -0.5rem;
+            font-weight: 800;
+        }
+
+        .input-group { display: flex; flex-direction: column; gap: 5px; margin-bottom: 0.5rem; }
+        .input-group label {
+            font-size: 0.6rem;
+            font-weight: 800;
+            color: var(--br-yellow);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+        .input-group input, .input-group select {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border-white);
+            padding: 0.65rem 0.8rem;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 0.8rem;
+            font-family: var(--font-main);
+            transition: var(--transition);
+        }
+        .input-group input:focus, .input-group select:focus {
+            border-color: var(--br-green);
+            background: rgba(255,255,255,0.07);
+        }
+        .input-group select option { background: #111; color: #fff; }
+
+        .presets-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+        .preset-btn {
+            background: rgba(255,255,255,0.02);
+            border: 1px solid var(--border-white);
+            color: #fff;
+            padding: 10px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 0.6rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: var(--transition);
+            font-family: var(--font-main);
+            font-weight: 600;
+        }
+        .preset-btn:hover { background: rgba(255,255,255,0.08); border-color: var(--br-green); transform: translateY(-2px); }
+        .preset-btn.active { border-color: var(--br-green); background: rgba(0,156,59,0.1); }
+
+        .btn-zip {
+            background: linear-gradient(135deg, var(--br-blue), #0040d0);
+            color: var(--br-yellow);
+            border: none;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            transition: var(--transition);
+            font-family: var(--font-main);
+            margin-top: auto;
+        }
+        .btn-zip:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0,39,118,0.5); }
+
+        .main-content {
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            background: rgba(0,0,0,0.2);
+        }
+        .main-content::-webkit-scrollbar { width: 5px; }
+        .main-content::-webkit-scrollbar-thumb { background: var(--border-white); border-radius: 10px; }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .main-header h1 { font-family: 'Outfit', sans-serif; font-size: 1.5rem; font-weight: 800; }
+
+        .btn-add {
+            background: linear-gradient(135deg, var(--br-green), #00c853);
+            color: #fff;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: var(--font-main);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(0,156,59,0.3); }
+
+        .btn-icon {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-white);
+            color: #fff;
+            padding: 0.5rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            font-family: var(--font-main);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .btn-icon:hover { background: rgba(255,255,255,0.1); }
+
+        .field-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-white);
+            border-radius: 16px;
+            padding: 1.2rem;
+            transition: var(--transition);
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(-15px); } to { opacity: 1; transform: translateY(0); } }
+        .field-card:hover { border-color: rgba(255,255,255,0.15); }
+        .field-card.subform-card { border-color: rgba(0,156,59,0.3); }
+
+        .field-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-white);
+            padding-bottom: 0.6rem;
+            margin-bottom: 1rem;
+        }
+        .field-card-header strong { font-size: 0.85rem; color: var(--br-yellow); }
+        .field-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .full-width { grid-column: span 2; }
+
+        .subform-container {
+            grid-column: span 2;
+            padding: 1rem;
+            background: rgba(0,0,0,0.4);
+            border-radius: 12px;
+            border: 1px dashed var(--border-white);
+            margin-top: 8px;
+        }
+
+        .preview-pane {
+            background: #020408;
+            border-left: 1px solid var(--border-white);
+            padding: 1.5rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        .preview-pane::-webkit-scrollbar { width: 4px; }
+        .preview-pane::-webkit-scrollbar-thumb { background: var(--border-white); border-radius: 10px; }
+
+        .preview-title {
+            font-size: 0.55rem;
+            color: var(--br-yellow);
+            text-transform: uppercase;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid var(--border-white);
+            padding-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .preview-box {
+            background: #06080e;
+            padding: 0.8rem;
+            border-radius: 10px;
+            border: 1px solid var(--border-white);
+            max-height: 350px;
+            overflow: auto;
+        }
+        .preview-box pre {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            line-height: 1.5;
+            color: var(--accent);
+            white-space: pre;
+            margin: 0;
+        }
+
+        .php-editor-area {
+            width: 100%;
+            height: 300px;
+            background: #000;
+            color: #00ff00;
+            font-family: var(--font-mono);
+            font-size: 0.72rem;
+            padding: 0.8rem;
+            border: 1px solid var(--accent);
+            border-radius: 10px;
+            resize: vertical;
+            line-height: 1.4;
+        }
+
+        .copy-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-white);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.55rem;
+            transition: var(--transition);
+            font-family: var(--font-main);
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.15); }
+        .copy-btn.copied { background: var(--br-green); border-color: var(--br-green); }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(0,0,0,0.95);
+            border: 1px solid var(--br-green);
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            color: #fff;
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            backdrop-filter: blur(20px);
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+        .toast.error { border-color: var(--danger); }
+
+        @keyframes slideInRight {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @media (max-width: 1400px) { body { grid-template-columns: 300px 1fr 420px; } }
+        @media (max-width: 1100px) {
+            body { grid-template-columns: 1fr; height: auto; overflow: auto; }
+            .sidebar { position: sticky; top: 0; z-index: 100; flex-direction: row; flex-wrap: wrap; }
+            .preview-pane { border-left: none; border-top: 1px solid var(--border-white); }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <a href="index.html" class="logo">
+            <i class="fa-solid fa-cube"></i> Joomla<span style="font-size: 0.8rem;">Module Generator</span> <span style="font-size:0.55rem;color:#00e676;font-weight:800;letter-spacing:1px;">INTERMEDIATE</span>
+        </a>
+        <div style="display:flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+            <div class="lang-switch" style="display:flex; gap:5px; background:rgba(255,255,255,0.05); padding:3px; border-radius:8px;">
+                <button class="lang-btn" onclick="setLang('en')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">EN</button>
+                <button class="lang-btn" onclick="setLang('pt')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">PT</button>
+                <button class="lang-btn" onclick="setLang('es')" style="padding:4px 10px; font-size:10px; cursor:pointer; background:transparent; border:none; color:rgba(255,255,255,0.4); font-weight:700;">ES</button>
+            </div>
+        </div>
+        <a href="joomla-module-generator-Professional.html" style="display:flex;align-items:center;gap:6px;font-size:0.7rem;font-weight:800;color:var(--accent);text-decoration:none;padding:6px 10px;background:rgba(92,111,255,0.08);border:1px solid rgba(92,111,255,0.25);border-radius:8px;margin-bottom:4px;">
+            🚀 Module Generator <span style="color:#f5a623;margin-left:3px;">Professional</span>
+        </a>
+        
+        <div class="section-label">Metadados</div>
+        <div class="input-group"><label data-i18n="lbl-mod-name">Nome do Módulo</label><input type="text" id="modName" value="My Features" oninput="autoFill(this.value)"></div>
+        <div class="input-group"><label data-i18n="lbl-namespace">Namespace</label><input type="text" id="ns" value="MyFeatures" oninput="update()"></div>
+        <div class="input-group"><label data-i18n="lbl-author">Autor</label><input type="text" id="author" value="John Doe"></div>
+        <div class="input-group"><label>Email</label><input type="email" id="authorEmail" value="john@example.com"></div>
+        <div class="input-group"><label>Website</label><input type="url" id="authorUrl" value="https://example.com"></div>
+        <div class="input-group"><label>Versão</label><input type="text" id="version" value="1.0.0"></div>
+        <div class="input-group"><label data-i18n="lbl-client">Cliente</label><select id="client" onchange="update()"><option value="site" data-i18n="opt-site">Site</option><option value="administrator" data-i18n="opt-admin">Admin</option></select></div>
+        <div class="input-group"><label data-i18n="lbl-lang">Idioma</label><select id="lang"><option value="pt-BR">Português</option><option value="en-GB">English</option><option value="es-ES">Español</option></select></div>
+        
+        <div class="section-label">Templates</div>
+        <div class="presets-grid">
+            <button class="preset-btn" onclick="preset('carousel')" data-i18n-title="desc-carousel"><i class="fa-solid fa-images"></i><span>Carousel</span></button>
+            <button class="preset-btn" onclick="preset('hero')" data-i18n-title="desc-hero"><i class="fa-solid fa-rectangle-ad"></i><span>Hero</span></button>
+            <button class="preset-btn" onclick="preset('pricing')" data-i18n-title="desc-pricing"><i class="fa-solid fa-tags"></i><span>Pricing</span></button>
+            <button class="preset-btn" onclick="preset('faq')" data-i18n-title="desc-faq"><i class="fa-solid fa-circle-question"></i><span>FAQ</span></button>
+            <button class="preset-btn active" onclick="preset('features')" data-i18n-title="desc-features"><i class="fa-solid fa-list-check"></i><span>Features</span></button>
+            <button class="preset-btn" onclick="preset('social')" data-i18n-title="desc-social"><i class="fa-solid fa-share-nodes"></i><span>Social</span></button>
+            <button class="preset-btn" onclick="preset('map')" data-i18n-title="desc-map"><i class="fa-solid fa-location-dot"></i><span>Map</span></button>
+            <button class="preset-btn" onclick="preset('video')" data-i18n-title="desc-video"><i class="fa-solid fa-video"></i><span>Video</span></button>
+            <button class="preset-btn" onclick="preset('contact')" data-i18n-title="desc-contact"><i class="fa-solid fa-envelope"></i><span>Contact</span></button>
+            <button class="preset-btn" onclick="preset('gallery')" data-i18n-title="desc-gallery"><i class="fa-solid fa-images"></i><span>Gallery</span></button>
+            <button class="preset-btn" onclick="preset('team')" data-i18n-title="desc-team"><i class="fa-solid fa-users"></i><span>Team</span></button>
+            <button class="preset-btn" onclick="preset('cta')" data-i18n-title="desc-cta"><i class="fa-solid fa-bullhorn"></i><span>CTA</span></button>
+        </div>
+        <div id="template-desc" style="font-size: 0.7rem; color: rgba(255,255,255,0.4); padding: 8px 12px; background: rgba(255,255,255,0.03); border-radius: 8px; margin-bottom: 15px; min-height: 40px; border-left: 2px solid var(--accent);">
+            Escolha um template acima para carregar os campos.
+        </div>
+        
+        <button class="btn-icon" onclick="exportConfig()" style="width:100%;justify-content:center;"><i class="fa-solid fa-download"></i> Exportar Config</button>
+        <button class="btn-icon" onclick="importConfig()" style="width:100%;justify-content:center;"><i class="fa-solid fa-upload"></i> Importar Config</button>
+        
+        <button class="btn-zip" onclick="zip()"><i class="fa-solid fa-file-zipper"></i> DOWNLOAD ZIP</button>
+    </aside>
+
+    <main class="main-content">
+        <div class="main-header">
+            <h1>Fields Architect</h1>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                <button class="btn-icon" onclick="addFieldPreset()"><i class="fa-solid fa-magic"></i> Quick</button>
+                <button class="btn-icon" onclick="clearAll()"><i class="fa-solid fa-trash"></i> Limpar</button>
+                <button class="btn-add" onclick="add()"><i class="fa-solid fa-plus"></i> ADICIONAR</button>
+            </div>
+        </div>
+        <div id="fields"></div>
+    </main>
+
+    <aside class="preview-pane">
+        <div class="preview-title">XML <button class="copy-btn" onclick="copyCode('xml')">Copiar</button></div>
+        <div class="preview-box"><pre><code id="xml"></code></pre></div>
+        
+        <div class="preview-title">default.php <button class="copy-btn" onclick="copyCode('php')">Copiar</button></div>
+        <textarea id="php" class="php-editor-area" oninput="customPHP=this.value" spellcheck="false"></textarea>
+        
+        <div class="preview-title">Estrutura <button class="copy-btn" onclick="copyCode('struct')">Copiar</button></div>
+        <div class="preview-box"><pre><code id="struct"></code></pre></div>
+    </aside>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
+    </script>
+    <script>
+        const presets = {
+            carousel: { n: 'Carousel', f: [{ id: 1, t: 'subform', n: 'slides', l: 'Slides', r: true, f: [{ id: 11, t: 'media', n: 'image', l: 'Image', r: true }, { id: 12, t: 'text', n: 'title', l: 'Title', r: false }, { id: 13, t: 'textarea', n: 'description', l: 'Description', r: false }, { id: 14, t: 'url', n: 'link', l: 'Link', r: false }] }] },
+            hero: { n: 'Hero', f: [{ id: 1, t: 'media', n: 'background', l: 'Background', r: true }, { id: 2, t: 'text', n: 'title', l: 'Title', r: true }, { id: 3, t: 'textarea', n: 'subtitle', l: 'Subtitle', r: false }] },
+            pricing: { n: 'Pricing', f: [{ id: 1, t: 'subform', n: 'plans', l: 'Plans', r: true, f: [{ id: 11, t: 'text', n: 'name', l: 'Name', r: true }, { id: 12, t: 'text', n: 'price', l: 'Price', r: true }, { id: 13, t: 'textarea', n: 'features', l: 'Features', r: false }] }] },
+            faq: { n: 'FAQ', f: [{ id: 1, t: 'subform', n: 'items', l: 'Items', r: true, f: [{ id: 11, t: 'text', n: 'question', l: 'Question', r: true }, { id: 12, t: 'textarea', n: 'answer', l: 'Answer', r: true }] }] },
+            features: { n: 'Features', f: [{ id: 1, t: 'subform', n: 'features', l: 'Features', r: true, f: [{ id: 11, t: 'text', n: 'icon', l: 'Icon', r: true }, { id: 12, t: 'text', n: 'title', l: 'Title', r: true }, { id: 13, t: 'textarea', n: 'description', l: 'Description', r: false }] }] },
+            social: { n: 'Social', f: [{ id: 1, t: 'subform', n: 'links', l: 'Links', r: true, f: [{ id: 11, t: 'text', n: 'icon', l: 'Icon', r: true }, { id: 12, t: 'url', n: 'url', l: 'URL', r: true }, { id: 13, t: 'text', n: 'label', l: 'Label', r: false }] }] },
+            map: { n: 'Map', f: [{ id: 1, t: 'text', n: 'api_key', l: 'API Key', r: true }, { id: 2, t: 'text', n: 'latitude', l: 'Latitude', r: true }, { id: 3, t: 'text', n: 'longitude', l: 'Longitude', r: true }] },
+            video: { n: 'Video', f: [{ id: 1, t: 'url', n: 'url', l: 'URL', r: true }, { id: 2, t: 'media', n: 'poster', l: 'Poster', r: false }] },
+            contact: { n: 'Contact', f: [{ id: 1, t: 'email', n: 'to_email', l: 'To Email', r: true }, { id: 2, t: 'text', n: 'subject', l: 'Subject', r: false }] },
+            gallery: { n: 'Gallery', f: [{ id: 1, t: 'subform', n: 'images', l: 'Images', r: true, f: [{ id: 11, t: 'media', n: 'image', l: 'Image', r: true }, { id: 12, t: 'text', n: 'caption', l: 'Caption', r: false }] }] },
+            team: { n: 'Team', f: [{ id: 1, t: 'subform', n: 'members', l: 'Members', r: true, f: [{ id: 11, t: 'media', n: 'photo', l: 'Photo', r: true }, { id: 12, t: 'text', n: 'name', l: 'Name', r: true }, { id: 13, t: 'text', n: 'role', l: 'Role', r: false }] }] },
+            cta: { n: 'CTA', f: [{ id: 1, t: 'text', n: 'title', l: 'Title', r: true }, { id: 2, t: 'textarea', n: 'description', l: 'Description', r: false }, { id: 3, t: 'url', n: 'button_link', l: 'Button Link', r: true }, { id: 4, t: 'text', n: 'button_text', l: 'Button Text', r: true }] }
+        };
+
+        let list = [], customPHP = '', fieldCounter = 0;
+        const types = ['text', 'textarea', 'list', 'radio', 'checkbox', 'calendar', 'color', 'editor', 'media', 'subform', 'tel', 'url', 'email', 'integer', 'range', 'sql', 'user', 'number'];
+
+        function autoFill(val) {
+            const clean = val.normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Za-z0-9]/g, '');
+            const cap = clean.charAt(0).toUpperCase() + clean.slice(1);
+            document.getElementById('ns').value = cap;
+            update();
+        }
+
+        const i18n = {
+            pt: {
+                "lbl-mod-name": "Nome do Módulo",
+                "lbl-namespace": "Namespace PHP",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor",
+                "msg-gen-success": "✅ Pacote gerado com sucesso!",
+                "msg-gen-generating": "⏳ Gerando...",
+                "msg-copied": "📋 Copiado!",
+                "msg-copy-error": "❌ Erro ao copiar",
+                "msg-imported": "📥 Importado!",
+                "msg-exported": "💾 Exportado!",
+                "msg-import-error": "❌ Arquivo inválido",
+                "btn-copy": "Copiar",
+                "btn-copied": "Copiado!",
+                "template-desc-placeholder": "Escolha um template acima para carregar os campos.",
+                "desc-carousel": "Slideshow dinâmico para imagens com títulos e links.",
+                "desc-hero": "Seção de abertura com imagem de destaque, título e CTA.",
+                "desc-pricing": "Grade comparativa de preços com listas de recursos.",
+                "desc-faq": "Sistema de perguntas e respostas com efeito sanfona.",
+                "desc-features": "Lista de destaques com ícones e descrições breves.",
+                "desc-social": "Bloco de links para perfis em redes sociais.",
+                "desc-map": "Mapa interativo para localização física.",
+                "desc-video": "Player responsivo para YouTube, Vimeo ou arquivos locais.",
+                "desc-contact": "Formulário pronto para mensagens e dados de contato.",
+                "desc-gallery": "Grade fotográfica elegante com suporte a lightbox.",
+                "desc-team": "Cartões de perfil para membros da equipe e colaboradores.",
+                "desc-cta": "Chamada para ação focada em conversão e cliques."
+            },
+            en: {
+                "lbl-mod-name": "Module Name",
+                "lbl-namespace": "PHP Namespace",
+                "lbl-client": "Client Type",
+                "opt-site": "Site (Frontend)",
+                "opt-admin": "Admin (Backend)",
+                "lbl-lang": "Primary Language",
+                "lbl-author": "Author",
+                "msg-gen-success": "✅ Package generated successfully!",
+                "msg-gen-generating": "⏳ Generating...",
+                "msg-copied": "📋 Copied!",
+                "msg-copy-error": "❌ Copy error",
+                "msg-imported": "📥 Imported!",
+                "msg-exported": "💾 Exported!",
+                "msg-import-error": "❌ Invalid file",
+                "btn-copy": "Copy",
+                "btn-copied": "Copied!",
+                "template-desc-placeholder": "Choose a template above to load fields.",
+                "desc-carousel": "Dynamic slideshow for images with titles and links.",
+                "desc-hero": "Opening section with featured image, title, and CTA.",
+                "desc-pricing": "Comparative pricing grid with feature lists.",
+                "desc-faq": "Q&A system with accordion effect.",
+                "desc-features": "List of highlights with icons and brief descriptions.",
+                "desc-social": "Block of links to social media profiles.",
+                "desc-map": "Interactive map for physical location.",
+                "desc-video": "Responsive player for YouTube, Vimeo, or local files.",
+                "desc-contact": "Ready-to-use form for messages and contact data.",
+                "desc-gallery": "Elegant photo grid with lightbox support.",
+                "desc-team": "Profile cards for team members and collaborators.",
+                "desc-cta": "Call to action focused on conversion and clicks."
+            },
+            es: {
+                "lbl-mod-name": "Nombre del Módulo",
+                "lbl-namespace": "Espacio de nombres PHP",
+                "lbl-client": "Tipo de Cliente",
+                "opt-site": "Sitio (Frontend)",
+                "opt-admin": "Administrador (Backend)",
+                "lbl-lang": "Idioma Principal",
+                "lbl-author": "Autor",
+                "msg-gen-success": "¡✅ Paquete generado con éxito!",
+                "msg-gen-generating": "⏳ Generando...",
+                "msg-copied": "¡📋 Copiado!",
+                "msg-copy-error": "❌ Error al copiar",
+                "msg-imported": "¡📥 Importado!",
+                "msg-exported": "¡💾 Exportado!",
+                "msg-import-error": "❌ Archivo inválido",
+                "btn-copy": "Copiar",
+                "btn-copied": "Copiado!",
+                "template-desc-placeholder": "Elija una plantilla arriba para cargar campos.",
+                "desc-carousel": "Presentación dinámica de imágenes con títulos y enlaces.",
+                "desc-hero": "Sección de apertura con imagen destacada, título y CTA.",
+                "desc-pricing": "Rejilla comparativa de precios con listas de funciones.",
+                "desc-faq": "Sistema de preguntas y respuestas con efecto acordeón.",
+                "desc-features": "Lista de aspectos destacados con iconos y descripciones breves.",
+                "desc-social": "Bloque de enlaces a perfiles de redes sociales.",
+                "desc-map": "Mapa interactivo para localización física.",
+                "desc-video": "Reproductor adaptable para YouTube, Vimeo o archivos locales.",
+                "desc-contact": "Formulario listo para mensajes y datos de contacto.",
+                "desc-gallery": "Rejilla fotográfica elegante con soporte para lightbox.",
+                "desc-team": "Tarjetas de perfil para miembros del equipo y colaboradores.",
+                "desc-cta": "Llamada a la acción enfocada en la conversión y los clics."
+            }
+        };
+
+        function setLang(lang) {
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (i18n[lang] && i18n[lang][key]) { el.innerHTML = i18n[lang][key]; }
+            });
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                const isActive = btn.getAttribute('onclick').includes(`'${lang}'`);
+                btn.style.background = isActive ? 'var(--accent)' : 'transparent';
+                btn.style.color = isActive ? '#000' : 'rgba(255,255,255,0.4)';
+            });
+            document.documentElement.lang = lang === 'pt' ? 'pt-br' : lang;
+            window.currentLang = lang;
+
+            const descEl = document.getElementById('template-desc');
+            const activeBtn = document.querySelector('.preset-btn.active');
+            if (activeBtn) {
+                const onclick = activeBtn.getAttribute('onclick');
+                const match = onclick.match(/preset\('([^']+)'\)/);
+                if (match && i18n[lang]['desc-' + match[1]]) {
+                    descEl.innerText = i18n[lang]['desc-' + match[1]];
+                }
+            } else if (descEl) {
+                descEl.innerText = i18n[lang]['template-desc-placeholder'];
+            }
+        }
+
+        function preset(k) {
+            const p = presets[k];
+            if (!p) return;
+            document.getElementById('modName').value = 'My ' + p.n;
+            document.getElementById('ns').value = 'My' + p.n.replace(/[^a-zA-Z0-9]/g, '');
+            list = JSON.parse(JSON.stringify(p.f));
+            fieldCounter = 0;
+            document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+            const btn = document.querySelector(`.preset-btn[onclick="preset('${k}')"]`);
+            if (btn) {
+                btn.classList.add('active');
+                const descKey = 'desc-' + k;
+                const descEl = document.getElementById('template-desc');
+                if (descEl && i18n[window.currentLang][descKey]) {
+                    descEl.innerText = i18n[window.currentLang][descKey];
+                }
+            }
+            render();
+            showToast(`Template "${p.n}" carregado!`);
+        }
+
+        function add(p = list) {
+            fieldCounter++;
+            p.push({ id: Date.now(), t: 'text', n: 'field_' + fieldCounter, l: 'New Field ' + fieldCounter, r: false, f: [], default: '', description: '', options: '' });
+            render();
+        }
+
+        function addFieldPreset() {
+            const presetsList = [
+                { t: 'media', n: 'image', l: 'Image' },
+                { t: 'text', n: 'title', l: 'Title', r: true },
+                { t: 'textarea', n: 'description', l: 'Description' },
+                { t: 'url', n: 'link', l: 'Link' },
+                { t: 'email', n: 'email', l: 'Email' }
+            ];
+            const choice = prompt('Quick Field:\n1. Media\n2. Text (required)\n3. Textarea\n4. URL\n5. Email\n\nChoose (1-5):');
+            if (choice && presetsList[parseInt(choice) - 1]) {
+                const p = presetsList[parseInt(choice) - 1];
+                list.push({ id: Date.now(), t: p.t, n: p.n + '_' + Date.now().toString().slice(-4), l: p.l, r: p.r || false, f: [], default: '', description: '', options: '' });
+                render();
+            }
+        }
+
+        function rem(id, p = list) {
+            const i = p.findIndex(x => x.id === id);
+            if (i > -1) { p.splice(i, 1); render(); }
+            else { p.forEach(x => { if (x.f) rem(id, x.f); }); render(); }
+        }
+
+        function find(id, l) {
+            for (let x of l) { if (x.id === id) return x; if (x.f) { let r = find(id, x.f); if (r) return r; } }
+            return null;
+        }
+
+        function clearAll() {
+            if (confirm('Remover todos os campos?')) { list = []; fieldCounter = 0; render(); showToast('Campos removidos'); }
+        }
+
+        function upd(id, k, v, p = list) {
+            const x = find(id, p);
+            if (x) {
+                x[k] = v;
+                if (k === 'l') {
+                    x.n = v.toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/_+/g, '_');
+                    const h = document.querySelector(`#h-${id}`); if (h) h.innerText = v;
+                    const n = document.querySelector(`#n-${id}`); if (n) n.value = x.n;
+                }
+                update();
+            }
+        }
+
+        function addIn(pid) {
+            const p = find(pid, list);
+            if (p) { if (!p.f) p.f = []; fieldCounter++; p.f.push({ id: Date.now(), t: 'text', n: 'sub_' + fieldCounter, l: 'New Subfield', r: false, f: [], default: '', description: '', options: '' }); render(); }
+        }
+
+        function render() {
+            const container = document.getElementById('fields');
+            container.innerHTML = '';
+            if (list.length === 0) {
+                container.innerHTML = '<div style="text-align:center;padding:3rem;color:rgba(255,255,255,0.3);"><i class="fa-solid fa-cubes" style="font-size:3rem;display:block;margin-bottom:1rem;"></i><p>Nenhum campo. Clique em ADICIONAR ou escolha um template.</p></div>';
+            } else {
+                list.forEach(x => container.appendChild(card(x)));
+            }
+            update();
+        }
+
+        function card(x, depth = 0) {
+            const d = document.createElement('div');
+            d.className = `field-card ${x.t === 'subform' ? 'subform-card' : ''}`;
+            d.id = `card-${x.id}`;
+            d.innerHTML = `
+                <div class="field-card-header">
+                    <strong id="h-${x.id}">${x.l} <span style="font-size:0.6rem;opacity:0.5;">(${x.t})</span></strong>
+                    <button class="btn-icon" onclick="rem(${x.id})" style="padding:2px 8px;color:var(--danger);"><i class="fa-solid fa-times"></i></button>
+                </div>
+                <div class="field-card-body">
+                    <div class="input-group"><label>Tipo</label><select id="t-${x.id}" onchange="upd(${x.id},'t',this.value);render()">${types.map(t => `<option value="${t}" ${x.t===t?'selected':''}>${t}</option>`).join('')}</select></div>
+                    <div class="input-group"><label>Label</label><input type="text" id="l-${x.id}" value="${x.l}" oninput="upd(${x.id},'l',this.value)"></div>
+                    <div class="input-group"><label>Nome</label><input type="text" id="n-${x.id}" value="${x.n}" oninput="upd(${x.id},'n',this.value)"></div>
+                    <div class="input-group" style="flex-direction:row;align-items:center;gap:8px;"><input type="checkbox" id="r-${x.id}" ${x.r?'checked':''} onchange="upd(${x.id},'r',this.checked)" style="width:auto;"><label style="margin:0;">Obrigatório</label></div>
+                    ${x.t === 'subform' ? `<div class="subform-container"><div id="s-${x.id}"></div><button class="btn-icon" onclick="addIn(${x.id})" style="margin-top:8px;"><i class="fa-solid fa-plus"></i> Subcampo</button></div>` : ''}
+                </div>`;
+            if (x.t === 'subform') { const s = d.querySelector(`#s-${x.id}`); (x.f || []).forEach(sf => s.appendChild(card(sf, depth + 1))); }
+            return d;
+        }
+
+        function genPHP(fields, slug) {
+            let res = '<?php\ndefined(\'_JEXEC\') or die;\n?>\n<div class="mod-' + slug + '">\n';
+            function build(l, ind) {
+                let s = '';
+                l.forEach(x => {
+                    const getStr = '$params->get(\'' + x.n + '\')';
+                    let core = '';
+                    if (x.t === 'subform') { core = ind + '  <div class="' + x.n + '">\n' + ind + '    <?php foreach (' + getStr + ' ?: [] as $item) : ?>\n' + ind + '      <div class="item">\n' + build(x.f || [], ind + '        ') + ind + '      </div>\n' + ind + '    <?php endforeach; ?>\n' + ind + '  </div>\n'; }
+                    else if (x.t === 'media') { core = ind + '  <?php if (' + getStr + ') : ?>\n' + ind + '    <img src="<?php echo ' + getStr + '; ?>" alt="' + x.l + '" />\n' + ind + '  <?php endif; ?>\n'; }
+                    else if (x.t === 'url') { core = ind + '  <?php if (' + getStr + ') : ?>\n' + ind + '    <a href="<?php echo ' + getStr + '; ?>">' + x.l + '</a>\n' + ind + '  <?php endif; ?>\n'; }
+                    else { core = ind + '  <?php if (' + getStr + ') : ?>\n' + ind + '    <p><strong>' + x.l + ':</strong> <?php echo ' + getStr + '; ?></p>\n' + ind + '  <?php endif; ?>\n'; }
+                    if (x.r) s += core.replace('<?php if (' + getStr + ') : ?>\n', '').replace('<?php endif; ?>\n', '');
+                    else s += core;
+                });
+                return s;
+            }
+            return res + build(fields, '  ') + '</div>\n';
+        }
+
+        function update() {
+            const n = document.getElementById('modName').value || 'custom';
+            const s = n.toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/_+/g, '_');
+            const nsInput = document.getElementById('ns');
+            if (document.activeElement && document.activeElement.id === 'modName') nsInput.value = n.replace(/[^a-zA-Z0-9]/g, '');
+            const nsVal = nsInput.value || 'Custom';
+            const client = document.getElementById('client').value;
+            const author = document.getElementById('author').value || 'John Doe';
+            const authorEmail = document.getElementById('authorEmail').value || 'john@example.com';
+            const authorUrl = document.getElementById('authorUrl').value || 'https://example.com';
+            const version = document.getElementById('version').value || '1.0.0';
+
+            let xml = '<?xml version="1.0" encoding="utf-8"?>\n<extension type="module" client="' + client + '" method="upgrade">\n';
+            xml += '  <name>mod_' + s + '</name>\n  <namespace>Joomla\\Module\\' + nsVal + '</namespace>\n';
+            xml += '  <author>' + author + '</author>\n  <authorEmail>' + authorEmail + '</authorEmail>\n';
+            xml += '  <authorUrl>' + authorUrl + '</authorUrl>\n  <version>' + version + '</version>\n';
+            xml += '  <creationDate>' + new Date().toISOString().split('T')[0] + '</creationDate>\n';
+            xml += '  <files><folder module="mod_' + s + '">services</folder><folder>src</folder><folder>tmpl</folder><folder>language</folder></files>\n';
+            const lang = document.getElementById('lang').value || 'en-GB';
+            xml += '  <languages><language tag="' + lang + '">language/' + lang + '/mod_' + s + '.ini</language><language tag="' + lang + '">language/' + lang + '/mod_' + s + '.sys.ini</language></languages>\n';
+            xml += '  <config><fields name="params"><fieldset name="basic">\n';
+
+            function b(l, i) {
+                let r = '';
+                l.forEach(x => {
+                    const req = x.r ? ' required="true"' : '';
+                    const desc = x.description ? ' description="' + x.description + '"' : '';
+                    const def = x.default ? ' default="' + x.default + '"' : '';
+                    if (x.t === 'subform') {
+                        r += i + '<field name="' + x.n + '" type="subform" multiple="true" layout="joomla.form.field.subform.repeatable-grid" label="' + x.l + '"' + req + desc + '>\n';
+                        r += i + '  <form>\n' + b(x.f || [], i + '    ') + i + '  </form>\n' + i + '</field>\n';
+                    } else if (x.t === 'list' || x.t === 'radio') {
+                        r += i + '<field name="' + x.n + '" type="' + x.t + '" label="' + x.l + '"' + req + desc + def + '>\n';
+                        if (x.options) x.options.split(',').forEach(opt => { const t = opt.trim(); r += i + '  <option value="' + t.toLowerCase().replace(/[^a-z0-9_]/g, '_') + '">' + t + '</option>\n'; });
+                        r += i + '</field>\n';
+                    } else {
+                        r += i + '<field name="' + x.n + '" type="' + x.t + '" label="' + x.l + '"' + req + desc + def + ' />\n';
+                    }
+                });
+                return r;
+            }
+            xml += b(list, '        ') + '      </fieldset></fields></config>\n</extension>';
+            document.getElementById('xml').textContent = xml;
+
+            document.getElementById('struct').textContent = 'mod_' + s + '/\n├── services/provider.php\n├── src/Dispatcher/Dispatcher.php\n├── src/Helper/' + nsVal + 'Helper.php\n├── tmpl/default.php\n├── language/' + lang + '/mod_' + s + '.ini\n├── language/' + lang + '/mod_' + s + '.sys.ini\n└── mod_' + s + '.xml';
+
+            customPHP = genPHP(list, s);
+            document.getElementById('php').value = customPHP;
+        }
+
+        async function zip() {
+            const n = document.getElementById('modName').value || 'custom';
+            const s = n.toLowerCase().replace(/[^a-z0-9_]/g, '_').replace(/_+/g, '_');
+            const p = 'mod_' + s;
+            const nsVal = document.getElementById('ns').value || 'Custom';
+            const client = document.getElementById('client').value;
+            const lang = document.getElementById('lang').value || 'en-GB';
+            const author = document.getElementById('author').value || 'John Doe';
+            const authorEmail = document.getElementById('authorEmail').value || 'john@example.com';
+            const authorUrl = document.getElementById('authorUrl').value || 'https://example.com';
+            const version = document.getElementById('version').value || '1.0.0';
+            const clientPath = client === 'administrator' ? 'Administrator' : 'Site';
+
+            try {
+                if (typeof JSZip === 'undefined') throw new Error('JSZip não carregado. Recarregue a página.');
+
+                const z = new JSZip();
+                const r = z.folder(p);
+                
+                r.file(p + '.xml', document.getElementById('xml').textContent);
+                r.folder('tmpl').file('default.php', customPHP);
+                r.folder('src').folder('Dispatcher').file('Dispatcher.php', `<?php\nnamespace Joomla\\Module\\${nsVal}\\${clientPath}\\Dispatcher;\nuse Joomla\\CMS\\Dispatcher\\AbstractModuleDispatcher;\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareInterface;\nuse Joomla\\CMS\\Helper\\HelperFactoryAwareTrait;\ndefined('_JEXEC') or die;\nclass Dispatcher extends AbstractModuleDispatcher implements HelperFactoryAwareInterface {\n    use HelperFactoryAwareTrait;\n    protected function getLayoutData() {\n        $data = parent::getLayoutData();\n        $data['list'] = $this->getHelperFactory()->getHelper('${nsVal}Helper')->getItems($data['params'], $this->getApplication());\n        return $data;\n    }\n}\n`);
+                r.folder('src').folder('Helper').file(`${nsVal}Helper.php`, `<?php\nnamespace Joomla\\Module\\${nsVal}\\${clientPath}\\Helper;\nuse Joomla\\CMS\\Application\\SiteApplication;\nuse Joomla\\Database\\DatabaseAwareInterface;\nuse Joomla\\Database\\DatabaseAwareTrait;\nuse Joomla\\Registry\\Registry;\ndefined('_JEXEC') or die;\nclass ${nsVal}Helper implements DatabaseAwareInterface {\n    use DatabaseAwareTrait;\n    public function getItems(Registry $params, SiteApplication $app) {\n        $db = $this->getDatabase();\n        $query = $db->getQuery(true)->select('*')->from('#__modules')->setLimit(10);\n        $db->setQuery($query);\n        return $db->loadObjectList();\n    }\n}\n`);
+                r.folder('services').file('provider.php', `<?php\ndefined('_JEXEC') or die;\nuse Joomla\\CMS\\Extension\\Service\\Provider\\HelperFactory;\nuse Joomla\\CMS\\Extension\\Service\\Provider\\Module;\nuse Joomla\\CMS\\Extension\\Service\\Provider\\ModuleDispatcherFactory;\nuse Joomla\\DI\\Container;\nuse Joomla\\DI\\ServiceProviderInterface;\nreturn new class () implements ServiceProviderInterface {\n    public function register(Container $container) {\n        $container->registerServiceProvider(new ModuleDispatcherFactory('\\\\\\\\Joomla\\\\\\\\Module\\\\\\\\${nsVal}'));\n        $container->registerServiceProvider(new HelperFactory('\\\\\\\\Joomla\\\\\\\\Module\\\\\\\\${nsVal}\\\\\\\\${clientPath}\\\\\\\\Helper'));\n        $container->registerServiceProvider(new Module());\n    }\n};\n`);
+                
+                // Language files
+                let iniContent = '', sysIniContent = 'MOD_' + s.toUpperCase() + '="' + n + '"\nMOD_' + s.toUpperCase() + '_DESCRIPTION="' + n + ' module"\n';
+                function genLang(l) { l.forEach(x => { iniContent += 'MOD_' + s.toUpperCase() + '_' + x.n.toUpperCase() + '="' + x.l + '"\n'; if (x.f) genLang(x.f); }); }
+                genLang(list);
+                r.folder('language').folder(lang).file(`mod_${s}.ini`, iniContent);
+                r.folder('language').folder(lang).file(`mod_${s}.sys.ini`, sysIniContent);
+
+                const blob = await z.generateAsync({ type: "blob", compression: "DEFLATE" });
+
+                if (typeof confetti === 'function') {
+                    confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 }, colors: ['#009c3b', '#ffdf00', '#002776'] });
+                    setTimeout(() => confetti({ particleCount: 100, spread: 60, origin: { y: 0.7, x: 0.3 } }), 150);
+                }
+
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${p}.zip`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                showToast(i18n[window.currentLang]['msg-gen-success']);
+            } catch (error) {
+                console.error('Erro:', error);
+                showToast('❌ ' + error.message, 'error');
+            }
+        }
+
+        function copyCode(type) {
+            let content = '';
+            if (type === 'xml') content = document.getElementById('xml').textContent;
+            else if (type === 'php') content = document.getElementById('php').value;
+            else if (type === 'struct') content = document.getElementById('struct').textContent;
+            navigator.clipboard.writeText(content).then(() => {
+                const btn = document.querySelector(`.copy-btn[onclick="copyCode('${type}')"]`);
+                if (btn) { btn.textContent = i18n[window.currentLang]['btn-copied']; btn.classList.add('copied'); setTimeout(() => { btn.textContent = i18n[window.currentLang]['btn-copy']; btn.classList.remove('copied'); }, 1500); }
+                showToast(i18n[window.currentLang]['msg-copied']);
+            }).catch(() => showToast(i18n[window.currentLang]['msg-copy-error'], 'error'));
+        }
+
+        function showToast(msg, type = 'success') {
+            const existing = document.querySelector('.toast');
+            if (existing) existing.remove();
+            const toast = document.createElement('div');
+            toast.className = 'toast' + (type === 'error' ? ' error' : '');
+            toast.textContent = msg;
+            document.body.appendChild(toast);
+            setTimeout(() => { toast.style.transform = 'translateX(100%)'; toast.style.opacity = '0'; toast.style.transition = '0.3s ease'; setTimeout(() => toast.remove(), 300); }, 2500);
+        }
+
+        function exportConfig() {
+            const config = { modName: document.getElementById('modName').value, ns: document.getElementById('ns').value, author: document.getElementById('author').value, authorEmail: document.getElementById('authorEmail').value, authorUrl: document.getElementById('authorUrl').value, version: document.getElementById('version').value, client: document.getElementById('client').value, lang: document.getElementById('lang').value, fields: list };
+            const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'module-config.json';
+            a.click();
+            URL.revokeObjectURL(url);
+            showToast(i18n[window.currentLang]['msg-exported']);
+        }
+
+        function importConfig() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            input.onchange = (e) => {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (ev) => {
+                        try {
+                            const config = JSON.parse(ev.target.result);
+                            document.getElementById('modName').value = config.modName || '';
+                            document.getElementById('ns').value = config.ns || '';
+                            document.getElementById('author').value = config.author || '';
+                            document.getElementById('authorEmail').value = config.authorEmail || '';
+                            document.getElementById('authorUrl').value = config.authorUrl || '';
+                            document.getElementById('version').value = config.version || '1.0.0';
+                            document.getElementById('client').value = config.client || 'site';
+                            document.getElementById('lang').value = config.lang || 'en-GB';
+                            list = config.fields || [];
+                            render();
+                            showToast(i18n[window.currentLang]['msg-imported']);
+                        } catch (err) { showToast(i18n[window.currentLang]['msg-import-error'], 'error'); }
+                    };
+                    reader.readAsText(file);
+                }
+            };
+            input.click();
+        }
+
+        window.onload = () => {
+            const navLang = (navigator.language || '').toLowerCase();
+            const userLang = navLang.startsWith('pt') ? 'pt' : navLang.startsWith('es') ? 'es' : 'en';
+            setLang(userLang);
+            preset('features');
+        };
+    </script>
+</body>
+</html>
