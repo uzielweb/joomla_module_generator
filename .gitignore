@@ -1,0 +1,5 @@
+cache/
+.agent
+.vscode
+*.zip
+*.log
